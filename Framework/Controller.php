@@ -2,6 +2,8 @@
 require_once 'Configuration.php';
 require_once 'Request.php';
 require_once 'View.php';
+require_once './vendor/autoload.php';
+
 
 abstract class Controller
 {
