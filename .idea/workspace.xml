@@ -27,7 +27,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
   </component>
@@ -57,7 +57,7 @@
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../blogphp-master" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -69,16 +69,18 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\wamp64\www\Flora_ligne\View\Cart" />
-      <recent name="C:\wamp64\www\Flora_ligne\View" />
-      <recent name="C:\wamp64\www\Flora_ligne\View\Home" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\wamp64\www\Flora_ligne\Controller" />
       <recent name="C:\wamp64\www\Flora_ligne" />
       <recent name="C:\wamp64\www\Flora_ligne\View\Cart" />
       <recent name="C:\wamp64\www\Flora_ligne\View\Checkout" />
       <recent name="C:\wamp64\www\Flora_ligne\View\Shop" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\wamp64\www\Flora_ligne\content" />
+      <recent name="C:\wamp64\www\Flora_ligne\View\Cart" />
+      <recent name="C:\wamp64\www\Flora_ligne\View" />
+      <recent name="C:\wamp64\www\Flora_ligne\View\Home" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -92,7 +94,8 @@
       <workItem from="1608288795732" duration="7402000" />
       <workItem from="1608376245292" duration="5606000" />
       <workItem from="1608390100506" duration="1160000" />
-      <workItem from="1608400777796" duration="313000" />
+      <workItem from="1608400777796" duration="662000" />
+      <workItem from="1608406820387" duration="18868000" />
     </task>
     <servers />
   </component>
@@ -140,14 +143,26 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="563" y="232" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1600.860@0.0.1600.860" timestamp="1608306366336" />
-    <state x="580" y="185" key="FileChooserDialogImpl" timestamp="1608388624054">
+    <state x="468" y="208" key="EditFileWatcherDialog" timestamp="1608419662269">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="580" y="185" key="FileChooserDialogImpl/0.0.1600.860@0.0.1600.860" timestamp="1608388624054" />
+    <state x="468" y="208" key="EditFileWatcherDialog/0.0.1600.860@0.0.1600.860" timestamp="1608419662269" />
+    <state x="580" y="185" key="FileChooserDialogImpl" timestamp="1608426991733">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="580" y="185" key="FileChooserDialogImpl/0.0.1600.860@0.0.1600.860" timestamp="1608426991733" />
+    <state x="635" y="353" key="NewPhpFileDialog" timestamp="1608416066393">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="635" y="353" key="NewPhpFileDialog/0.0.1600.860@0.0.1600.860" timestamp="1608416066393" />
     <state x="301" y="75" key="SettingsEditor" timestamp="1608373012942">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="301" y="75" key="SettingsEditor/0.0.1600.860@0.0.1600.860" timestamp="1608373012942" />
+    <state x="614" y="21" width="921" height="801" key="find.popup" timestamp="1608421430253">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="614" y="21" width="921" height="801" key="find.popup/0.0.1600.860@0.0.1600.860" timestamp="1608421430253" />
     <state x="504" y="160" key="ftp.server.browser" timestamp="1608305355992">
       <screen x="0" y="0" width="1600" height="860" />
     </state>

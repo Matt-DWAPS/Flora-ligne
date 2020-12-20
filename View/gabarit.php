@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
@@ -12,11 +12,11 @@
     <title><?= $title ?></title>
 
     <!-- Favicon  -->
-    <link rel="icon" href="../img/core-img/favicon.ico">
+    <link rel="icon" href="../content/img/core-img/favicon.ico">
 
     <!-- Core Style CSS -->
-    <link rel="stylesheet" href="../css/core-style.css">
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../content/css/core-style.css">
+    <link rel="stylesheet" href="../content/style.css">
     <base href="<?= $webRoot ?>">
 
 </head>
@@ -32,8 +32,8 @@
                 <div class="col-12">
                     <div class="search-content">
                         <form action="#" method="get">
-                            <input type="search" name="search" id="search" placeholder="Type your keyword...">
-                            <button type="submit"><img src="../img/core-img/search.png" alt=""></button>
+                            <input type="search" name="search" id="search" placeholder="Entrez votre recherche">
+                            <button type="submit"><img src="../content/img/core-img/search.png" alt=""></button>
                         </form>
                     </div>
                 </div>
@@ -42,8 +42,7 @@
     </div>
     <!-- Search Wrapper Area End -->
 
-    <!-- Contenu -->
-    <?= $content ?>
+
 
     <!-- ##### Main Content Wrapper Start ##### -->
     <div class="main-content-wrapper d-flex clearfix">
@@ -52,7 +51,7 @@
         <div class="mobile-nav">
             <!-- Navbar Brand -->
             <div class="amado-navbar-brand">
-                <a href="index.php"><img src="../img/core-img/logo.png" alt=""></a>
+                <a href="home"><img src="../content/img/core-img/logo.png" alt=""></a>
             </div>
             <!-- Navbar Toggler -->
             <div class="amado-navbar-toggler">
@@ -68,28 +67,28 @@
             </div>
             <!-- Logo -->
             <div class="logo">
-                <a href="index.php"><img src="../Template/img/core-img/logo.png" alt=""></a>
+                <a href="home"><img src="../content/img/core-img/logo.png" alt=""></a>
             </div>
             <!-- Amado Nav -->
             <nav class="amado-nav">
                 <ul>
-                    <li class="active"><a href="Home/index.php">Home</a></li>
-                    <li><a href="../shop.html">Shop</a></li>
-                    <li><a href="../product-details.html">Product</a></li>
-                    <li><a href="Cart/cart.php">Cart</a></li>
-                    <li><a href="../checkout.html">Checkout</a></li>
+                    <li class="active"><a href="home">Accueil</a></li>
+                    <li><a href="Shop">Boutique</a></li>
+                    <li><a href="Shop/productDetails">Produits</a></li>
+                    <li><a href="Cart/cartProduct">Panier</a></li>
+                    <li><a href="/checkout">Commande</a></li>
                 </ul>
             </nav>
             <!-- Button Group -->
             <div class="amado-btn-group mt-30 mb-100">
-                <a href="#" class="btn amado-btn mb-15">%Discount%</a>
-                <a href="#" class="btn amado-btn active">New this week</a>
+                <a href="#" class="btn amado-btn mb-15">Soldes</a>
+                <a href="#" class="btn amado-btn active">Nouveautés</a>
             </div>
             <!-- Cart Menu -->
             <div class="cart-fav-search mb-100">
-                <a href="../cart.html" class="cart-nav"><img src="../img/core-img/cart.png" alt=""> Cart <span>(0)</span></a>
-                <a href="#" class="fav-nav"><img src="../img/core-img/favorites.png" alt=""> Favourite</a>
-                <a href="#" class="search-nav"><img src="../img/core-img/search.png" alt=""> Search</a>
+                <a href="Cart/cartProduct" class="cart-nav"><img src="../content/img/core-img/cart.png" alt=""> Panier <span>(0)</span></a>
+                <a href="#" class="fav-nav"><img src="../content/img/core-img/favorites.png" alt=""> Favoris</a>
+                <a href="#" class="search-nav"><img src="../content/img/core-img/search.png" alt=""> Recherche</a>
             </div>
             <!-- Social Button -->
             <div class="social-info d-flex justify-content-between">
@@ -101,129 +100,10 @@
         </header>
         <!-- Header Area End -->
 
-        <!-- Product Catagories Area Start -->
-        <div class="products-catagories-area clearfix">
-            <div class="amado-pro-catagory clearfix">
+        <!-- Contenu -->
 
-                <!-- Single Catagory -->
-                <div class="single-products-catagory clearfix">
-                    <a href="../shop.html">
-                        <img src="../img/bg-img/1.jpg" alt="">
-                        <!-- Hover Content -->
-                        <div class="hover-content">
-                            <div class="line"></div>
-                            <p>From $180</p>
-                            <h4>Modern Chair</h4>
-                        </div>
-                    </a>
-                </div>
+            <?= $content ?>
 
-                <!-- Single Catagory -->
-                <div class="single-products-catagory clearfix">
-                    <a href="../shop.html">
-                        <img src="../img/bg-img/2.jpg" alt="">
-                        <!-- Hover Content -->
-                        <div class="hover-content">
-                            <div class="line"></div>
-                            <p>From $180</p>
-                            <h4>Minimalistic Plant Pot</h4>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Single Catagory -->
-                <div class="single-products-catagory clearfix">
-                    <a href="../shop.html">
-                        <img src="../img/bg-img/3.jpg" alt="">
-                        <!-- Hover Content -->
-                        <div class="hover-content">
-                            <div class="line"></div>
-                            <p>From $180</p>
-                            <h4>Modern Chair</h4>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Single Catagory -->
-                <div class="single-products-catagory clearfix">
-                    <a href="../shop.html">
-                        <img src="../img/bg-img/4.jpg" alt="">
-                        <!-- Hover Content -->
-                        <div class="hover-content">
-                            <div class="line"></div>
-                            <p>From $180</p>
-                            <h4>Night Stand</h4>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Single Catagory -->
-                <div class="single-products-catagory clearfix">
-                    <a href="../shop.html">
-                        <img src="../img/bg-img/5.jpg" alt="">
-                        <!-- Hover Content -->
-                        <div class="hover-content">
-                            <div class="line"></div>
-                            <p>From $18</p>
-                            <h4>Plant Pot</h4>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Single Catagory -->
-                <div class="single-products-catagory clearfix">
-                    <a href="../shop.html">
-                        <img src="../img/bg-img/6.jpg" alt="">
-                        <!-- Hover Content -->
-                        <div class="hover-content">
-                            <div class="line"></div>
-                            <p>From $320</p>
-                            <h4>Small Table</h4>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Single Catagory -->
-                <div class="single-products-catagory clearfix">
-                    <a href="../shop.html">
-                        <img src="../img/bg-img/7.jpg" alt="">
-                        <!-- Hover Content -->
-                        <div class="hover-content">
-                            <div class="line"></div>
-                            <p>From $318</p>
-                            <h4>Metallic Chair</h4>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Single Catagory -->
-                <div class="single-products-catagory clearfix">
-                    <a href="../shop.html">
-                        <img src="../img/bg-img/8.jpg" alt="">
-                        <!-- Hover Content -->
-                        <div class="hover-content">
-                            <div class="line"></div>
-                            <p>From $318</p>
-                            <h4>Modern Rocking Chair</h4>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Single Catagory -->
-                <div class="single-products-catagory clearfix">
-                    <a href="../shop.html">
-                        <img src="../img/bg-img/9.jpg" alt="">
-                        <!-- Hover Content -->
-                        <div class="hover-content">
-                            <div class="line"></div>
-                            <p>From $318</p>
-                            <h4>Home Deco</h4>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <!-- Product Catagories Area End -->
     </div>
     <!-- ##### Main Content Wrapper End ##### -->
 
@@ -261,7 +141,7 @@
                     <div class="single_widget_area">
                         <!-- Logo -->
                         <div class="footer-logo mr-50">
-                            <a href="index.php"><img src="../img/core-img/logo2.png" alt=""></a>
+                            <a href="home"><img src="../content/img/core-img/logo2.png" alt=""></a>
                         </div>
                         <!-- Copywrite Text -->
                         <p class="copywrite"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
@@ -279,19 +159,19 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                                 <div class="collapse navbar-collapse" id="footerNavContent">
                                     <ul class="navbar-nav ml-auto">
                                         <li class="nav-item active">
-                                            <a class="nav-link" href="index.php">Home</a>
+                                            <a class="nav-link" href="home">Home</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="../shop.html">Shop</a>
+                                            <a class="nav-link" href="/shop">Shop</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="../product-details.html">Product</a>
+                                            <a class="nav-link" href="Shop/productDetails">Product</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="../cart.html">Cart</a>
+                                            <a class="nav-link" href="Cart/cartProduct">Cart</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="../checkout.html">Checkout</a>
+                                            <a class="nav-link" href="Checkout">Checkout</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -305,15 +185,15 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <!-- ##### Footer Area End ##### -->
 
     <!-- ##### jQuery (Necessary for All JavaScript Plugins) ##### -->
-    <script src="../js/jquery/jquery-2.2.4.min.js"></script>
+    <script src="../content/js/jquery/jquery-2.2.4.min.js"></script>
     <!-- Popper js -->
-    <script src="../js/popper.min.js"></script>
+    <script src="../content/js/popper.min.js"></script>
     <!-- Bootstrap js -->
-    <script src="../js/bootstrap.min.js"></script>
+    <script src="../content/js/bootstrap.min.js"></script>
     <!-- Plugins js -->
-    <script src="../js/plugins.js"></script>
+    <script src="../content/js/plugins.js"></script>
     <!-- Active js -->
-    <script src="../js/active.js"></script>
+    <script src="../content/js/active.js"></script>
 
 </body>
 
