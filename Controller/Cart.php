@@ -1,26 +1,15 @@
 <?php
+namespace App\Controller;
 
-require_once 'Framework/Controller.php';
-
+//require_once 'Framework/Controller.php';
+use App\Framework\Controller;
 class Cart extends Controller
 {
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function index()
     {
-
-
-        $this->generateView([
-
-
-        ]);
-    }
-
-    /**
-     * @throws Exception
-     */
-    public function cartProduct(){
 
 
         $this->generateView([

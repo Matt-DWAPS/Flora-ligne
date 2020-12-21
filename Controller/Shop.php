@@ -1,11 +1,14 @@
 <?php
+namespace App\Controller;
 
-require_once 'Framework/Controller.php';
+//require_once 'Framework/Controller.php';
+
+use App\Framework\Controller;
 
 class Shop extends Controller
 {
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function index()
     {
@@ -18,7 +21,7 @@ class Shop extends Controller
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function productDetails()
     {

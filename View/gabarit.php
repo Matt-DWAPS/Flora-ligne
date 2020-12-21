@@ -12,11 +12,11 @@
     <title><?= $title ?></title>
 
     <!-- Favicon  -->
-    <link rel="icon" href="../content/img/core-img/favicon.ico">
+    <link rel="icon" href="img/core-img/favicon.ico">
 
     <!-- Core Style CSS -->
-    <link rel="stylesheet" href="../content/css/core-style.css">
-    <link rel="stylesheet" href="../content/style.css">
+    <link rel="stylesheet" href="../../css/core-style.css">
+    <link rel="stylesheet" href="../../css/style.css">
     <base href="<?= $webRoot ?>">
 
 </head>
@@ -33,7 +33,7 @@
                     <div class="search-content">
                         <form action="#" method="get">
                             <input type="search" name="search" id="search" placeholder="Entrez votre recherche">
-                            <button type="submit"><img src="../content/img/core-img/search.png" alt=""></button>
+                            <button type="submit"><img src="img/core-img/search.png" alt=""></button>
                         </form>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
         <div class="mobile-nav">
             <!-- Navbar Brand -->
             <div class="amado-navbar-brand">
-                <a href="home"><img src="../content/img/core-img/logo.png" alt=""></a>
+                <a href="Home"><img src="img/core-img/logo.png" alt=""></a>
             </div>
             <!-- Navbar Toggler -->
             <div class="amado-navbar-toggler">
@@ -67,16 +67,19 @@
             </div>
             <!-- Logo -->
             <div class="logo">
-                <a href="home"><img src="../content/img/core-img/logo.png" alt=""></a>
+                <a href="Home"><img src="img/core-img/logo.png" alt=""></a>
             </div>
             <!-- Amado Nav -->
             <nav class="amado-nav">
                 <ul>
-                    <li class="active"><a href="home">Accueil</a></li>
+                    <li class="active"><a href="Home">Accueil</a></li>
                     <li><a href="Shop">Boutique</a></li>
-                    <li><a href="Shop/productDetails">Produits</a></li>
-                    <li><a href="Cart/cartProduct">Panier</a></li>
-                    <li><a href="/checkout">Commande</a></li>
+                    <li><a href="Cart">Panier</a></li>
+                    <li><a href="Checkout">Commande</a></li>
+                    <li><a href="Home/login">Se connecter</a></li>
+                    <li><a href="Home/registration">Creer mon compte</a></li>
+                    <li><a href="Home/account">Mon compte</a></li>
+                    <li><a href="Home/disconnected">Se deconnecter</a></li>
                 </ul>
             </nav>
             <!-- Button Group -->
@@ -86,9 +89,9 @@
             </div>
             <!-- Cart Menu -->
             <div class="cart-fav-search mb-100">
-                <a href="Cart/cartProduct" class="cart-nav"><img src="../content/img/core-img/cart.png" alt=""> Panier <span>(0)</span></a>
-                <a href="#" class="fav-nav"><img src="../content/img/core-img/favorites.png" alt=""> Favoris</a>
-                <a href="#" class="search-nav"><img src="../content/img/core-img/search.png" alt=""> Recherche</a>
+                <a href="Cart" class="cart-nav"><img src="img/core-img/cart.png" alt=""> Panier <span>(0)</span></a>
+                <a href="#" class="fav-nav"><img src="img/core-img/favorites.png" alt=""> Favoris</a>
+                <a href="#" class="search-nav"><img src="img/core-img/search.png" alt=""> Recherche</a>
             </div>
             <!-- Social Button -->
             <div class="social-info d-flex justify-content-between">
@@ -141,7 +144,7 @@
                     <div class="single_widget_area">
                         <!-- Logo -->
                         <div class="footer-logo mr-50">
-                            <a href="home"><img src="../content/img/core-img/logo2.png" alt=""></a>
+                            <a href="Home"><img src="img/core-img/logo2.png" alt=""></a>
                         </div>
                         <!-- Copywrite Text -->
                         <p class="copywrite"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
@@ -159,19 +162,22 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                                 <div class="collapse navbar-collapse" id="footerNavContent">
                                     <ul class="navbar-nav ml-auto">
                                         <li class="nav-item active">
-                                            <a class="nav-link" href="home">Home</a>
+                                            <a class="nav-link" href="Home">Home</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="/shop">Shop</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="Shop/productDetails">Product</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="Cart/cartProduct">Cart</a>
+                                            <a class="nav-link" href="Cart">Cart</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="Checkout">Checkout</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="Home/login">Se connecter</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="Home/disconnected">Se deconnecter</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -185,15 +191,15 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <!-- ##### Footer Area End ##### -->
 
     <!-- ##### jQuery (Necessary for All JavaScript Plugins) ##### -->
-    <script src="../content/js/jquery/jquery-2.2.4.min.js"></script>
+    <script src="js/jquery/jquery-2.2.4.min.js"></script>
     <!-- Popper js -->
-    <script src="../content/js/popper.min.js"></script>
+    <script src="js/popper.min.js"></script>
     <!-- Bootstrap js -->
-    <script src="../content/js/bootstrap.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <!-- Plugins js -->
-    <script src="../content/js/plugins.js"></script>
+    <script src="js/plugins.js"></script>
     <!-- Active js -->
-    <script src="../content/js/active.js"></script>
+    <script src="js/active.js"></script>
 
 </body>
 

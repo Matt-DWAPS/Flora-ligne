@@ -1,9 +1,14 @@
 <?php
-require_once 'Configuration.php';
-require_once 'Request.php';
-require_once 'View.php';
-require_once './vendor/autoload.php';
 
+namespace App\Framework;
+//require_once 'Configuration.php';
+//require_once 'Request.php';
+//require_once 'View.php';
+//require_once './vendor/autoload.php';
+
+use App\Framework\Configuration;
+use App\Framework\Request;
+use App\Framework\View;
 
 abstract class Controller
 {
@@ -21,17 +26,18 @@ abstract class Controller
 
     /**
      * @param $action
-     * @throws Exception
+     * @throws \Exception
      */
     // Exécute l'action à réaliser
     public function executeAction($action)
     {
         if (method_exists($this, $action)) {
             $this->action = $action;
+
             $this->{$this->action}();
         } else {
             $classController = get_class($this);
-            throw new Exception("Action '$action' non définie dans la classe $classController");
+            throw new \Exception("Action '$action' non définie dans la classe $classController");
         }
     }
 
@@ -45,13 +51,22 @@ abstract class Controller
      * @throws Exception
      */
     // Génère la vue associée au contrôleur courant
-    protected function generateView($dataView = array())
+    protected function generateView($dataView = array(), $action = null)
     {
+
         // Détermination du nom du fichier vue à partir du nom du contrôleur actuel
+        $actionView = $this->action;
+        if ($action != null) {
+            $actionView = $action;
+        }
+
         $classController = get_class($this);
-        $controller = str_replace("Controller", "", $classController);
+        $controllerNamespace = substr($classController, 0, strrpos($classController, '\\'));
+        $controllerView = substr(str_replace($controllerNamespace, "", $classController), 1);
+
+        /*$controller = str_replace("Controller", "", $classController);*/
         // Instanciation et génération de la vue
-        $vue = new View($this->action, $controller);
+        $vue = new View($actionView, $controllerView);
         $vue->generate($dataView);
     }
 }

@@ -142,9 +142,9 @@
                     <div class="single-product-wrapper">
                         <!-- Product Image -->
                         <div class="product-img">
-                            <img src="../../content/img/product-img/product1.jpg" alt="">
+                            <img src="img/product-img/product1.jpg" alt="">
                             <!-- Hover Thumb -->
-                            <img class="hover-img" src="../../content/img/product-img/product2.jpg" alt="">
+                            <img class="hover-img" src="img/product-img/product2.jpg" alt="">
                         </div>
 
                         <!-- Product Description -->
@@ -167,7 +167,7 @@
                                     <i class="fa fa-star" aria-hidden="true"></i>
                                 </div>
                                 <div class="cart">
-                                    <a href="Cart/cartProduct" data-toggle="tooltip" data-placement="left" title="Ajouter au panier"><img src="../../content/img/core-img/cart.png" alt=""></a>
+                                    <a href="Cart" data-toggle="tooltip" data-placement="left" title="Ajouter au panier"><img src="img/core-img/cart.png" alt=""></a>
                                 </div>
                             </div>
                         </div>
@@ -179,9 +179,9 @@
                     <div class="single-product-wrapper">
                         <!-- Product Image -->
                         <div class="product-img">
-                            <img src="../../content/img/product-img/product2.jpg" alt="">
+                            <img src="img/product-img/product2.jpg" alt="">
                             <!-- Hover Thumb -->
-                            <img class="hover-img" src="../../content/img/product-img/product3.jpg" alt="">
+                            <img class="hover-img" src="img/product-img/product3.jpg" alt="">
                         </div>
 
                         <!-- Product Description -->
@@ -204,7 +204,7 @@
                                     <i class="fa fa-star" aria-hidden="true"></i>
                                 </div>
                                 <div class="cart">
-                                    <a href="Cart/cartProduct" data-toggle="tooltip" data-placement="left" title="Ajouter au panier"><img src="../../content/img/core-img/cart.png" alt=""></a>
+                                    <a href="Cart" data-toggle="tooltip" data-placement="left" title="Ajouter au panier"><img src="img/core-img/cart.png" alt=""></a>
                                 </div>
                             </div>
                         </div>
@@ -216,9 +216,9 @@
                     <div class="single-product-wrapper">
                         <!-- Product Image -->
                         <div class="product-img">
-                            <img src="../../content/img/product-img/product3.jpg" alt="">
+                            <img src="img/product-img/product3.jpg" alt="">
                             <!-- Hover Thumb -->
-                            <img class="hover-img" src="../../content/img/product-img/product4.jpg" alt="">
+                            <img class="hover-img" src="img/product-img/product4.jpg" alt="">
                         </div>
 
                         <!-- Product Description -->
@@ -241,7 +241,7 @@
                                     <i class="fa fa-star" aria-hidden="true"></i>
                                 </div>
                                 <div class="cart">
-                                    <a href="Cart/cartProduct" data-toggle="tooltip" data-placement="left" title="Ajouter au panier"><img src="../../content/img/core-img/cart.png" alt=""></a>
+                                    <a href="Cart" data-toggle="tooltip" data-placement="left" title="Ajouter au panier"><img src="img/core-img/cart.png" alt=""></a>
                                 </div>
                             </div>
                         </div>
@@ -253,9 +253,9 @@
                     <div class="single-product-wrapper">
                         <!-- Product Image -->
                         <div class="product-img">
-                            <img src="../../content/img/product-img/product4.jpg" alt="">
+                            <img src="img/product-img/product4.jpg" alt="">
                             <!-- Hover Thumb -->
-                            <img class="hover-img" src="../../content/img/product-img/product5.jpg" alt="">
+                            <img class="hover-img" src="img/product-img/product5.jpg" alt="">
                         </div>
 
                         <!-- Product Description -->
@@ -278,7 +278,7 @@
                                     <i class="fa fa-star" aria-hidden="true"></i>
                                 </div>
                                 <div class="cart">
-                                    <a href="Cart/cartProduct" data-toggle="tooltip" data-placement="left" title="Ajouter au panier"><img src="../../content/img/core-img/cart.png" alt=""></a>
+                                    <a href="Cart" data-toggle="tooltip" data-placement="left" title="Ajouter au panier"><img src="img/core-img/cart.png" alt=""></a>
                                 </div>
                             </div>
                         </div>
@@ -290,9 +290,9 @@
                     <div class="single-product-wrapper">
                         <!-- Product Image -->
                         <div class="product-img">
-                            <img src="../../content/img/product-img/product5.jpg" alt="">
+                            <img src="img/product-img/product5.jpg" alt="">
                             <!-- Hover Thumb -->
-                            <img class="hover-img" src="../../content/img/product-img/product6.jpg" alt="">
+                            <img class="hover-img" src="img/product-img/product6.jpg" alt="">
                         </div>
 
                         <!-- Product Description -->
@@ -315,7 +315,7 @@
                                     <i class="fa fa-star" aria-hidden="true"></i>
                                 </div>
                                 <div class="cart">
-                                    <a href="Cart/cartProduct" data-toggle="tooltip" data-placement="left" title="Ajouter au panier"><img src="../../content/img/core-img/cart.png" alt=""></a>
+                                    <a href="Cart" data-toggle="tooltip" data-placement="left" title="Ajouter au panier"><img src="img/core-img/cart.png" alt=""></a>
                                 </div>
                             </div>
                         </div>
@@ -327,9 +327,9 @@
                     <div class="single-product-wrapper">
                         <!-- Product Image -->
                         <div class="product-img">
-                            <img src="../../content/img/product-img/product6.jpg" alt="">
+                            <img src="img/product-img/product6.jpg" alt="">
                             <!-- Hover Thumb -->
-                            <img class="hover-img" src="../../content/img/product-img/product1.jpg" alt="">
+                            <img class="hover-img" src="img/product-img/product1.jpg" alt="">
                         </div>
 
                         <!-- Product Description -->
@@ -352,7 +352,7 @@
                                     <i class="fa fa-star" aria-hidden="true"></i>
                                 </div>
                                 <div class="cart">
-                                    <a href="Cart/cartProduct" data-toggle="tooltip" data-placement="left" title="Ajouter au panier"><img src="../../content/img/core-img/cart.png" alt=""></a>
+                                    <a href="Cart" data-toggle="tooltip" data-placement="left" title="Ajouter au panier"><img src="img/core-img/cart.png" alt=""></a>
                                 </div>
                             </div>
                         </div>

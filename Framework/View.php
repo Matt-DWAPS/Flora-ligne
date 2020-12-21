@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Framework;
+
 class View
 {
 
@@ -11,7 +13,7 @@ class View
     public function __construct($action, $controller = "")
     {
         // Détermination du nom du fichier vue à partir de l'action et du constructeur
-        $file = "View/";
+        $file = "../View/";
         if ($controller != "") {
             $file = $file . $controller . "/";
         }
@@ -22,10 +24,11 @@ class View
 
     /**
      * @param $data
-     * @throws Exception
+     * @throws \Exception
      */
     public function generate($data)
     {
+
         // Génération de la partie spécifique de la vue
         $content = $this->generateFile($this->file, $data);
         // On définit une variable locale accessible par la vue pour la racine Web
@@ -34,7 +37,7 @@ class View
 
         $webRoot = Configuration::get("webRoot", "/");
         // Génération du gabarit commun utilisant la partie spécifique
-        $view = $this->generateFile('View/gabarit.php',
+        $view = $this->generateFile('../View/gabarit.php',
             array('title' => $this->title, 'content' => $content,
                 'webRoot' => $webRoot));
         // Renvoi de la vue générée au navigateur
@@ -47,7 +50,7 @@ class View
      * @param $file
      * @param $data
      * @return false|string
-     * @throws Exception
+     * @throws \Exception
      */
     private function generateFile($file, $data)
     {
@@ -62,7 +65,7 @@ class View
             // Arrêt de la temporisation et renvoi du tampon de sortie
             return ob_get_clean();
         } else {
-            throw new Exception("Fichier '$file' introuvable");
+            throw new \Exception("Fichier '$file' introuvable");
         }
     }
 

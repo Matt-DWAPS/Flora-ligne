@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Framework;
+
 class Request
 {
     // paramètres de la requête

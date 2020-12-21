@@ -1,5 +1,8 @@
 <?php
-require_once 'Configuration.php';
+namespace App\Framework;
+
+use App\Framework\Configuration;
+//require_once 'Configuration.php';
 
 abstract class Model
 {
