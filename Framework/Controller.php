@@ -12,6 +12,12 @@ use App\Framework\View;
 
 abstract class Controller
 {
+
+    const PUBLISH = [
+        'PUBLIÉ' => 1,
+        'BROUILLON' => 0
+    ];
+
     // Action à réaliser
     private $action;
 

@@ -21,7 +21,7 @@
                 <div class="single_product_thumb">
                     <div id="product_details_slider" class="carousel slide" data-ride="carousel">
                         <ol class="carousel-indicators">
-                            <li class="active" data-target="#product_details_slider" data-slide-to="0" style="background-image: url(img/product-img/pro-big-1.jpg);">
+                            <li class="active" data-target="#product_details_slider" data-slide-to="0" style="background-image: url(<?= $productDetails->picture_url_1 ?>);">
                             </li>
                             <li data-target="#product_details_slider" data-slide-to="1" style="background-image: url(img/product-img/pro-big-2.jpg);">
                             </li>
@@ -32,8 +32,8 @@
                         </ol>
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                <a class="gallery_img" href="img/product-img/pro-big-1.jpg">
-                                    <img class="d-block w-100" src="img/product-img/pro-big-1.jpg" alt="First slide">
+                                <a class="gallery_img" href="<?= $productDetails->picture_url_1 ?>">
+                                    <img class="d-block w-100" src="<?= $productDetails->picture_url_1 ?>" alt="">
                                 </a>
                             </div>
                             <div class="carousel-item">
@@ -60,9 +60,9 @@
                     <!-- Product Meta Data -->
                     <div class="product-meta-data">
                         <div class="line"></div>
-                        <p class="product-price">$180</p>
+                        <p class="product-price"><?= $productDetails->price_ht . " €" ?></p>
                         <a href="Shop/productDetails">
-                            <h6>White Modern Chair</h6>
+                            <h6><?= $productDetails->name ?></h6>
                         </a>
                         <!-- Ratings & Review -->
                         <div class="ratings-review mb-15 d-flex align-items-center justify-content-between">
@@ -74,7 +74,7 @@
                                 <i class="fa fa-star" aria-hidden="true"></i>
                             </div>
                             <div class="review">
-                                <a href="#">Write A Review</a>
+                                <a href="#">Donnez votre avis !</a>
                             </div>
                         </div>
                         <!-- Avaiable -->
@@ -82,13 +82,13 @@
                     </div>
 
                     <div class="short_overview my-5">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid quae eveniet culpa officia quidem mollitia impedit iste asperiores nisi reprehenderit consequatur, autem, nostrum pariatur enim?</p>
+                        <p><?= $productDetails->description ?></p>
                     </div>
 
                     <!-- Add to Cart Form -->
                     <form class="cart clearfix" method="post">
                         <div class="cart-btn d-flex mb-50">
-                            <p>Qty</p>
+                            <p>Quantité</p>
                             <div class="quantity">
                                 <span class="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
                                 <input type="number" class="qty-text" id="qty" step="1" min="1" max="300" name="quantity" value="1">

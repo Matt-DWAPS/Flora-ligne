@@ -4,6 +4,8 @@ namespace App\Framework;
 use App\Framework\Configuration;
 //require_once 'Configuration.php';
 
+use \PDO;
+
 abstract class Model
 {
     private static $bdd;
@@ -19,6 +21,10 @@ abstract class Model
         return $result;
     }
 
+    /**
+     * @return PDO
+     * @throws \Exception
+     */
     private static function getBdd()
     {
         if (self::$bdd === null) {
