@@ -9,6 +9,7 @@
                     <th scope="col">Nom</th>
                     <th scope="col">Description</th>
                     <th scope="col">Provenance</th>
+                    <th scope="col">Race</th>
                     <th scope="col">Taille min</th>
                     <th scope="col">Taille max</th>
                     <th scope="col">Entretien</th>
@@ -21,24 +22,20 @@
                     <th scope="col">Supprimer</th>
                 </tr>
                 </thead>
+
                 <tbody>
+
                 <tr><?php foreach ($products as $product) : $createAt = new DateTime($product->created_at);?>
+                    <?php
+                    echo "<pre>";
+                    print_r($product);
+                    echo "</pre>";
+                    ?>
                     <td><?= $product->name ?></td>
                     <td><?= $product->description ?></td>
+                    <td><?= $product->country_name ?></td>
 
-                    <td>
-                        <?php if ($product->publish == 1) {
-                            echo "publié";
-                        } else {
-                            echo "Non publié";
-                        } ?>
-                    </td>
-                    <td>
-
-                    </td>
-                    <td>
-
-                    </td>
+                    <td><?= $product->race_name ?></td>
                     <td></td>
                     <td></td>
                     <?php if (empty($product->picture_url_1)) : ?>
@@ -49,7 +46,11 @@
                     <?php else: ?>
                         <td><img class="img-fluid w-50" src="<?= $product->picture_url_1 ?>"><img class="img-fluid w-50" src="<?= $product->picture_url_2 ?>"><img class="img-fluid w-50" src="<?= $product->picture_url_3 ?>"></td>
                     <?php endif; ?>
-                    <td></td>
+                    <td><?php if ($product->publish == 1) {
+                            echo "publié";
+                        } else {
+                            echo "Non publié";
+                        } ?></td>
                     <td></td>
                     <td><?= $createAt->format('d-m-Y'); ?></td>
                     <td class="text-center"><a class="btn btn-outline-success btn-floating"

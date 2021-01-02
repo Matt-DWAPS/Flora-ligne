@@ -16,7 +16,7 @@ class Home extends Controller
     {
         $product = new Product();
 
-        $products = $product->getAllProducts();
+        $products = $product->getPublishProducts(self::PUBLISH['PUBLIÉ']);
 
         $this->generateView([
             'products' => $products,

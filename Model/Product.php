@@ -11,8 +11,8 @@ class Product extends Model
 
     private $id;
     private $created_at;
+    private $product_name_id;
     private $description;
-    private $name;
     private $picture_url_1;
     private $picture_url_2;
     private $picture_url_3;
@@ -22,6 +22,8 @@ class Product extends Model
     private $location;
     private $maintain;
     private $size_min;
+    private $country_id;
+
 
     private $errors = 0;
     private $errorsMsg = [];
@@ -61,6 +63,22 @@ class Product extends Model
     /**
      * @return mixed
      */
+    public function getProductNameId()
+    {
+        return $this->product_name_id;
+    }
+
+    /**
+     * @param mixed $product_name_id
+     */
+    public function setProductNameId($product_name_id)
+    {
+        $this->product_name_id = $product_name_id;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getDescription()
     {
         return $this->description;
@@ -74,21 +92,6 @@ class Product extends Model
         $this->description = $description;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param mixed $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
 
     /**
      * @return mixed
@@ -251,6 +254,21 @@ class Product extends Model
         $this->price_ht = $price_ht;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getCountryId()
+    {
+        return $this->country_id;
+    }
+
+    /**
+     * @param mixed $country_id
+     */
+    public function setCountryId($country_id)
+    {
+        $this->country_id = $country_id;
+    }
 
     /**
      * @return array
@@ -260,34 +278,21 @@ class Product extends Model
         return $this->errorsMsg;
     }
 
-    public function getAllProducts()
+    public function getPublishProducts($publish = null)
     {
-        $sql = 'SELECT * FROM product ';
+        $sql = 'SELECT product.id, product.price_ht, product.picture_url_1, product.publish, product_name.name as name from product INNER JOIN product_name ON product.product_name_id = product_name.id  WHERE publish=:publish';
 
-        $req = $this->executeRequest($sql);
+
+        $req = $this->executeRequest($sql, array(
+            'publish' => $publish,
+        ));
         return $req->fetchAll();
     }
 
 
-    public function geAllProducts($publish = null, $nbStart = null, $nbEnd = null)
+    public function getAllProducts()
     {
-        $sql = 'SELECT * FROM product ';
-
-        if ($publish != null && $nbStart !== null or $nbEnd !== null) {
-            $sql .= "WHERE publish =:publish ORDER BY ID DESC LIMIT " . $nbStart . "," . $nbEnd;
-
-            $req = $this->executeRequest($sql, array(
-                'publish' => $publish,
-            ));
-
-            return $req->fetchAll();
-        } elseif ($publish != null) {
-            $sql .= "WHERE publish =:publish ORDER BY ID DESC";
-            $req = $this->executeRequest($sql, array(
-                'publish' => $publish,
-            ));
-            return $req->fetchAll();
-        }
+        $sql = 'SELECT * FROM product INNER JOIN product_name ON product.product_name_id = product_name.id INNER JOIN country ON product.country_id = country.id';
 
 
         $req = $this->executeRequest($sql);
@@ -301,7 +306,7 @@ class Product extends Model
      */
     public function getOneProduct($productId)
     {
-        $sql = 'SELECT id as id,created_at as created_at, name as name, price_ht as price_ht, description as description, location as location, growth as growth, maintain as maintain, size_min as size_min, size_max as size_max, picture_url_1 as picture_url_1, picture_url_2 as picture_url_2, picture_url_3 as picture_url_3, country_id as country_id, publish as publish, race_id as race_id from product WHERE id=:id';
+        $sql = 'SELECT id as id,created_at as created_at, price_ht as price_ht, description as description, location as location, growth as growth, maintain as maintain, size_min as size_min, size_max as size_max, picture_url_1 as picture_url_1, picture_url_2 as picture_url_2, picture_url_3 as picture_url_3, country_id as country_id, publish as publish, race_id as race_id race.name from product INNER JOIN product_name ON product.product_name_id = product_name.id INNER JOIN country ON product.country_id = country.id WHERE id=:id';
         $product = $this->executeRequest($sql, array(
             'id' => $productId,
         ));

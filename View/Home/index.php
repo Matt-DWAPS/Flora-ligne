@@ -9,6 +9,11 @@
         <?php foreach ($products as $product) : ?>
 
         <div class="single-products-catagory clearfix">
+            <?php
+            echo "<pre>";
+            print_r($product);
+            echo "</pre>";
+            ?>
             <a href="<?= "/shop/productDetails/" . $product->id ?>">
                 <img class="img-fluid img-thumbnail" src="<?= $product->picture_url_1 ?>" alt="">
                 <!-- Hover Content -->
@@ -19,6 +24,7 @@
                 </div>
             </a>
         </div>
+
         <?php endforeach; ?>
 
     </div>

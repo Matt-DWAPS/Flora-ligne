@@ -49,7 +49,7 @@
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/View/Admin" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Model" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -61,19 +61,19 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\wamp64\www\Flora_ligne\Model" />
+      <recent name="C:\wamp64\www\Flora_ligne\View\Admin" />
+      <recent name="C:\wamp64\www\Flora_ligne\View\Home" />
+      <recent name="C:\wamp64\www\Flora_ligne\config" />
+      <recent name="C:\wamp64\www\Flora_ligne\Framework" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\wamp64\www\Flora_ligne\View\Home" />
       <recent name="C:\wamp64\www\Flora_ligne\public\css" />
       <recent name="C:\wamp64\www\Flora_ligne\public" />
       <recent name="C:\wamp64\www\Flora_ligne\content" />
       <recent name="C:\wamp64\www\Flora_ligne\View\Cart" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\wamp64\www\Flora_ligne\View\Admin" />
-      <recent name="C:\wamp64\www\Flora_ligne\View\Home" />
-      <recent name="C:\wamp64\www\Flora_ligne\config" />
-      <recent name="C:\wamp64\www\Flora_ligne\Framework" />
-      <recent name="C:\wamp64\www\Flora_ligne\public" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -92,7 +92,7 @@
       <workItem from="1608456796538" duration="10957000" />
       <workItem from="1608545100328" duration="9227000" />
       <workItem from="1608575537735" duration="19129000" />
-      <workItem from="1609189521572" duration="10343000" />
+      <workItem from="1609189521572" duration="24820000" />
     </task>
     <servers />
   </component>
@@ -144,10 +144,10 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="563" y="232" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1600.860@0.0.1600.860" timestamp="1608306366336" />
-    <state x="193" y="142" key="#com.intellij.ide.util.MemberChooser" timestamp="1609271535330">
+    <state x="193" y="142" key="#com.intellij.ide.util.MemberChooser" timestamp="1609599499118">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="193" y="142" key="#com.intellij.ide.util.MemberChooser/0.0.1600.860@0.0.1600.860" timestamp="1609271535330" />
+    <state x="193" y="142" key="#com.intellij.ide.util.MemberChooser/0.0.1600.860@0.0.1600.860" timestamp="1609599499118" />
     <state x="530" y="185" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1609192707402">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
