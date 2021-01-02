@@ -49,7 +49,7 @@
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Model" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/View/Home" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -62,9 +62,9 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\wamp64\www\Flora_ligne\View\Home" />
       <recent name="C:\wamp64\www\Flora_ligne\Model" />
       <recent name="C:\wamp64\www\Flora_ligne\View\Admin" />
-      <recent name="C:\wamp64\www\Flora_ligne\View\Home" />
       <recent name="C:\wamp64\www\Flora_ligne\config" />
       <recent name="C:\wamp64\www\Flora_ligne\Framework" />
     </key>
@@ -92,7 +92,7 @@
       <workItem from="1608456796538" duration="10957000" />
       <workItem from="1608545100328" duration="9227000" />
       <workItem from="1608575537735" duration="19129000" />
-      <workItem from="1609189521572" duration="24820000" />
+      <workItem from="1609189521572" duration="32121000" />
     </task>
     <servers />
   </component>

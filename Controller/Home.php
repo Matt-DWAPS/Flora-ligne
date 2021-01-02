@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Framework\Controller;
 use App\Model\Product;
+use App\Model\User;
 
 class Home extends Controller
 {
@@ -29,11 +30,12 @@ class Home extends Controller
      */
     public function registration()
     {
-
+        $user = new User();
+        $post = isset($_POST) ? $_POST : false;
 
         $this->generateView([
-
-
+            'errorsMsg' => $user->getErrorsMsg(),
+            'post' => $post,
         ]);
     }
 
@@ -43,11 +45,40 @@ class Home extends Controller
      */
     public function login()
     {
-
+        $user = new User();
+        $post = isset($_POST) ? $_POST : false;
 
         $this->generateView([
+            'errorsMsg' => $user->getErrorsMsg(),
+            'post' => $post,
+        ]);
+    }
 
+    /**
+     * @throws \Exception
+     */
+    public function resetPassword()
+    {
+        $user = new User();
+        $post = isset($_POST) ? $_POST : false;
 
+        $this->generateView([
+            'errorsMsg' => $user->getErrorsMsg(),
+            'post' => $post,
+        ]);
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function forgotYourPassword()
+    {
+        $user = new User();
+        $post = isset($_POST) ? $_POST : false;
+
+        $this->generateView([
+            'errorsMsg' => $user->getErrorsMsg(),
+            'post' => $post,
         ]);
     }
 
