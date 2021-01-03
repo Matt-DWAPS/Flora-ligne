@@ -5,6 +5,8 @@ namespace App\Framework;
 use App\Framework\Request;
 use App\Framework\View;
 use App\Framework\Controller;
+use Exception;
+
 /*
 require_once 'Controller.php';
 require_once 'Request.php';
@@ -68,7 +70,7 @@ class Router
     /**
      * @param Request $request
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     private function createAction(Request $request)
     {
@@ -81,9 +83,9 @@ class Router
     }
 
     // Gère une erreur d'exécution (exception)
-    private function manageError(\Exception $exception)
+    private function manageError(Exception $exception)
     {
-        $vue = new \App\Framework\View('error');
+        $vue = new View('error');
         $vue->generate(
             array('msgError' => $exception->getMessage())
         );

@@ -75,11 +75,16 @@
                     <li class="active"><a href="Home">Accueil</a></li>
                     <li><a href="Shop">Boutique</a></li>
                     <li><a href="Cart">Panier</a></li>
-                    <li><a href="Checkout">Commande</a></li>
-                    <li><a href="Home/login">Se connecter</a></li>
-                    <li><a href="Home/registration">Creer mon compte</a></li>
-                    <li><a href="Home/account">Mon compte</a></li>
-                    <li><a href="Home/disconnected">Se deconnecter</a></li>
+                    <?php if (!isset($_SESSION['auth'])) : ?>
+                        <li><a href="Home/login">Se connecter</a></li>
+                        <li><a href="Home/registration">Creer mon compte</a></li>
+                    <?php endif; ?>
+                    <?php if (isset($_SESSION['auth'])) : ?>
+                        <li><a href="Checkout">Commande</a></li>
+                        <li><a href="Home/account">Mon compte</a></li>
+                        <li><a href="Home/disconnected">Se deconnecter</a></li>
+                    <?php endif; ?>
+
                 </ul>
             </nav>
             <!-- Button Group -->
@@ -90,7 +95,6 @@
             <!-- Cart Menu -->
             <div class="cart-fav-search mb-100">
                 <a href="Cart" class="cart-nav"><img src="img/core-img/cart.png" alt=""> Panier <span>(0)</span></a>
-                <a href="#" class="fav-nav"><img src="img/core-img/favorites.png" alt=""> Favoris</a>
                 <a href="#" class="search-nav"><img src="img/core-img/search.png" alt=""> Recherche</a>
             </div>
             <!-- Social Button -->
@@ -102,39 +106,10 @@
             </div>
         </header>
         <!-- Header Area End -->
-
         <!-- Contenu -->
-
             <?= $content ?>
-
     </div>
     <!-- ##### Main Content Wrapper End ##### -->
-
-    <!-- ##### Newsletter Area Start ##### -->
-    <section class="newsletter-area section-padding-100-0">
-        <div class="container">
-            <div class="row align-items-center">
-                <!-- Newsletter Text -->
-                <div class="col-12 col-lg-6 col-xl-7">
-                    <div class="newsletter-text mb-100">
-                        <h2>Subscribe for a <span>25% Discount</span></h2>
-                        <p>Nulla ac convallis lorem, eget euismod nisl. Donec in libero sit amet mi vulputate consectetur. Donec auctor interdum purus, ac finibus massa bibendum nec.</p>
-                    </div>
-                </div>
-                <!-- Newsletter Form -->
-                <div class="col-12 col-lg-6 col-xl-5">
-                    <div class="newsletter-form mb-100">
-                        <form action="#" method="post">
-                            <input type="email" name="email" class="nl-email" placeholder="Your E-mail">
-                            <input type="submit" value="Subscribe">
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- ##### Newsletter Area End ##### -->
-
     <!-- ##### Footer Area Start ##### -->
     <footer class="footer_area clearfix">
         <div class="container">
@@ -162,23 +137,33 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                                 <div class="collapse navbar-collapse" id="footerNavContent">
                                     <ul class="navbar-nav ml-auto">
                                         <li class="nav-item active">
-                                            <a class="nav-link" href="Home">Home</a>
+                                            <a class="nav-link" href="Home">Accueil</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/shop">Shop</a>
+                                            <a class="nav-link" href="/shop">Boutique</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="Cart">Cart</a>
+                                            <a class="nav-link" href="Cart">Panier</a>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="Checkout">Checkout</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="Home/login">Se connecter</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="Home/disconnected">Se deconnecter</a>
-                                        </li>
+                                        <?php if (!isset($_SESSION['auth'])) : ?>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="Home/login">Se connecter</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="Home/registration">Creer mon compte</a>
+                                            </li>
+                                        <?php endif; ?>
+                                        <?php if (isset($_SESSION['auth'])) : ?>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="Checkout">Commande</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="Home/account">Mon compte</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="Home/disconnected">Se deconnecter</a>
+                                            </li>
+                                        <?php endif; ?>
                                     </ul>
                                 </div>
                             </nav>
@@ -200,7 +185,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="js/plugins.js"></script>
     <!-- Active js -->
     <script src="js/active.js"></script>
-
 </body>
 
 </html>

@@ -14,5 +14,8 @@
             "App\\": "/"
         }
     },
-    "require": {}
+    "require": {
+        "ext-pdo": "*",
+        "swiftmailer/swiftmailer": "^6.2"
+    }
 }

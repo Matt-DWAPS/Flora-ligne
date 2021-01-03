@@ -2,23 +2,34 @@
 namespace App\Model;
 
 //require_once 'Framework/Model.php';
+use App\Framework\Controller;
 use App\Framework\Model;
+use App\Services\Validator;
+use Exception;
+use PDO;
 
 class User extends Model
 {
-    const MAX_LENGTH_USERNAME = 16;
+    const MAX_LENGTH_FIRSTNAME = 16;
+    const MAX_LENGTH_LASTNAME = 16;
+    const MAX_LENGHT_PHONE = 10;
+    const MAX_LENGHT_ZIPCODE = 5;
+
     const LENGTH_TOKEN = 78;
 
     private $id;
-    private $username;
+    private $lastname;
+    private $firstname;
     private $email;
+    private $phone;
+    private $address;
+    private $zipCode;
     private $password;
     private $cPassword;
     private $createdAt;
     private $role;
-    private $status;
+    private $active;
     private $token;
-    private $picture;
 
     private $errors = 0;
     private $errorsMsg = [];
@@ -42,17 +53,33 @@ class User extends Model
     /**
      * @return mixed
      */
-    public function getUsername()
+    public function getLastname()
     {
-        return $this->username;
+        return $this->lastname;
     }
 
     /**
-     * @param mixed $username
+     * @param mixed $lastname
      */
-    public function setUsername($username)
+    public function setLastname($lastname)
     {
-        $this->username = $username;
+        $this->lastname = $lastname;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFirstname()
+    {
+        return $this->firstname;
+    }
+
+    /**
+     * @param mixed $firstname
+     */
+    public function setFirstname($firstname)
+    {
+        $this->firstname = $firstname;
     }
 
     /**
@@ -69,6 +96,54 @@ class User extends Model
     public function setEmail($email)
     {
         $this->email = $email;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * @param mixed $phone
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param mixed $address
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getZipCode()
+    {
+        return $this->zipCode;
+    }
+
+    /**
+     * @param mixed $zipCode
+     */
+    public function setZipCode($zipCode)
+    {
+        $this->zipCode = $zipCode;
     }
 
     /**
@@ -138,17 +213,17 @@ class User extends Model
     /**
      * @return mixed
      */
-    public function getStatus()
+    public function getActive()
     {
-        return $this->status;
+        return $this->active;
     }
 
     /**
-     * @param mixed $status
+     * @param mixed $active
      */
-    public function setStatus($status)
+    public function setActive($active)
     {
-        $this->status = $status;
+        $this->active = $active;
     }
 
     /**
@@ -165,22 +240,6 @@ class User extends Model
     public function setToken($token)
     {
         $this->token = $token;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPicture()
-    {
-        return $this->picture;
-    }
-
-    /**
-     * @param mixed $picture
-     */
-    public function setPicture($picture)
-    {
-        $this->picture = $picture;
     }
 
 
@@ -206,15 +265,18 @@ class User extends Model
 
     public function hydrate($user)
     {
-        $this->setCPassword($user->password);
-        $this->setEmail($user->email);
-        $this->setPicture($user->picture);
-        $this->setRole($user->role);
-        $this->setUsername($user->username);
-        $this->setStatus($user->status);
-        $this->setToken($user->token);
-        $this->setCreatedAt($user->created_at);
-        $this->setId($user->id);
+        $this->setCPassword($this->password);
+        $this->setEmail($this->email);
+        $this->setFirstname($this->firstname);
+        $this->setPhone($this->phone);
+        $this->setZipCode($this->zipCode);
+        $this->setAddress($this->address);
+        $this->setRole($this->role);
+        $this->setLastname($this->lastname);
+        $this->setActive($this->active);
+        $this->setToken($this->token);
+        $this->setCreatedAt($this->createdAt);
+        $this->setId($this->id);
     }
 
     public function login()
@@ -224,6 +286,17 @@ class User extends Model
         } else {
             return false;
         }
+    }
+
+    public function sessionAuthUser(){
+        $_SESSION['auth']['firstname'] = $this->getFirstname();
+        $_SESSION['auth']['lastname'] = $this->getLastname();
+        $_SESSION['auth']['email'] = $this->getEmail();
+        $_SESSION['auth']['role'] = $this->getRole();
+        $_SESSION['auth']['active'] = $this->getActive();
+        $_SESSION['auth']['created_at'] = $this->getCreatedAt();
+        $_SESSION['auth']['id'] = $this->getId();
+        $_SESSION['auth']['token'] = $this->getToken();
     }
 
     public function passwordHash()
@@ -239,7 +312,7 @@ class User extends Model
      */
     public function getUser($userId)
     {
-        $sql = 'SELECT id as id, created_at as created_at, role as role, status as status, username as username, picture as picture, email as email FROM user WHERE id=:id';
+        $sql = 'SELECT id as id, created_at as created_at, role as role,phone as phone, address as address, zipcode as zipcode, active as active, firstname as firstname, lastname as lastname, email as email FROM customer WHERE id=:id';
         $user = $this->executeRequest($sql, array(
             'id' => $userId,
         ));
@@ -273,55 +346,49 @@ class User extends Model
     /**
      * @param $userEmail
      * @return mixed
-     * @throws \Exception
+     * @throws Exception
      */
     public function getEmailAndTokenUserInBdd($userEmail)
     {
-        $sql = 'SELECT email, token FROM user WHERE email= :email';
+        $sql = 'SELECT email, token FROM customer WHERE email= :email';
         $user = $this->executeRequest($sql, array(
             'email' => $this->getEmail(),
         ));
         if ($user->rowCount() === 1)
             return $user->fetch();
         else {
-            throw new \Exception("Aucun utilisateur ne correspond à l'adresse email '$userEmail'");
+            throw new Exception("Aucun utilisateur ne correspond à l'adresse email '$userEmail'");
         }
     }
 
     public function updateUser()
     {
-        $sql = 'UPDATE user SET role=:role, status=:status, email=:email, username=:username WHERE email=:email';
+        $sql = 'UPDATE customer SET role=:role, active=:active, email=:email WHERE email=:email';
         $updateUser = $this->executeRequest($sql, array(
             'id' => $this->getId(),
             'email' => $this->getEmail(),
             'role' => $this->getRole(),
-            'status' => $this->getStatus(),
-            'username' => $this->getUsername()
+            'active' => $this->getActive(),
         ));
     }
 
     public function updateUserProfile()
     {
-        $sql = 'UPDATE user SET email=:email, username=:username WHERE id=:id';
+        $sql = 'UPDATE customer SET email=:email, firstname=:firstname, lastname=:lastname,phone=:phone, address=:address, zipcode=:zipcode WHERE id=:id';
         $updateUser = $this->executeRequest($sql, array(
             'id' => $this->getId(),
             'email' => $this->getEmail(),
-            'username' => $this->getUsername(),
-        ));
-    }
-
-    public function updatePicture()
-    {
-        $sql = 'UPDATE user SET picture=:picture WHERE id=:id';
-        $updatePicture = $this->executeRequest($sql, array(
-            'id' => $this->getId(),
-            'picture' => $this->getPicture()
+            'firstname' => $this->getFirstname(),
+            'lastname' => $this->getLastname(),
+            'phone' => $this->getPhone(),
+            'address' => $this->getAddress(),
+            'zipcode' => $this->getZipCode()
         ));
     }
 
     public function updateToken()
     {
-        $sql = 'UPDATE user SET token=:token WHERE email=:email';
+        $sql = 'UPDATE customer SET token=:token WHERE email=:email';
         $updateUser = $this->executeRequest($sql, array(
             'email' => $this->getEmail(),
             'token' => $this->getToken()
@@ -331,7 +398,7 @@ class User extends Model
     public function updatePassword()
     {
         $this->passwordHash();
-        $sql = 'UPDATE user SET password=:password, token=:token WHERE email=:email';
+        $sql = 'UPDATE customer SET password=:password, token=:token WHERE email=:email';
         $updateUser = $this->executeRequest($sql, array(
             'email' => $this->getEmail(),
             'password' => $this->getPassword(),
@@ -347,15 +414,15 @@ class User extends Model
         $this->setToken(bin2hex(random_bytes(self::LENGTH_TOKEN)));
     }
 
-    public function getUserInBdd($status = null)
+    public function getUserInBdd($active = null)
     {
-        $sql = 'SELECT username, email, password, role, status, created_at, id, picture FROM user WHERE email= :email';
+        $sql = 'SELECT firstname, lastname, email, password, role, active, created_at, id FROM customer WHERE email= :email';
 
-        if ($status !== null) {
-            $sql .= ' AND status = :status';
+        if ($active !== null) {
+            $sql .= ' AND active = :active';
             $req = $this->executeRequest($sql, array(
                 'email' => $this->getEmail(),
-                'status' => $status,
+                'active' => $active,
             ));
             return $req->fetch();
         }
@@ -373,6 +440,7 @@ class User extends Model
         }
     }
 
+
     public function formNewPasswordValidate()
     {
         $this->checkPassword();
@@ -385,7 +453,9 @@ class User extends Model
 
     public function formRegisterValidate()
     {
-        $this->checkUsername();
+        $this->checkFirstname();
+        $this->checkPhone();
+        $this->checkLastname();
         $this->checkEmail();
         $this->checkPassword();
         if ($this->errors !== 0) {
@@ -397,7 +467,8 @@ class User extends Model
 
     public function userFormValidate()
     {
-        $this->checkUsername();
+        $this->checkFirstname();
+        $this->checkLastname();
         $this->checkEmail();
         if ($this->errors !== 0) {
             return false;
@@ -418,15 +489,37 @@ class User extends Model
 
     public function registerValidate()
     {
-        if ($this->checkEmailInBdd() === 0 && $this->checkUsernameInBdd() === 0) {
+        if ($this->checkEmailInBdd() === 0) {
             return true;
         }
+
         return false;
+    }
+
+    public function setDataPost(){
+        $post = isset($_POST) ? $_POST : false;
+        $this->setFirstname($post['firstname']);
+        $this->setLastname($post['lastname']);
+        $this->setEmail($post['email']);
+        $this->setPhone($post['phone']);
+        $this->setpassword($post['password']);
+        $this->setCPassword($post['cPassword']);
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function setDataNewUser(){
+        $dateNow = new \DateTime();
+        $this->setCreatedAt($dateNow->format('Y-m-d H:i:s'));
+        $this->setRole(Controller::ROLES ['VISITOR']);
+        $this->setActive(Controller::ACTIVE ['NO_ACTIVE']);
+        $this->generateToken();
     }
 
     public function getEmailInBdd()
     {
-        $sql = 'SELECT id FROM user WHERE email=:email AND id!=:id';
+        $sql = 'SELECT id FROM customer WHERE email=:email AND id!=:id';
         $req = $this->executeRequest($sql, array(
             'email' => $this->getEmail(),
             'id' => $this->getId()
@@ -434,26 +527,39 @@ class User extends Model
         return $req->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function getUsernameInBdd()
+    public function getFirstnameInBdd()
     {
-        $sql = 'SELECT id FROM user WHERE username=:username AND id!=:id';
+        $sql = 'SELECT id FROM customer WHERE firstname=:firstname AND id!=:id';
         $req = $this->executeRequest($sql, array(
-            'username' => $this->getUsername(),
+            'firstname' => $this->getFirstname(),
             'id' => $this->getId()
         ));
         return $req->fetch(PDO::FETCH_ASSOC);
     }
 
-    private function checkUsername()
+    private function checkFirstname()
     {
-        if (Validator::isEmpty($this->getUsername())) {
+        if (Validator::isEmpty($this->getFirstname())) {
             $this->errors++;
-            $this->errorsMsg['username'] = "Nom d'utilisateur vide";
+            $this->errorsMsg['firstname'] = "Champ 'prénom' vide";
         }
 
-        if (Validator::isToUpper($this->getUsername(), self::MAX_LENGTH_USERNAME)) {
+        if (Validator::isToUpper($this->getFirstname(), self::MAX_LENGTH_FIRSTNAME)) {
             $this->errors++;
-            $this->errorsMsg['username'] = "Nom d'utilisateur trop long";
+            $this->errorsMsg['firstname'] = "Champ 'prénom' trop long";
+        }
+    }
+
+    private function checkLastname()
+    {
+        if (Validator::isEmpty($this->getLastname())) {
+            $this->errors++;
+            $this->errorsMsg['lastname'] = "Champ 'nom' vide";
+        }
+
+        if (Validator::isToUpper($this->getLastname(), self::MAX_LENGTH_LASTNAME)) {
+            $this->errors++;
+            $this->errorsMsg['lastname'] = "Champ 'nom' trop long";
         }
     }
 
@@ -481,24 +587,52 @@ class User extends Model
         }
     }
 
+    private function checkPhone()
+    {
+        if (Validator::isEmpty($this->getPhone())) {
+            $this->errors++;
+            $this->errorsMsg['phone'] = "Champ téléphone vide";
+        }
+
+        if (Validator::isToUpper($this->getPhone(), self::MAX_LENGHT_PHONE)) {
+            $this->errors++;
+            $this->errorsMsg['phone'] = "Champ téléphone trop long";
+        }
+    }
+
+    private function checkZipCode()
+    {
+        if (Validator::isEmpty($this->getZipCode())) {
+            $this->errors++;
+            $this->errorsMsg['zipcode'] = "Champ code postal vide";
+        }
+
+        if (Validator::isToUpper($this->getZipCode(), self::MAX_LENGHT_ZIPCODE)) {
+            $this->errors++;
+            $this->errorsMsg['zipcode'] = "Champ code postal trop long";
+        }
+    }
+
+
     public function checkEmailInBdd()
     {
-        $sql = 'SELECT email FROM user WHERE email=:email';
-        $req = $this->executeRequest($sql, array('email' => $this->getEmail()));
+        $sql = 'SELECT email FROM customer WHERE email=:email';
+        $req = $this->executeRequest($sql, array(
+            'email' => $this->getEmail()));
         return $req->rowCount();
     }
 
-    public function checkUsernameInBdd()
+    public function getLastnameInBdd()
     {
-        $sql = 'SELECT username FROM user WHERE username=:username';
-        $req = $this->executeRequest($sql, array('username' => $this->getUsername()));
+        $sql = 'SELECT lastname FROM customer WHERE lastname=:lastname';
+        $req = $this->executeRequest($sql, array('lastname' => $this->getLastname()));
         return $req->rowCount();
     }
 
 
     public function checkPasswordInBdd()
     {
-        $sql = 'SELECT password FROM user WHERE password=:password';
+        $sql = 'SELECT password FROM customer WHERE password=:password';
         $req = $this->executeRequest($sql, array('password' => $this->getPassword()));
         $passwordCorrect = password_verify($_POST['password'], $req['password']);
         return $passwordCorrect->rowCount();
@@ -506,7 +640,7 @@ class User extends Model
 
     public function getAllUserDashboard()
     {
-        $sql = 'SELECT id, username, email, password, role, status, created_at, picture FROM user';
+        $sql = 'SELECT id, lastname, firstname, email, password, role, active, created_at FROM customer';
         $req = $this->executeRequest($sql);
         return $req->fetchAll();
     }
@@ -514,17 +648,20 @@ class User extends Model
     public function save()
     {
         $this->passwordHash();
-        $sql = "INSERT INTO user(username, email, password, role, status, created_at, token) VALUES(:username, :email, :password, :role, :status, :created_at, :token)";
+        $sql = "INSERT INTO customer(firstname, lastname, email, password, role, active, created_at, phone, token) VALUES(:firstname, :lastname, :email, :password, :role, :active, :created_at, :phone, :token)";
+
         $req = $this->executeRequest($sql, array(
-            'username' => $this->getUsername(),
+            'firstname' => $this->getFirstname(),
+            'lastname' => $this->getLastname(),
+            'phone' => $this->getPhone(),
             'email' => $this->getEmail(),
             'password' => $this->getPassword(),
             'role' => $this->getRole(),
-            'status' => $this->getStatus(),
+            'active' => $this->getActive(),
             'created_at' => $this->getCreatedAt(),
             'token' => $this->getToken(),
         ));
-
+        return true;
     }
 
 }

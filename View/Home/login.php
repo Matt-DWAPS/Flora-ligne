@@ -9,7 +9,12 @@
                         <div class="cart-title">
                             <h2>Espace connexion</h2>
                         </div>
-
+                        <?php if (isset($_SESSION['flash'])) : ?>
+                            <div class="alert alert-<?= $_SESSION['flash']['alert']; ?>">
+                                <p><?= $_SESSION['flash']['message']; ?></p>
+                            </div>
+                        <?php endif; ?>
+                        <?php unset($_SESSION['flash']); ?>
                         <form method="post">
                             <div class="border rounded p-3">
                                 <div class="row">

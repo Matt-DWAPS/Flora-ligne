@@ -4,18 +4,31 @@ namespace App\Framework;
 //require_once 'Configuration.php';
 //require_once 'Request.php';
 //require_once 'View.php';
-//require_once './vendor/autoload.php';
+require_once '../vendor/autoload.php';
 
 use App\Framework\Configuration;
 use App\Framework\Request;
 use App\Framework\View;
 
+
 abstract class Controller
 {
+    const FROMEMAIL = 'flora-ligne@webagency-matt.com';
+    const AUTHOREMAIL = 'Flora Ligne';
 
     const PUBLISH = [
         'PUBLIÉ' => 1,
         'BROUILLON' => 0
+    ];
+    const ROLES = [
+        'VISITOR' => 10,
+        'CUSTOMER' => 20,
+        'SUPERADMIN' => 99,
+    ];
+
+    const ACTIVE = [
+        'NO_ACTIVE' => '0',
+        'ACTIVE' => '1'
     ];
 
     // Action à réaliser
@@ -54,7 +67,7 @@ abstract class Controller
 
     /**
      * @param array $dataView
-     * @throws Exception
+     * @throws \Exception
      */
     // Génère la vue associée au contrôleur courant
     protected function generateView($dataView = array(), $action = null)
@@ -74,5 +87,28 @@ abstract class Controller
         // Instanciation et génération de la vue
         $vue = new View($actionView, $controllerView);
         $vue->generate($dataView);
+    }
+
+    public function sendEmail($action, $subject, $toEmail = self::FROMEMAIL, $data = [], $fromEmail = self::FROMEMAIL, $mailAuthor = self::AUTHOREMAIL)
+    {
+        $vue = new View($action, 'Mails');
+        $body = $vue->generateMail($data);
+
+
+        $transport = new \Swift_SmtpTransport(
+            Configuration::get('mailtransport'), Configuration::get('mailport'));
+        $transport->setUsername(Configuration::get('mailusername'));
+        $transport->setPassword(Configuration::get('mailpassword'));
+
+        $mailer = new \Swift_Mailer($transport);
+
+
+        $message = (new \Swift_Message($subject))
+            ->setFrom([$fromEmail => $mailAuthor])
+            ->setTo([$toEmail])
+            ->setBody($body)
+            ->setContentType('text/html');
+        $mailer->send($message);
+
     }
 }

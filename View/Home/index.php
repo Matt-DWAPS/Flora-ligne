@@ -4,7 +4,12 @@
 <!-- Product Catagories Area Start -->
 <div class="products-catagories-area clearfix">
     <div class="amado-pro-catagory clearfix">
-
+        <?php if (isset($_SESSION['flash'])) : ?>
+            <div class="alert alert-<?= $_SESSION['flash']['alert']; ?>">
+                <p><?= $_SESSION['flash']['message']; ?></p>
+            </div>
+        <?php endif; ?>
+        <?php unset($_SESSION['flash']); ?>
         <!-- Single Catagory -->
         <?php foreach ($products as $product) : ?>
 

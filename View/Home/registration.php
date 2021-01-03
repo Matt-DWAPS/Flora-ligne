@@ -39,7 +39,7 @@
                             </div>
                             <div class="row">
                                 <div class="form-group p-3">
-                                    <input type="checkbox" id="privacy-policy" name="privacy-policy">
+                                    <input type="checkbox" id="privacy-policy" required name="privacy-policy" value="checked-privacy-policy">
                                     <label for="privacy-policy">J'ai lu et j'accepte la <a style="font-size: 16px; color: #096A09;" href="home/privacy-policy" target="_blank">politique de confidentialité</a>.</label>
                                 </div>
                             </div>
@@ -52,7 +52,6 @@
                             </div>
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>
