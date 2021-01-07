@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:feature" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:feature" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:Flora_ligne" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="5732aa80-449b-443c-80ba-31da0d6f129f" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
+    <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JsBowerSettings">
+    <node-interpreter value="project" />
+    <bower-package value="" />
+    <bower.json value="" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/swiftmailer/swiftmailer" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/lexer" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php72" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-normalizer" />
+      <path value="$PROJECT_DIR$/vendor/egulias/email-validator" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-idn" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-iconv" />
+    </include_path>
+  </component>
+  <component name="ProjectId" id="1lpKpoYOiAzpUAHwFluYRLkoxaP" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../blogphp-master" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="Settings.JavaScript.Bower" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\wamp64\www\Flora_ligne\View\Home" />
+      <recent name="C:\wamp64\www\Flora_ligne\Services" />
+      <recent name="C:\wamp64\www\Flora_ligne\View\Mail" />
+      <recent name="C:\wamp64\www\Flora_ligne\Model" />
+      <recent name="C:\wamp64\www\Flora_ligne\View\Admin" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\wamp64\www\Flora_ligne\View\Home" />
+      <recent name="C:\wamp64\www\Flora_ligne\public\css" />
+      <recent name="C:\wamp64\www\Flora_ligne\public" />
+      <recent name="C:\wamp64\www\Flora_ligne\content" />
+      <recent name="C:\wamp64\www\Flora_ligne\View\Cart" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5732aa80-449b-443c-80ba-31da0d6f129f" name="Default Changelist" comment="" />
+      <created>1608288789522</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1608288789522</updated>
+      <workItem from="1608288795732" duration="7402000" />
+      <workItem from="1608376245292" duration="5606000" />
+      <workItem from="1608390100506" duration="1160000" />
+      <workItem from="1608400777796" duration="662000" />
+      <workItem from="1608406820387" duration="22041000" />
+      <workItem from="1608456796538" duration="10957000" />
+      <workItem from="1608545100328" duration="9227000" />
+      <workItem from="1608575537735" duration="19129000" />
+      <workItem from="1609189521572" duration="74023000" />
+      <workItem from="1609962514089" duration="18705000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="380" y="85" key="#CLI_Interpreters" timestamp="1608372980711">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="380" y="85" key="#CLI_Interpreters/0.0.1600.860@0.0.1600.860" timestamp="1608372980711" />
+    <state x="392" y="88" key="#Deployment" timestamp="1608305678533">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="392" y="88" key="#Deployment/0.0.1600.860@0.0.1600.860" timestamp="1608305678533" />
+    <state x="477" y="111" key="#Options" timestamp="1608304941975">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="477" y="111" key="#Options/0.0.1600.860@0.0.1600.860" timestamp="1608304941975" />
+    <state x="507" y="73" key="#PHP" timestamp="1608307121567">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="507" y="73" key="#PHP/0.0.1600.860@0.0.1600.860" timestamp="1608307121567" />
+    <state x="177" y="271" key="#SQL_Dialects" timestamp="1609271663468">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="177" y="271" key="#SQL_Dialects/0.0.1600.860@0.0.1600.860" timestamp="1609271663468" />
+    <state x="376" y="75" key="#SSH_Configurations" timestamp="1608305677100">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="376" y="75" key="#SSH_Configurations/0.0.1600.860@0.0.1600.860" timestamp="1608305677100" />
+    <state x="392" y="88" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1609271684390">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="392" y="88" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1600.860@0.0.1600.860" timestamp="1609271684390" />
+    <state x="563" y="232" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1608306366336">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="563" y="232" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1600.860@0.0.1600.860" timestamp="1608306366336" />
+    <state x="193" y="142" key="#com.intellij.ide.util.MemberChooser" timestamp="1609630504729">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="193" y="142" key="#com.intellij.ide.util.MemberChooser/0.0.1600.860@0.0.1600.860" timestamp="1609630504729" />
+    <state x="530" y="185" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1609688768832">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="530" y="185" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1600.860@0.0.1600.860" timestamp="1609688768832" />
+    <state x="468" y="208" key="EditFileWatcherDialog" timestamp="1608419662269">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="468" y="208" key="EditFileWatcherDialog/0.0.1600.860@0.0.1600.860" timestamp="1608419662269" />
+    <state x="580" y="185" key="FileChooserDialogImpl" timestamp="1609963748959">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="580" y="185" key="FileChooserDialogImpl/0.0.1600.860@0.0.1600.860" timestamp="1609963748959" />
+    <state x="607" y="153" key="NewPhpClassDialog" timestamp="1609162438152">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="607" y="153" key="NewPhpClassDialog/0.0.1600.860@0.0.1600.860" timestamp="1609162438152" />
+    <state x="635" y="353" key="NewPhpFileDialog" timestamp="1608428225434">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="635" y="353" key="NewPhpFileDialog/0.0.1600.860@0.0.1600.860" timestamp="1608428225434" />
+    <state x="301" y="75" key="SettingsEditor" timestamp="1609672457752">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="301" y="75" key="SettingsEditor/0.0.1600.860@0.0.1600.860" timestamp="1609672457752" />
+    <state width="498" height="446" key="SwitcherDM" timestamp="1608459015694">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state width="498" height="446" key="SwitcherDM/0.0.1600.860@0.0.1600.860" timestamp="1608459015694" />
+    <state x="614" y="21" width="921" height="801" key="find.popup" timestamp="1610005679113">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="614" y="21" width="921" height="801" key="find.popup/0.0.1600.860@0.0.1600.860" timestamp="1610005679113" />
+    <state x="504" y="160" key="ftp.server.browser" timestamp="1608305355992">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="504" y="160" key="ftp.server.browser/0.0.1600.860@0.0.1600.860" timestamp="1608305355992" />
+  </component>
+</project>
