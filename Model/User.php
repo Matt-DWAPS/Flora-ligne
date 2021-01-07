@@ -26,7 +26,7 @@ class User extends Model
     private $zipCode;
     private $password;
     private $cPassword;
-    private $createdAt;
+    private $created_at;
     private $role;
     private $active;
     private $token;
@@ -181,17 +181,17 @@ class User extends Model
     /**
      * @return mixed
      */
-    public function getCreatedAt()
+    public function getCreated_at()
     {
-        return $this->createdAt;
+        return $this->created_at;
     }
 
     /**
-     * @param mixed $createdAt
+     * @param mixed $created_at
      */
-    public function setCreatedAt($createdAt)
+    public function setCreated_at($created_at)
     {
-        $this->createdAt = $createdAt;
+        $this->createdAt = $created_at;
     }
 
     /**
@@ -263,20 +263,35 @@ class User extends Model
         }
     }
 
-    public function hydrate($user)
-    {
-        $this->setCPassword($this->password);
-        $this->setEmail($this->email);
-        $this->setFirstname($this->firstname);
-        $this->setPhone($this->phone);
-        $this->setZipCode($this->zipCode);
-        $this->setAddress($this->address);
-        $this->setRole($this->role);
-        $this->setLastname($this->lastname);
-        $this->setActive($this->active);
-        $this->setToken($this->token);
-        $this->setCreatedAt($this->createdAt);
-        $this->setId($this->id);
+//    public function hydrate($user)
+//    {
+//        $this->setCPassword($user->password);
+//        $this->setEmail($user->email);
+//        $this->setFirstname($user->firstname);
+//        $this->setPhone($user->phone);
+//        $this->setAddress($user->address);
+//        $this->setRole($user->role);
+//        $this->setLastname($user->lastname);
+//        $this->setActive($user->active);
+//        $this->setToken($user->token);
+//        $this->setCreated_at($user->created_at);
+//        $this->setId($user->id);
+//    }
+
+    /**
+     * @param $user
+     */
+    public function hydrate($user){
+        foreach ($user as $key => $value)
+        {
+            $cPassword =$this->setCPassword($user->password);
+            $method = 'set'.ucfirst($key);
+
+            if (method_exists($this, $method) && method_exists($this, $cPassword)){
+                $this->$method($value);
+                $this->$cPassword($value);
+            }
+        }
     }
 
     public function login()
@@ -294,7 +309,7 @@ class User extends Model
         $_SESSION['auth']['email'] = $this->getEmail();
         $_SESSION['auth']['role'] = $this->getRole();
         $_SESSION['auth']['active'] = $this->getActive();
-        $_SESSION['auth']['created_at'] = $this->getCreatedAt();
+        $_SESSION['auth']['created_at'] = $this->getCreated_at();
         $_SESSION['auth']['id'] = $this->getId();
         $_SESSION['auth']['token'] = $this->getToken();
     }
@@ -312,7 +327,7 @@ class User extends Model
      */
     public function getUser($userId)
     {
-        $sql = 'SELECT id as id, created_at as created_at, role as role,phone as phone, address as address, zipcode as zipcode, active as active, firstname as firstname, lastname as lastname, email as email FROM customer WHERE id=:id';
+        $sql = 'SELECT id as id, created_at as createdAt, role as role,phone as phone, address as address, zipcode as zipcode, active as active, firstname as firstname, lastname as lastname, email as email FROM customer WHERE id=:id';
         $user = $this->executeRequest($sql, array(
             'id' => $userId,
         ));
@@ -648,7 +663,7 @@ class User extends Model
     public function save()
     {
         $this->passwordHash();
-        $sql = "INSERT INTO customer(firstname, lastname, email, password, role, active, created_at, phone, token) VALUES(:firstname, :lastname, :email, :password, :role, :active, :created_at, :phone, :token)";
+        $sql = "INSERT INTO customer(firstname, lastname, email, password, role, active, created_at, phone, token) VALUES(:firstname, :lastname, :email, :password, :role, :active, :createdAt, :phone, :token)";
 
         $req = $this->executeRequest($sql, array(
             'firstname' => $this->getFirstname(),
@@ -658,7 +673,7 @@ class User extends Model
             'password' => $this->getPassword(),
             'role' => $this->getRole(),
             'active' => $this->getActive(),
-            'created_at' => $this->getCreatedAt(),
+            'createdAt' => $this->getCreatedAt(),
             'token' => $this->getToken(),
         ));
         return true;

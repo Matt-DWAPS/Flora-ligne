@@ -21,14 +21,15 @@ abstract class Controller
         'BROUILLON' => 0
     ];
     const ROLES = [
-        'VISITOR' => 10,
-        'CUSTOMER' => 20,
-        'SUPERADMIN' => 99,
+        'VISITOR' => '10',
+        'CUSTOMER' => '20',
+        'SUPERADMIN' => '99',
+        'BLOCKED' => '0',
     ];
 
     const ACTIVE = [
-        'NO_ACTIVE' => '0',
-        'ACTIVE' => '1'
+        'NO_ACTIVE' => 0,
+        'ACTIVE' => 1
     ];
 
     // Action à réaliser

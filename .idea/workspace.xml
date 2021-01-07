@@ -69,7 +69,7 @@
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/View/Home" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../blogphp-master" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -112,7 +112,8 @@
       <workItem from="1608456796538" duration="10957000" />
       <workItem from="1608545100328" duration="9227000" />
       <workItem from="1608575537735" duration="19129000" />
-      <workItem from="1609189521572" duration="72423000" />
+      <workItem from="1609189521572" duration="74023000" />
+      <workItem from="1609962514089" duration="18705000" />
     </task>
     <servers />
   </component>
@@ -176,10 +177,10 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="468" y="208" key="EditFileWatcherDialog/0.0.1600.860@0.0.1600.860" timestamp="1608419662269" />
-    <state x="580" y="185" key="FileChooserDialogImpl" timestamp="1609160351034">
+    <state x="580" y="185" key="FileChooserDialogImpl" timestamp="1609963748959">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="580" y="185" key="FileChooserDialogImpl/0.0.1600.860@0.0.1600.860" timestamp="1609160351034" />
+    <state x="580" y="185" key="FileChooserDialogImpl/0.0.1600.860@0.0.1600.860" timestamp="1609963748959" />
     <state x="607" y="153" key="NewPhpClassDialog" timestamp="1609162438152">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
@@ -196,10 +197,10 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1600.860@0.0.1600.860" timestamp="1608459015694" />
-    <state x="614" y="21" width="921" height="801" key="find.popup" timestamp="1609709233586">
+    <state x="614" y="21" width="921" height="801" key="find.popup" timestamp="1610005679113">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="614" y="21" width="921" height="801" key="find.popup/0.0.1600.860@0.0.1600.860" timestamp="1609709233586" />
+    <state x="614" y="21" width="921" height="801" key="find.popup/0.0.1600.860@0.0.1600.860" timestamp="1610005679113" />
     <state x="504" y="160" key="ftp.server.browser" timestamp="1608305355992">
       <screen x="0" y="0" width="1600" height="860" />
     </state>

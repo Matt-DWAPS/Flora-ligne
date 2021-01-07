@@ -104,6 +104,9 @@ class Home extends Controller
         $user = new User();
         $post = isset($_POST) ? $_POST : false;
 
+
+        $role = $user->getRole();
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($post['loginForm'] == 'login') {
                 $user->setEmail($post['email']);
@@ -113,17 +116,10 @@ class Home extends Controller
                     if ($userBdd) {
                         $user->hydrate($userBdd);
                         $role = $user->getRole();
-
-
-echo "<pre>";
-print_r($userBdd);
-echo "</pre>";
-die;
-
-                        if ($role !== self::ROLES['CUSTOMER'] || $role !== self::ROLES['SUPERADMIN']) {
+                        if ($role == self::ROLES['BLOCKED']) {
                             $_SESSION['flash']['alert'] = "danger";
                             $_SESSION['flash']['message'] = "Connexion impossible";
-                            header('Location: login');
+                            header('Location: disconnected');
                             exit;
                         }
                         if ($user->login()) {
