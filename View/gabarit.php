@@ -11,6 +11,8 @@
     <!-- Title  -->
     <title><?= $title ?></title>
 
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
     <!-- Favicon  -->
     <link rel="icon" href="img/core-img/favicon.ico">
 
@@ -79,9 +81,14 @@
                         <li><a href="Home/login">Se connecter</a></li>
                         <li><a href="Home/registration">Creer mon compte</a></li>
                     <?php endif; ?>
-                    <?php if (isset($_SESSION['auth'])) : ?>
+                    <?php if (isset($_SESSION['auth'])&& $_SESSION['auth']['role'] == '20') : ?>
                         <li><a href="Checkout">Commande</a></li>
-                        <li><a href="Home/account">Mon compte</a></li>
+                        <li><a href="Dashboard">Mon compte</a></li>
+                        <li><a href="Home/disconnected">Se deconnecter</a></li>
+                    <?php endif; ?>
+                    <?php if (isset($_SESSION['auth']) && $_SESSION['auth']['role'] == '99') : ?>
+                        <li><a href="Checkout">Commande</a></li>
+                        <li><a href="Admin">Administration</a></li>
                         <li><a href="Home/disconnected">Se deconnecter</a></li>
                     <?php endif; ?>
 
@@ -108,6 +115,12 @@
         <!-- Header Area End -->
         <!-- Contenu -->
             <?= $content ?>
+        <?php if (isset($_SESSION['flash'])) : ?>
+            <div class="alert alert-<?= $_SESSION['flash']['alert']; ?>">
+                <p><?= $_SESSION['flash']['message']; ?></p>
+            </div>
+        <?php endif; ?>
+        <?php unset($_SESSION['flash']); ?>
     </div>
     <!-- ##### Main Content Wrapper End ##### -->
     <!-- ##### Footer Area Start ##### -->
@@ -153,12 +166,23 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                                                 <a class="nav-link" href="Home/registration">Creer mon compte</a>
                                             </li>
                                         <?php endif; ?>
-                                        <?php if (isset($_SESSION['auth'])) : ?>
+                                        <?php if (isset($_SESSION['auth'])&& $_SESSION['auth']['role'] == '20') : ?>
                                             <li class="nav-item">
                                                 <a class="nav-link" href="Checkout">Commande</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" href="Home/account">Mon compte</a>
+                                                <a class="nav-link" href="Dashboard">Mon compte</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="Home/disconnected">Se deconnecter</a>
+                                            </li>
+                                        <?php endif; ?>
+                                        <?php if (isset($_SESSION['auth']) && $_SESSION['auth']['role'] == '99') : ?>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="Checkout">Commande</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="Admin">Administration</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" href="Home/disconnected">Se deconnecter</a>

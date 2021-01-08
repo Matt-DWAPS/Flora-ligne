@@ -306,7 +306,7 @@ class Product extends Model
      */
     public function getOneProduct($productId)
     {
-        $sql = 'SELECT id as id,created_at as created_at, price_ht as price_ht, description as description, location as location, growth as growth, maintain as maintain, size_min as size_min, size_max as size_max, picture_url_1 as picture_url_1, picture_url_2 as picture_url_2, picture_url_3 as picture_url_3, country_id as country_id, publish as publish, race_id as race_id race.name from product INNER JOIN product_name ON product.product_name_id = product_name.id INNER JOIN country ON product.country_id = country.id WHERE id=:id';
+        $sql = 'SELECT product.id , product.created_at , product.price_ht , product.description , product.location , product.growth , product.maintain , product.size_min, product.size_max, product.picture_url_1, product.picture_url_2, product.picture_url_3, country.country_name, product.publish, product_name.name  from product INNER JOIN product_name ON product.product_name_id = product_name.id INNER JOIN country ON product.country_id = country.id WHERE product.id=:id';
         $product = $this->executeRequest($sql, array(
             'id' => $productId,
         ));

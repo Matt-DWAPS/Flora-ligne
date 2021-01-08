@@ -191,7 +191,7 @@ class User extends Model
      */
     public function setCreated_at($created_at)
     {
-        $this->createdAt = $created_at;
+        $this->created_at = $created_at;
     }
 
     /**
@@ -263,36 +263,34 @@ class User extends Model
         }
     }
 
-//    public function hydrate($user)
-//    {
-//        $this->setCPassword($user->password);
-//        $this->setEmail($user->email);
-//        $this->setFirstname($user->firstname);
-//        $this->setPhone($user->phone);
-//        $this->setAddress($user->address);
-//        $this->setRole($user->role);
-//        $this->setLastname($user->lastname);
-//        $this->setActive($user->active);
-//        $this->setToken($user->token);
-//        $this->setCreated_at($user->created_at);
-//        $this->setId($user->id);
-//    }
+    public function hydrate($user)
+    {
+        $this->setCPassword($user->password);
+        $this->setEmail($user->email);
+        $this->setFirstname($user->firstname);
+        $this->setPhone($this->phone);
+        $this->setAddress($this->address);
+        $this->setRole($user->role);
+        $this->setLastname($user->lastname);
+        $this->setActive($user->active);
+        $this->setToken($this->token);
+        $this->setCreated_at($user->created_at);
+        $this->setId($user->id);
+    }
 
     /**
      * @param $user
      */
-    public function hydrate($user){
+    public function hydrateUser($user){
+
         foreach ($user as $key => $value)
         {
-            $cPassword =$this->setCPassword($user->password);
-            $method = 'set'.ucfirst($key);
-
-            if (method_exists($this, $method) && method_exists($this, $cPassword)){
+            $method = 'set'.$key;
+            if (method_exists($this, $method)){
                 $this->$method($value);
-                $this->$cPassword($value);
             }
         }
-    }
+  }
 
     public function login()
     {
@@ -300,6 +298,33 @@ class User extends Model
             return true;
         } else {
             return false;
+        }
+    }
+
+    public function roleBlocked($userRole){
+        if ($userRole == Controller::ROLES['BLOCKED']) {
+            $this->errors++;
+            $this->errorsMsg['blocked'] = "Connexion impossible";
+        }
+    }
+
+    public function checkRoleRedirect($userRole){
+        if ($userRole == Controller::ROLES['SUPERADMIN']){
+            $_SESSION['flash']['alert'] = "success";
+            $_SESSION['flash']['message'] = "Bienvenue";
+            header('Location: /Admin');
+            exit();
+        }
+        if ($userRole == Controller::ROLES['CUSTOMER']){
+            $_SESSION['flash']['alert'] = "success";
+            $_SESSION['flash']['message'] = "Bienvenue";
+            header('Location: /Home');
+            exit();
+        } elseif ($userRole == Controller::ROLES['VISITOR']){
+            $_SESSION['flash']['alert'] = "danger";
+            $_SESSION['flash']['message'] = "Veuillez valider votre adresse email afin d'acceder a toutes les fonctionnalités";
+            header('Location: login');
+            exit();
         }
     }
 
@@ -323,11 +348,11 @@ class User extends Model
     /**
      * @param $userId
      * @return mixed
-     * @throws \Exception
+     * @throws Exception
      */
     public function getUser($userId)
     {
-        $sql = 'SELECT id as id, created_at as createdAt, role as role,phone as phone, address as address, zipcode as zipcode, active as active, firstname as firstname, lastname as lastname, email as email FROM customer WHERE id=:id';
+        $sql = 'SELECT id as id, created_at as created_at, role as role,phone as phone, address as address, zipcode as zipcode, active as active, firstname as firstname, lastname as lastname, email as email, password as password FROM customer WHERE id=:id';
         $user = $this->executeRequest($sql, array(
             'id' => $userId,
         ));
@@ -355,7 +380,6 @@ class User extends Model
         } else {
             return true;
         }
-
     }
 
     /**
@@ -365,20 +389,21 @@ class User extends Model
      */
     public function getEmailAndTokenUserInBdd($userEmail)
     {
-        $sql = 'SELECT email, token FROM customer WHERE email= :email';
+        $sql = 'SELECT id, email, token FROM customer WHERE email= :email';
         $user = $this->executeRequest($sql, array(
             'email' => $this->getEmail(),
         ));
-        if ($user->rowCount() === 1)
+
+        if ($user->rowCount() === 1){
             return $user->fetch();
-        else {
+        } else {
             throw new Exception("Aucun utilisateur ne correspond à l'adresse email '$userEmail'");
         }
     }
 
     public function updateUser()
     {
-        $sql = 'UPDATE customer SET role=:role, active=:active, email=:email WHERE email=:email';
+        $sql = 'UPDATE customer SET role=:role, active=:active, email=:email WHERE id=:id';
         $updateUser = $this->executeRequest($sql, array(
             'id' => $this->getId(),
             'email' => $this->getEmail(),
@@ -431,7 +456,7 @@ class User extends Model
 
     public function getUserInBdd($active = null)
     {
-        $sql = 'SELECT firstname, lastname, email, password, role, active, created_at, id FROM customer WHERE email= :email';
+        $sql = 'SELECT firstname, lastname, email, password, role, active, created_at, id, phone, address, zipcode FROM customer WHERE email= :email';
 
         if ($active !== null) {
             $sql .= ' AND active = :active';
@@ -526,7 +551,7 @@ class User extends Model
      */
     public function setDataNewUser(){
         $dateNow = new \DateTime();
-        $this->setCreatedAt($dateNow->format('Y-m-d H:i:s'));
+        $this->setCreated_at($dateNow->format('Y-m-d H:i:s'));
         $this->setRole(Controller::ROLES ['VISITOR']);
         $this->setActive(Controller::ACTIVE ['NO_ACTIVE']);
         $this->generateToken();
@@ -595,7 +620,7 @@ class User extends Model
     {
         if (Validator::isEmpty($this->getPassword())) {
             $this->errors++;
-            $this->errorsMsg['password'] = "Password vide";
+            $this->errorsMsg['password'] = "Mot de passe vide";
         } elseif (Validator::isEmpty($this->getCPassword()) || Validator::isNotIdentic($this->getPassword(), $this->getCPassword())) {
             $this->errors++;
             $this->errorsMsg['password'] = "Les deux mots de passe ne sont pas identiques";
@@ -655,7 +680,7 @@ class User extends Model
 
     public function getAllUserDashboard()
     {
-        $sql = 'SELECT id, lastname, firstname, email, password, role, active, created_at FROM customer';
+        $sql = 'SELECT id, lastname, firstname, email, password, role, active, created_at, phone, address, zipcode FROM customer';
         $req = $this->executeRequest($sql);
         return $req->fetchAll();
     }
@@ -663,7 +688,7 @@ class User extends Model
     public function save()
     {
         $this->passwordHash();
-        $sql = "INSERT INTO customer(firstname, lastname, email, password, role, active, created_at, phone, token) VALUES(:firstname, :lastname, :email, :password, :role, :active, :createdAt, :phone, :token)";
+        $sql = "INSERT INTO customer(firstname, lastname, email, password, role, active, created_at, phone, token) VALUES(:firstname, :lastname, :email, :password, :role, :active, :created_at, :phone, :token)";
 
         $req = $this->executeRequest($sql, array(
             'firstname' => $this->getFirstname(),
@@ -673,7 +698,7 @@ class User extends Model
             'password' => $this->getPassword(),
             'role' => $this->getRole(),
             'active' => $this->getActive(),
-            'createdAt' => $this->getCreatedAt(),
+            'created_at' => $this->getCreated_at(),
             'token' => $this->getToken(),
         ));
         return true;

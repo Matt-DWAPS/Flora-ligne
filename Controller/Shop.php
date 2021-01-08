@@ -5,11 +5,12 @@ namespace App\Controller;
 
 use App\Framework\Controller;
 use App\Model\Product;
+use Exception;
 
 class Shop extends Controller
 {
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function index()
     {
@@ -22,14 +23,13 @@ class Shop extends Controller
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function productDetails()
     {
         $productId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
         $product = new Product();
         $productDetails = $product->getOneProduct($productId);
-
 
         $this->generateView([
             'productDetails' => $productDetails,
