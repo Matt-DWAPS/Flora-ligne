@@ -1,67 +1,57 @@
 <?php $this->title = "Gestion des produits"; ?>
-<div class="single-product-area section-padding-100 clearfix">
-    <div class="container-fluid">
-        <div class="tableau border mb-3">
-            <h2 class="text-center">Gestion des produits</h2>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col">Nom</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Provenance</th>
-                    <th scope="col">Race</th>
-                    <th scope="col">Taille min</th>
-                    <th scope="col">Taille max</th>
-                    <th scope="col">Entretien</th>
-                    <th scope="col">Croissance</th>
-                    <th scope="col">Image1</th>
-                    <th scope="col">Prix HT</th>
-                    <th scope="col">État</th>
-                    <th scope="col">Date de création</th>
-                    <th scope="col">Modifier</th>
-                    <th scope="col">Supprimer</th>
-                </tr>
-                </thead>
 
-                <tbody>
-
-                <tr><?php foreach ($products as $product) : $createAt = new DateTime($product->created_at);?>
-                    <?php
-                    echo "<pre>";
-                    print_r($product);
-                    echo "</pre>";
-                    ?>
-                    <td><?= $product->name ?></td>
-                    <td><?= $product->description ?></td>
-                    <td><?= $product->country_name ?></td>
-
-                    <td><?= $product->race_name ?></td>
-                    <td></td>
-                    <td></td>
-                    <?php if (empty($product->picture_url_1)) : ?>
-                        <td>
-                            <a href="<?= "dashboard/pictureArticleUpload/" . $product->id ?>"
-                               class="btn btn-primary text-center">Ajouter image</a>
-                        </td>
-                    <?php else: ?>
-                        <td><img class="img-fluid w-50" src="<?= $product->picture_url_1 ?>"><img class="img-fluid w-50" src="<?= $product->picture_url_2 ?>"><img class="img-fluid w-50" src="<?= $product->picture_url_3 ?>"></td>
-                    <?php endif; ?>
-                    <td><?php if ($product->publish == 1) {
-                            echo "publié";
-                        } else {
-                            echo "Non publié";
-                        } ?></td>
-                    <td></td>
-                    <td><?= $createAt->format('d-m-Y'); ?></td>
-                    <td class="text-center"><a class="btn btn-outline-success btn-floating"
-                        data-mdb-ripple-color="dark" role="button" href="<?= "dashboard/updateArticle/" . $product->id ?>"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
-                    <td class="text-center"><a class=" btn btn-outline-danger btn-floating" role="button" href="<?= "dashboard/deleteArticle/" . $product->id ?>"><i class="fa fa-times" aria-hidden="true"></i></a></td>
-                </tr><?php endforeach; ?>
-                </tbody>
-            </table>
-            <div class="text-center mb-3">
-                <a class=" btn btn-primary" role="button" href="dashboard/createArticle">Ajouter un nouveau produit</a>
-            </div>
-        </div>
+<div class="products-catagories-area clearfix">
+    <div class="cart-title mt-50">
+        <h2>Gestion des produits</h2>
     </div>
+    <div class="text-center mb-3">
+        <a class="btn amado-btn border rounded" style="background-color: #096A09" role="button" href="Admin/createProduct">Ajouter un nouveau produit</a>
+    </div>
+    <div class="amado-pro-catagory clearfix">
+        <?php foreach ($products as $product) : ?>
+            <div id="admin_product_custom" class="single-products-catagory clearfix mt-4 border mr-4">
+                <?php if (empty($product->picture_url_1)) : ?>
+                <a  href="<?= "Admin/updateProduct/" . $product->id ?>" style="width: 418px; height: 251px;">
+                    <div class="hover-content text-center  icon_product_custom" style="top: 25%; right: 10%"><i id="icon_fa_custom" class="fas fa-10x fa-pencil-alt" style="width: 100%;"></i></div>
+                    <img src="<?= $product->picture_url_1 ?>" alt="">
+                    <!-- Hover Content -->
+                    <div class="hover-content text-center m-2">
+                        <div class="line"></div>
+
+                        <h4><?= $product->name ?></h4>
+                        <p><?= $product->price_ht .' €'?></p>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+
+                    </div>
+                </a>
+                    <?php else: ?>
+                        <a  href="<?= "Admin/updateProduct/" . $product->id ?>">
+
+                            <div class="hover-content text-center  icon_product_custom" style="top: 25%; right: 10%"><i id="icon_fa_custom" class="fas fa-10x fa-pencil-alt" style="width: 100%;"></i></div>
+                            <img src="<?= $product->picture_url_1 ?>" alt="">
+                            <!-- Hover Content -->
+                            <div class="hover-content text-center m-2">
+                                <div class="line"></div>
+
+                                <h4><?= $product->name ?></h4>
+                                <p><?= $product->price_ht .' €'?></p>
+                                <p></p>
+                                <p></p>
+                                <p></p>
+                                <p></p>
+
+                            </div>
+                        </a>
+                    <?php endif; ?>
+            </div>
+
+        <?php endforeach; ?>
+    </div>
+
 </div>
+
+
+

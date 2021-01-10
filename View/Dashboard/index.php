@@ -70,14 +70,14 @@ $this->title = "Espace membre"; ?>
                         </div>
                         <div class="row mt-3">
                             <div class="col text-center">
-                                <a class=" btn btn-danger" role="button" href="Home"><i class="fas fa-arrow-left"></i> Retour</a>
+                                <a class=" btn amado-btn border rounded" style="background-color: red" role="button" href="Home"><i class="fas fa-arrow-left"></i> Retour</a>
                             </div>
                             <div class="col text-center">
                                 <input type="hidden" name="userForm" value="updateUser"/>
-                                <input class="btn btn-primary" type="submit" name="saveUpdate" value="Enregistrer les modifications">
+                                <input class="btn amado-btn border rounded" style="background-color: #096A09" type="submit" name="saveUpdate" value="Enregistrer les modifications">
                             </div>
                             <div class="col text-center">
-                                <a class="btn btn-primary" role="button"
+                                <a class="btn amado-btn border rounded" style="background-color: #096A09" role="button"
                                    href="<?= "dashboard/updatePasswordCustomer/" . $user->getId() ?>">Modifier le mot de
                                     passe</a>
                             </div>

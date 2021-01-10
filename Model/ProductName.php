@@ -3,6 +3,8 @@ namespace App\Model;
 
 //require_once 'Framework/Model.php';
 use App\Framework\Model;
+use App\Services\Validator;
+use PDO;
 
 class ProductName extends Model
 {
@@ -57,12 +59,24 @@ class ProductName extends Model
 
     public function getAllNames()
     {
-        $sql = 'SELECT * FROM product_name ';
+        $sql = 'SELECT id, name FROM product_name';
 
         $req = $this->executeRequest($sql);
         return $req->fetchAll();
     }
 
+    public function hydrate($product){
+        $this->setId($product->id);
+        $this->setName($product->name);
+    }
+
+    private function checkName()
+    {
+        if (Validator::isEmpty($this->getName())) {
+            $this->errors++;
+            $this->errorsMsg['name'] = "Veuillez selectionner un nom";
+        }
+    }
 
 }
 

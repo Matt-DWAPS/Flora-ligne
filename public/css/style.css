@@ -50,3 +50,14 @@
         opacity: 0.7;
         border: 2px solid gray;
     }
+
+    #admin_product_custom:hover #icon_fa_custom{
+        opacity: 1;
+        color: #096A09;
+        z-index: 100;
+    }
+
+    #icon_fa_custom{
+        opacity: 0;
+        z-index: 0;
+    }

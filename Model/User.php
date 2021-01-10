@@ -447,7 +447,7 @@ class User extends Model
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function generateToken()
     {
@@ -498,6 +498,7 @@ class User extends Model
         $this->checkLastname();
         $this->checkEmail();
         $this->checkPassword();
+        $this->checkZipCode();
         if ($this->errors !== 0) {
             return false;
         } else {

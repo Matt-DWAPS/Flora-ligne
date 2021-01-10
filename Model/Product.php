@@ -4,10 +4,12 @@ namespace App\Model;
 //require_once "Framework/Model.php";
 
 use App\Framework\Model;
+use App\Services\Validator;
 use Exception;
 
 class Product extends Model
 {
+    const MAX_LENGTH = 255;
 
     private $id;
     private $created_at;
@@ -278,6 +280,8 @@ class Product extends Model
         return $this->errorsMsg;
     }
 
+
+
     public function getPublishProducts($publish = null)
     {
         $sql = 'SELECT product.id, product.price_ht, product.picture_url_1, product.publish, product_name.name as name from product INNER JOIN product_name ON product.product_name_id = product_name.id  WHERE publish=:publish';
@@ -289,12 +293,15 @@ class Product extends Model
         return $req->fetchAll();
     }
 
+    public function getNameProduct(){
+        $sql= 'SELECT product_name.id FROM product_name INNER JOIN product ON product_name.id = product.product_name_id';
+        $req = $this->executeRequest($sql);
+        return $req->fetchAll();
+    }
 
     public function getAllProducts()
     {
-        $sql = 'SELECT * FROM product INNER JOIN product_name ON product.product_name_id = product_name.id INNER JOIN country ON product.country_id = country.id';
-
-
+        $sql = 'SELECT product.id, product.price_ht, product.picture_url_1, product.publish,country.country_name, product_name.name as name, product.created_at FROM product INNER JOIN country ON product.country_id = country.id INNER JOIN product_name ON product.product_name_id = product_name.id';
         $req = $this->executeRequest($sql);
         return $req->fetchAll();
     }
@@ -315,5 +322,97 @@ class Product extends Model
 
         else
             throw new Exception("Aucun article ne correspond à l'identifiant '$productId'");
+    }
+
+    public function formProductValidate()
+    {
+        $this->checkProductPrice();
+        $this->checkProductDescription();
+        $this->checkPictureUrl();
+        $this->checkSizeProduct();
+        $this->checkIdNameProduct();
+        if ($this->errors !== 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private function checkIdNameProduct(){
+        if (Validator::isEmpty($this->getProductNameId())){
+            $this->errors++;
+            $this->errorsMsg['name'] = "Selectionner un nom de produit";
+        }
+    }
+
+    private function checkSizeProduct(){
+        if (Validator::isInteger($this->getSizeMin())){
+            $this->errors++;
+            $this->errorsMsg['size_min'] = "N'est pas une valeur numérique";
+        }
+        if (Validator::isInteger($this->getSizeMax())){
+            $this->errors++;
+            $this->errorsMsg['size_max'] = "N'est pas une valeur numérique";
+        }
+    }
+
+    private function checkProductPrice()
+    {
+        if (Validator::isInteger($this->getPriceHt())) {
+            $this->errors++;
+            $this->errorsMsg['price_ht'] = "N'est pas une valeur numérique";
+        }
+
+        if (Validator::isEmpty($this->getPriceHt())) {
+            $this->errors++;
+            $this->errorsMsg['price_ht'] = "Insérer un prix";
+        }
+    }
+
+    private function checkProductDescription()
+    {
+        if (Validator::isEmpty($this->getDescription())) {
+            $this->errors++;
+            $this->errorsMsg['content'] = "Insérer du contenu";
+        }
+    }
+
+    private function checkPictureUrl()
+    {
+        if (Validator::isToUpper($this->getPictureUrl1(), self::MAX_LENGTH)) {
+            $this->errors++;
+            $this->errorsMsg['picture_url_1'] = "Titre de l'image trop long";
+        }
+        if (Validator::isToUpper($this->getPictureUrl2(), self::MAX_LENGTH)) {
+            $this->errors++;
+            $this->errorsMsg['picture_url_2'] = "Titre de l'image trop long";
+        }
+        if (Validator::isToUpper($this->getPictureUrl3(), self::MAX_LENGTH)) {
+            $this->errors++;
+            $this->errorsMsg['picture_url_3'] = "Titre de l'image trop long";
+        }
+    }
+
+    public function save()
+    {
+        $sql = "INSERT INTO product(price_ht, description, location, maintain, size_min, size_max, growth, picture_url_1, picture_url_2, picture_url_3, publish, created_at, country_id, product_name_id) VALUES(:price_ht, :description, :location, :maintain, :size_min, :size_max, :growth, :picture_url_1, :picture_url_2, :picture_url_3, :publish, :createdAt, :country_id, :name)";
+        $req = $this->executeRequest($sql, array(
+
+      'name' => $this->getProductNameId(),
+      'description' => $this->getDescription(),
+      'picture_url_1' => $this->getPictureUrl1(),
+      'picture_url_2' => $this->getPictureUrl2(),
+      'picture_url_3' => $this->getPictureUrl3(),
+      'country_id' => $this->getCountryId(),
+      'growth' => $this->getGrowth(),
+      'location' => $this->getLocation(),
+      'maintain' => $this->getMaintain(),
+      'price_ht' => $this->getPriceHt(),
+      'size_min' => $this->getSizeMin(),
+      'size_max' => $this->getSizeMax(),
+      'publish' => $this->getPublish(),
+      'createdAt' => $this->getCreatedAt(),
+
+        ));
     }
 }

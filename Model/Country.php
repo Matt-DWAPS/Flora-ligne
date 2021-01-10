@@ -8,7 +8,7 @@ class Country extends Model
 {
 
     private $id;
-    private $countryName;
+    private $country_name;
 
 
     private $errors = 0;
@@ -35,15 +35,15 @@ class Country extends Model
      */
     public function getCountryName()
     {
-        return $this->countryName;
+        return $this->country_name;
     }
 
     /**
-     * @param mixed $countryName
+     * @param mixed $country_name
      */
-    public function setCountryName($countryName)
+    public function setCountryName($country_name)
     {
-        $this->countryName = $countryName;
+        $this->country_name = $country_name;
     }
 
 
@@ -57,12 +57,16 @@ class Country extends Model
 
     public function getAllCountry()
     {
-        $sql = 'SELECT * FROM country ';
+        $sql = 'SELECT id, country_name FROM country ';
 
         $req = $this->executeRequest($sql);
         return $req->fetchAll();
     }
 
+    public function hydrate($country){
+        $this->setId($country->id);
+        $this->setCountryName($country->country_name);
+    }
 
 }
 

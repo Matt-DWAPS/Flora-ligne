@@ -13,14 +13,16 @@
 
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+
     <!-- Favicon  -->
     <link rel="icon" href="img/core-img/favicon.ico">
-
     <!-- Core Style CSS -->
     <link rel="stylesheet" href="../../css/core-style.css">
     <link rel="stylesheet" href="../../css/style.css">
+    <script src="https://cdn.tiny.cloud/1/vsnc15bbnod4lr6ub8kbuekwqq0rslbybetslua6mcqsyjpd/tinymce/5/tinymce.min.js"
+            referrerpolicy="origin"></script>
+    <script>tinymce.init({selector: '.tynimce', language: 'fr_FR', plugins: 'image'});</script>
     <base href="<?= $webRoot ?>">
-
 </head>
 
 <body>
@@ -209,6 +211,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="js/plugins.js"></script>
     <!-- Active js -->
     <script src="js/active.js"></script>
+    <!-- Code js perso -->
+    <script src="js/custom-code.js"></script>
 </body>
 
 </html>

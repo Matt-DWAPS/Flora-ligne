@@ -5,8 +5,11 @@ namespace App\Controller;
 //require_once 'Model/User.php';
 
 use App\Framework\Controller;
+use App\Model\Country;
 use App\Model\Product;
+use App\Model\ProductName;
 use App\Model\User;
+use DateTime;
 use Exception;
 
 
@@ -43,6 +46,71 @@ class Admin extends Controller
         $this->generateView([
             'products' => $products,
 
+        ]);
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function createProduct()
+    {
+        $post = isset($_POST) ? $_POST : false;
+        $product = new Product();
+
+        $productName = new ProductName();
+        $names =$productName->getAllNames();
+
+        $productsNames = array();
+        foreach ($names as $name) {
+            $productName = new ProductName();
+            $productName->hydrate($name);
+            $productsNames[] = $productName;
+        }
+
+        $productCountry = new Country();
+        $countries = $productCountry->getAllCountry();
+
+        $productsCountries = array();
+        foreach ($countries as $country) {
+            $productCountry = new Country();
+            $productCountry->hydrate($country);
+            $productsCountries[] = $productCountry;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if ($post['articleForm'] == 'addArticle') {
+                $product->setProductNameId($post['name']);
+                $product->setContent($post['description']);
+                $product->setCountryId($post['countries']);
+                $product->setGrowth($post['growth']);
+                $product->setLocation($post['location']);
+                $product->setMaintain($post['maintain']);
+                $product->setPriceHt($post['price_ht']);
+                $product->setSizeMin($post['size_min']);
+                $product->setSizeMax($post['size_max']);
+
+                if ($product->formProductValidate()) {
+                        $dateNow = new DateTime();
+                        $product->setCreatedAt($dateNow->format('Y-m-d H:i:s'));
+                        if (isset($post['publish'])) {
+                            $product->setPublish(self::PUBLISH['PUBLIÉ']);
+                        } else {
+                            $product->setPublish(self::PUBLISH['BROUILLON']);
+                        }
+                        $product->save();
+                        header('Location: /Admin/productList');
+                        exit;
+                } else {
+                    $_SESSION['flash']['alert'] = "danger";
+                    $_SESSION['flash']['message'] = "Veuillez verifier les champs obligatoires";
+                }
+            }
+        }
+        $this->generateView([
+            'errorsMsg' => $product->getErrorsMsg(),
+            'post' => $post,
+            'productsNames' => $productsNames,
+            'productsCountries' => $productsCountries
         ]);
     }
 

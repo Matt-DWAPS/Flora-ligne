@@ -22,12 +22,12 @@ $this->title = "Mon compte - Modifier mon mot de passe"; ?>
 
                         <div class="d-flex">
                             <div class="col text-left">
-                                <a class="btn btn-primary" role="button"
+                                <a class="btn amado-btn border rounded" style="background-color: red" role="button"
                                    href="Dashboard"><i class="fas fa-arrow-left"></i> Retour</a>
                             </div>
                             <div class="col text-right">
                                 <input type="hidden" name="userForm" value="updateUserPassword"/>
-                                <input class="btn btn-primary" type="submit"
+                                <input class="btn amado-btn border rounded" style="background-color: #096A09" type="submit"
                                        value="Enregistrer les modifications">
                             </div>
                         </div>
