@@ -69,7 +69,7 @@
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Services" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/img/product-img" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -81,19 +81,19 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\wamp64\www\Flora_ligne\public\img\product-img" />
+      <recent name="C:\wamp64\www\Flora_ligne\Services" />
+      <recent name="C:\wamp64\www\Flora_ligne\View\Mails" />
+      <recent name="C:\wamp64\www\Flora_ligne\View" />
+      <recent name="C:\wamp64\www\Flora_ligne\Controller" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\wamp64\www\Flora_ligne\public\js\jquery" />
       <recent name="C:\wamp64\www\Flora_ligne\public\css" />
       <recent name="C:\wamp64\www\Flora_ligne\View\Admin" />
       <recent name="C:\wamp64\www\Flora_ligne\View\Home" />
       <recent name="C:\wamp64\www\Flora_ligne\public" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\wamp64\www\Flora_ligne\Services" />
-      <recent name="C:\wamp64\www\Flora_ligne\View\Mails" />
-      <recent name="C:\wamp64\www\Flora_ligne\View" />
-      <recent name="C:\wamp64\www\Flora_ligne\Controller" />
-      <recent name="C:\wamp64\www\Flora_ligne\View\Home" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -114,6 +114,7 @@
       <workItem from="1608575537735" duration="19129000" />
       <workItem from="1609189521572" duration="74023000" />
       <workItem from="1609962514089" duration="18705000" />
+      <workItem from="1610386880445" duration="3689000" />
     </task>
     <servers />
   </component>
@@ -197,10 +198,10 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1600.860@0.0.1600.860" timestamp="1608459015694" />
-    <state x="614" y="21" width="921" height="801" key="find.popup" timestamp="1610366087052">
+    <state x="614" y="21" width="921" height="801" key="find.popup" timestamp="1610384434599">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="614" y="21" width="921" height="801" key="find.popup/0.0.1600.860@0.0.1600.860" timestamp="1610366087052" />
+    <state x="614" y="21" width="921" height="801" key="find.popup/0.0.1600.860@0.0.1600.860" timestamp="1610384434599" />
     <state x="504" y="160" key="ftp.server.browser" timestamp="1608305355992">
       <screen x="0" y="0" width="1600" height="860" />
     </state>

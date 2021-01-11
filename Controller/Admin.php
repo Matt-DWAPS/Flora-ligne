@@ -197,14 +197,13 @@ class Admin extends Controller
         $path = Controller::PATH_UPLOAD['product'];
 
 
-        var_dump($path);
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($post['pictureUpload'] == 'upload') {
                 Upload::uploadPicture($product, $path);
             }
         }
         $this->generateView([
-
+            'product' => $product
         ]);
     }
 
@@ -260,7 +259,11 @@ class Admin extends Controller
         $post = isset($_POST) ? $_POST : false;
 
         $users = $user->getUser($userId);
-        $user->hydrateUser($users);
+        $user->hydrate($users);
+        echo '<pre>';
+        var_dump($users);
+        var_dump($user);
+        die();
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($post['userForm'] == 'updateUser') {
                 $user->setEmail($post['email']);

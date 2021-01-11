@@ -7,12 +7,23 @@
                     <div class="cart-title">
                         <h2>Ajouter une image</h2>
                     </div>
+                    <div class="text-center mb-3">
+                        <?php if (isset($_SESSION['flash'])) : ?>
+                            <div class="alert alert-<?= $_SESSION['flash']['alert']; ?>">
+                                <p><?= $_SESSION['flash']['infos']; ?></p>
+                            </div>
+                        <?php endif; ?>
+                        <?php unset($_SESSION['flash']); ?>
+                    </div>
                     <form method="post" enctype="multipart/form-data">
-                        <div class="col border rounded p-3 col-12">
+                        <div class="col border rounded p-3 d-flex justify-content-center">
+                            <img style="max-width: 420px;max-height: 367px;" src="<?= $product->getPictureUrl1(); ?>" alt="<?= $product->getPictureUrl1(); ?>">
+                        </div>
+                        <div class="border rounded p-3 col-12">
                             <label for="picture">Ajouter/modifier une image</label><br/>
                             <div class="row p-3">
                                 <input type="file" class="btn btn-primary mr-3" id="picture" name="picture"
-                                                        value="<?= $product->picture, isset($post['picture']) ? $post['picture'] : ''; ?>">
+                                >
                                 <input type="hidden" name="pictureUpload" value="upload"/>
                                 <input
                                         class="btn btn-primary" type="submit"

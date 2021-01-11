@@ -47,7 +47,7 @@
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <textarea placeholder="Description du produit" aria-label="content" class="form-control input-lg tynimce" rows="5" id="description"
+                                <textarea placeholder="Description du produit" aria-label="content" class="form-control input-lg" rows="5" id="description"
                                           name="description"><?= isset($post['description']) ? $post['description'] : ''; ?></textarea>
                                 <p class="text-danger"><?= isset($errorsMsg['description']) ? $errorsMsg['description'] : ''; ?></p>
                             </div>

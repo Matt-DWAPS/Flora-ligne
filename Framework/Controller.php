@@ -17,7 +17,7 @@ abstract class Controller
     const AUTHOREMAIL = 'Flora Ligne';
 
     const PATH_UPLOAD = [
-        'product' => 'Flora_ligne/public/img/product-img/'
+        'product' => 'img/product-img/'
     ];
 
     const ALLOWED = [

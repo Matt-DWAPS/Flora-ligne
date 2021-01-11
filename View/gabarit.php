@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <base href="<?= $webRoot ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
@@ -17,12 +18,8 @@
     <!-- Favicon  -->
     <link rel="icon" href="img/core-img/favicon.ico">
     <!-- Core Style CSS -->
-    <link rel="stylesheet" href="../../css/core-style.css">
-    <link rel="stylesheet" href="../../css/style.css">
-    <script src="https://cdn.tiny.cloud/1/vsnc15bbnod4lr6ub8kbuekwqq0rslbybetslua6mcqsyjpd/tinymce/5/tinymce.min.js"
-            referrerpolicy="origin"></script>
-    <script>tinymce.init({selector: '.tynimce', language: 'fr_FR', plugins: 'image'});</script>
-    <base href="<?= $webRoot ?>">
+    <link rel="stylesheet" href="css/core-style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
@@ -55,7 +52,7 @@
         <div class="mobile-nav">
             <!-- Navbar Brand -->
             <div class="amado-navbar-brand">
-                <a href="Home"><img src="img/core-img/logo.png" alt=""></a>
+                <a href="Home"><img src="img/core-img/logo.jpg" alt=""></a>
             </div>
             <!-- Navbar Toggler -->
             <div class="amado-navbar-toggler">
@@ -71,7 +68,7 @@
             </div>
             <!-- Logo -->
             <div class="logo">
-                <a href="Home"><img src="img/core-img/logo.png" alt=""></a>
+                <a href="Home"><img src="img/core-img/logo.jpg" alt=""></a>
             </div>
             <!-- Amado Nav -->
             <nav class="amado-nav">

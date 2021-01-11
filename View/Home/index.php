@@ -10,7 +10,7 @@
         <div class="single-products-catagory clearfix">
 
             <a href="<?= "/shop/productDetails/" . $product->id ?>">
-                <img src="<?= $product->picture_url_1 ?>" alt="">
+                <img style="max-width: 420px;max-height: 367px;" src="<?= $product->picture_url_1 ?>" alt="<?= $product->picture_url_1 ?>">
                 <!-- Hover Content -->
                 <div class="hover-content">
                     <div class="line"></div>

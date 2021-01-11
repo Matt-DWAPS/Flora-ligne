@@ -356,8 +356,11 @@ class User extends Model
         $user = $this->executeRequest($sql, array(
             'id' => $userId,
         ));
-        if ($user->rowCount() == 1)
+
+        if ($user->rowCount() == 1) {
+            $user->setFetchMode(PDO::FETCH_OBJ);
             return $user->fetch();
+        }
         else {
             throw new \Exception("Aucun utilisateur ne correspond à l'identifiant '$userId'");
         }

@@ -13,7 +13,7 @@
                                 <div class="col d-flex justify-content-center">
                                     <select name="name" id="name">
                                         <?php foreach ($productsNames as $productName) : ?>
-                                            <option value="<?= $productName->getId(); ?>">
+                                            <option value="<?= $productName->getId(); ?>" <?php if($productName->getId() == $product->getProductNameId()) { echo 'selected autofocus'; } ?> >
                                                 <?= $productName->getName() ; ?>
                                             </option>
                                         <?php endforeach; ?>
@@ -25,7 +25,7 @@
 
                                         <?php foreach ($productsCountries as $country) : ?>
 
-                                            <option value="<?= $country->getId(); ?>" >
+                                            <option value="<?= $country->getId(); ?>" <?php if($country->getId() == $product->getCountryId()) { echo 'selected autofocus'; } ?>>
                                                 <?= $country->getCountryName() ; ?>
                                             </option>
                                         <?php endforeach; ?>
@@ -49,7 +49,7 @@
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <textarea placeholder="Description du produit" aria-label="content" class="form-control input-lg tynimce" rows="5" id="description"
+                                <textarea placeholder="Description du produit" aria-label="content" class="form-control input-lg" rows="5" id="description"
                                           name="description"><?= $product->getDescription(); ?></textarea>
                                 <p class="text-danger"><?= isset($errorsMsg['description']) ? $errorsMsg['description'] : ''; ?></p>
                             </div>

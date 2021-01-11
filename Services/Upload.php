@@ -35,7 +35,7 @@ class Upload
                 // Vérifie si le fichier existe avant de le télécharger.
                 if (file_exists($path . $_FILES["picture"]["name"])) {
                     $_SESSION['flash']['alert'] = "danger";
-                    $_SESSION['flash']['message'] = $_FILES["picture"]["name"] . " existe déjà.";
+                    $_SESSION['flash']['infos'] = $_FILES["picture"]["name"] . " existe déjà.";
                 } else {
                     if (file_exists($value->getPictureUrl1())) {
                         unlink($value->getPictureUrl1());
@@ -43,19 +43,19 @@ class Upload
                     move_uploaded_file($_FILES["picture"]["tmp_name"], $path . $valueId . "." . $ext);
 
                     $value->setPictureUrl1($path . $valueId . "." . $ext);
-                    $value->updatePicture();
+                    $value->updateProduct();
                     $_SESSION['flash']['alert'] = "Success";
-                    $_SESSION['flash']['message'] = "Votre fichier a été téléchargé avec succès.";
-                    header('Location: /admin/productList');
+                    $_SESSION['flash']['infos'] = "Votre fichier a été téléchargé avec succès.";
+                    header('Location: /admin/productList/');
                     exit;
                 }
             } else {
                 $_SESSION['flash']['alert'] = "danger";
-                $_SESSION['flash']['message'] = "Il y a eu un problème de téléchargement de votre fichier. Veuillez réessayer.";
+                $_SESSION['flash']['infos'] = "Il y a eu un problème de téléchargement de votre fichier. Veuillez réessayer.";
             }
         } else {
             $_SESSION['flash']['alert'] = "danger";
-            $_SESSION['flash']['message'] = "Erreur " . $_FILES["picture"]["error"];
+            $_SESSION['flash']['infos'] = "Erreur " . $_FILES["picture"]["error"];
         }
     }
 }
