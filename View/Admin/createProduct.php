@@ -80,14 +80,14 @@
                         </div>
                         <div class=" mt-3 d-flex justify-content-around">
                             <div class="col">
-                                <a class=" btn btn-danger" role="button" href="Admin/productList"><i class="fas fa-arrow-left"></i> Retour</a>
+                                <button class=" btn" style="background-color: #096A09; color: white" role="button" href="Admin/productList"><i class="fas fa-arrow-left"></i> Retour</button>
                             </div>
                             <div class="col">
                                 <input type="hidden" name="articleForm" value="addArticle"/>
-                                <input class="btn btn-primary" type="submit" value="Enregistrer en tant que brouillon"/>
+                                <input class="btn" style="background-color: #096A09; color: white" type="submit" value="Enregistrer en tant que brouillon"/>
                             </div>
                             <div class="col d-flex justify-content-end">
-                                <input class="btn btn-primary" type="submit" name="publish" value="Mettre en ligne">
+                                <input class="btn" style="background-color: #096A09; color: white" type="submit" name="publish" value="Mettre en ligne">
                             </div>
                         </div>
                     </form>

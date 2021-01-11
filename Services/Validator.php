@@ -14,6 +14,8 @@ class Validator
     static public function isInteger($value){
         if (is_integer($value)){
             return true;
+        }elseif ($value === ""){
+            $value = null;
         }
         return false;
     }

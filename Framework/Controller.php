@@ -16,6 +16,18 @@ abstract class Controller
     const FROMEMAIL = 'flora-ligne@webagency-matt.com';
     const AUTHOREMAIL = 'Flora Ligne';
 
+    const PATH_UPLOAD = [
+        'product' => 'Flora_ligne/public/img/product-img/'
+    ];
+
+    const ALLOWED = [
+        "jpg" => "image/jpg",
+        "jpeg" => "image/jpeg",
+        "png" => "image/png"
+    ];
+
+    const MAX_SIZE = 5 * 1024 * 1024;
+
     const PUBLISH = [
         'PUBLIÉ' => 1,
         'BROUILLON' => 0

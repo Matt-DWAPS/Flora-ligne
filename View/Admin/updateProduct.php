@@ -1,65 +1,126 @@
-<?php $this->title = "Modifier l'article"; ?>
+<?php $this->title = "Modifier le produit"; ?>
+<div class="cart-table-area section-padding-100">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-lg-8">
+                <div class="checkout_details_area mt-50 clearfix">
+                    <div class="cart-title">
+                        <h2>Modifier un produit</h2>
+                    </div>
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="col">
+                            <div class="form-group row">
+                                <div class="col d-flex justify-content-center">
+                                    <select name="name" id="name">
+                                        <?php foreach ($productsNames as $productName) : ?>
+                                            <option value="<?= $productName->getId(); ?>">
+                                                <?= $productName->getName() ; ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <p class="text-danger"><?= isset($errorsMsg['name']) ? $errorsMsg['name'] : ''; ?></p>
+                                </div>
+                                <div class="col d-flex justify-content-center">
+                                    <select name="countries" id="state-choice">
 
-<h2 class="post-title" id="contenu">Modifier un article</h2>
-<form method="post" enctype="multipart/form-data">
-    <div class="form-group">
-        <label for="title input-lg">Titre de l'article</label>
-        <input class="form-control input-lg" type="text" id="title" name="title"
-               placeholder="Modifier le titre de l'article : "
-               value="<?= $articles->getTitle(); ?>"/>
-        <p class="text-danger"><?= isset($errorsMsg['title']) ? $errorsMsg['title'] : ''; ?></p>
-    </div>
-    <br/>
-    <div class="form-group">
-        <label for="content inputlg">Modifier le contenu de l'article</label>
-        <textarea aria-label="content" class="form-control input-lg tynimce" rows="5" id="content"
-                  name="content"><?= $articles->getContent(); ?></textarea>
-        <p class="text-danger"><?= isset($errorsMsg['content']) ? $errorsMsg['content'] : ''; ?></p>
-    </div>
-    <div class="form-group">
-        <label for="excerpt inputlg">Modifier l'extrait de l'article</label>
-        <textarea aria-label="excerpt" class="form-control input-lg" rows="2" id="excerpt"
-                  name="excerpt"><?= $articles->getExcerpt(); ?></textarea>
-        <p class="text-danger"><?= isset($errorsMsg['excerpt']) ? $errorsMsg['excerpt'] : ''; ?></p>
-    </div>
+                                        <?php foreach ($productsCountries as $country) : ?>
 
-    <?php if (empty($articles->getPicture())) : ?>
-        <div class="form-group border rounded p-2 col-2 ">
-            <label for="picture_url">Image</label><br/>
-            <a class="btn btn-primary d-flex align-items-center" role="button"
-               href="<?= "dashboard/pictureArticleUpload/" . $articles->getId() ?>">
-                Ajouter
-                une image</a>
-        </div>
-    <?php else : ?>
-        <div class="col-12 d-flex justify-content-center">
-            <div class="border rounded col-6">
-                <div class="form-group  p-2  justify-content-center d-flex">
-                    <img class="img-fluid" src="<?= $articles->getPicture() ?>">
+                                            <option value="<?= $country->getId(); ?>" >
+                                                <?= $country->getCountryName() ; ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div >
+                        </div>
+                        <div class="col">
+                            <div class="form-group row justify-content-center">
+                                <div class="col-2 pr-0">
+                                    <input class="form-control input-lg" type="text" id="price_ht" name="price_ht" placeholder="Prix HT"
+                                           value="<?= $product->getPriceHt(); ?>"/>
+                                    <p class="text-danger"><?= isset($errorsMsg['price_ht']) ? $errorsMsg['price_ht'] : ''; ?></p>
+                                </div>
+                                <div class="form-control input-lg col-1 d-flex justify-content-center align-items-center font-bold" style="font-size: 2em">€</div>
+                                <div class="col-4">
+                                    <input class="form-control input-lg" type="text" id="growth" name="growth"
+                                           value="<?= $product->getGrowth(); ?>" placeholder="Vitesse de croissance"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <textarea placeholder="Description du produit" aria-label="content" class="form-control input-lg tynimce" rows="5" id="description"
+                                          name="description"><?= $product->getDescription(); ?></textarea>
+                                <p class="text-danger"><?= isset($errorsMsg['description']) ? $errorsMsg['description'] : ''; ?></p>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group row">
+                                <div class="col">
+                                    <input class="form-control input-lg" type="text" id="location" name="location"
+                                           value="<?= $product->getLocation(); ?>" placeholder="Localisation (Lumière, intérieur, exterieur...)"/>
+                                </div>
+                                <div class="col">
+                                    <input class="form-control input-lg" type="text" id="maintain" name="maintain"
+                                           value="<?= $product->getMaintain(); ?>" placeholder="Difficultées de l'entretien"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group row">
+                                <div class="col">
+                                    <input class="form-control input-lg" type="text" id="size_min" name="size_min"
+                                           value="<?= $product->getSizeMin(); ?>" placeholder="Taille minimum"/>
+                                    <p class="text-danger"><?= isset($errorsMsg['size_min']) ? $errorsMsg['size_min'] : ''; ?></p>
+                                </div>
+                                <div class="col">
+                                    <input class="form-control input-lg" type="text" id="size_max" name="size_max"
+                                           value="<?= $product->getSizeMax(); ?>" placeholder="Taille maximum"/>
+                                    <p class="text-danger"><?= isset($errorsMsg['size_max']) ? $errorsMsg['size_max'] : ''; ?></p>
+                                </div>
+                            </div>
+                        </div>
 
-                </div>
-                <div class="row justify-content-center mb-3">
-                    <a class="btn btn-primary d-flex align-items-center" role="button"
-                       href="<?= "dashboard/pictureArticleUpload/" . $articles->getId() ?>">
-                        Modifier
-                        l'image</a>
+                            <?php if (empty($product->getPictureUrl1())) : ?>
+                                <div class="form-group p-2 col-12 text-center">
+                                    <a class="btn align-items-center" role="button" style="background-color: #096A09; color: white"
+                                       href="<?= "/admin/pictureProductUpload/" . $product->getId() ?>">
+                                        Ajouter
+                                        une image</a>
+                                </div>
+                            <?php else : ?>
+                                <div class="col-12 d-flex justify-content-center">
+                                    <div class="border rounded col-6">
+                                        <div class="form-group  p-2  justify-content-center d-flex">
+                                            <img class="img-fluid" src="<?= $product->getPictureUrl1() ?>">
+                                        </div>
+                                        <div class="row justify-content-center mb-3">
+                                            <a class="btn d-flex align-items-center" style="background-color: #096A09; color: white" role="button"
+                                               href="<?= "/admin/pictureProductUpload/" . $product->getId() ?>">
+                                                Modifier/ajouter
+                                                une image</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            <?php endif; ?>
+
+                        <div class=" mt-3 d-flex justify-content-around">
+                            <div class="col">
+                                <button class=" btn" role="button" style="background-color: #096A09; color: white" href="Admin/productList"><i class="fas fa-arrow-left"></i> Retour</button>
+                            </div>
+                            <div class="col">
+                                <input type="hidden" name="articleForm" value="updateArticle"/>
+                                <input class="btn" style="background-color: #096A09; color: white" type="submit" value="Enregistrer en tant que brouillon"/>
+                            </div>
+                            <div class="col d-flex justify-content-end">
+                                <input class="btn" style="background-color: #096A09; color: white" type="submit" name="publish" value="Mettre en ligne">
+                            </div>
+                        </div>
+
+                    </form>
                 </div>
             </div>
-
         </div>
-    <?php endif; ?>
-    <div class="row mt-3 d-flex justify-content-around">
-        <div>
-            <a class=" btn btn-danger" role="button" href="dashboard/"><i class="fas fa-arrow-left"></i> Retour</a>
-        </div>
-        <div>
-            <input type="hidden" name="articleForm" value="updateArticle"/>
-            <input class="btn btn-primary" type="submit" value="Enregistrer en tant que brouillon"/>
-        </div>
-        <div>
-            <input class="btn btn-primary" type="submit" name="publish" value="Mettre en ligne">
-        </div>
-
     </div>
-
-</form>
+</div>

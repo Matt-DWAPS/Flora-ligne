@@ -9,9 +9,9 @@
     </div>
     <div class="amado-pro-catagory clearfix">
         <?php foreach ($products as $product) : ?>
-            <div id="admin_product_custom" class="single-products-catagory clearfix mt-4 border mr-4">
+            <div  class="single-products-catagory clearfix mt-4 border mr-4">
                 <?php if (empty($product->picture_url_1)) : ?>
-                <a  href="<?= "Admin/updateProduct/" . $product->id ?>" style="width: 418px; height: 251px;">
+                <a id="admin_product_custom" href="<?= "Admin/updateProduct/" . $product->id ?>" style="width: 418px; height: 251px;">
                     <div class="hover-content text-center  icon_product_custom" style="top: 25%; right: 10%"><i id="icon_fa_custom" class="fas fa-10x fa-pencil-alt" style="width: 100%;"></i></div>
                     <img src="<?= $product->picture_url_1 ?>" alt="">
                     <!-- Hover Content -->
@@ -28,7 +28,7 @@
                     </div>
                 </a>
                     <?php else: ?>
-                        <a  href="<?= "Admin/updateProduct/" . $product->id ?>">
+                        <a id="admin_product_custom" href="<?= "Admin/updateProduct/" . $product->id ?>">
 
                             <div class="hover-content text-center  icon_product_custom" style="top: 25%; right: 10%"><i id="icon_fa_custom" class="fas fa-10x fa-pencil-alt" style="width: 100%;"></i></div>
                             <img src="<?= $product->picture_url_1 ?>" alt="">
@@ -46,6 +46,12 @@
                             </div>
                         </a>
                     <?php endif; ?>
+                <div class="row justify-content-center">
+                    <div class="col-6">
+                        <a class="btn btn-danger" type="submit" role="button" href="<?= "deleteProduct/" . $product->id ?>">Supprimer le produit</a>
+
+                    </div>
+                </div>
             </div>
 
         <?php endforeach; ?>

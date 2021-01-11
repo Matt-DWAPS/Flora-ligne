@@ -9,6 +9,7 @@ use App\Model\Country;
 use App\Model\Product;
 use App\Model\ProductName;
 use App\Model\User;
+use App\Services\Upload;
 use DateTime;
 use Exception;
 
@@ -80,7 +81,7 @@ class Admin extends Controller
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($post['articleForm'] == 'addArticle') {
                 $product->setProductNameId($post['name']);
-                $product->setContent($post['description']);
+                $product->setDescription($post['description']);
                 $product->setCountryId($post['countries']);
                 $product->setGrowth($post['growth']);
                 $product->setLocation($post['location']);
@@ -112,6 +113,108 @@ class Admin extends Controller
             'productsNames' => $productsNames,
             'productsCountries' => $productsCountries
         ]);
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function updateProduct()
+    {
+        $productId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+        $post = isset($_POST) ? $_POST : false;
+        $product = new Product();
+        $productBdd = $product->getOneProduct($productId);
+        $product->hydrate($productBdd);
+
+
+        $productName = new ProductName();
+        $names =$productName->getAllNames();
+
+        $productsNames = array();
+        foreach ($names as $name) {
+            $productName = new ProductName();
+            $productName->hydrate($name);
+            $productsNames[] = $productName;
+        }
+
+        $productCountry = new Country();
+        $countries = $productCountry->getAllCountry();
+
+        $productsCountries = array();
+        foreach ($countries as $country) {
+            $productCountry = new Country();
+            $productCountry->hydrate($country);
+            $productsCountries[] = $productCountry;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if ($post['articleForm'] == 'updateArticle') {
+                $product->setProductNameId($post['name']);
+                $product->setDescription($post['description']);
+                $product->setCountryId($post['countries']);
+                $product->setGrowth($post['growth']);
+                $product->setLocation($post['location']);
+                $product->setMaintain($post['maintain']);
+                $product->setPriceHt($post['price_ht']);
+                $product->setSizeMin($post['size_min']);
+                $product->setSizeMax($post['size_max']);
+                if ($product->formProductValidate()) {
+                    $dateNow = new DateTime();
+                    $product->setCreatedAt($dateNow->format('Y-m-d H:i:s'));
+                    if (isset($post['publish'])) {
+                        $product->setPublish(self::PUBLISH['PUBLIÉ']);
+                    } else {
+                        $product->setPublish(self::PUBLISH['BROUILLON']);
+                    }
+                    $product->updateProduct();
+                    header('Location: /admin/productList');
+                    exit;
+                } else {
+                    $_SESSION['flash']['alert'] = "danger";
+                    $_SESSION['flash']['message'] = "Veuillez verifier les champs obligatoires";
+                }
+            }
+        }
+        $this->generateView([
+            'product' => $product,
+            'errorsMsg' => $product->getErrorsMsg(),
+            'productsNames' => $productsNames,
+            'productsCountries' => $productsCountries
+        ]);
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function pictureProductUpload()
+    {
+        $product = new Product();
+        $post = isset($_POST) ? $_POST : false;
+
+        $articleId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+        $products = $product->getOneProduct($articleId);
+        $product->hydrate($products);
+        $path = Controller::PATH_UPLOAD['product'];
+
+
+        var_dump($path);
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if ($post['pictureUpload'] == 'upload') {
+                Upload::uploadPicture($product, $path);
+            }
+        }
+        $this->generateView([
+
+        ]);
+    }
+
+    public function deleteProduct()
+    {
+        $productId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+        $product = new Product();
+        $product->deleteProduct($productId);
+        header('Location: /admin/productList');
+        exit;
     }
 
     /**
