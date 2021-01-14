@@ -11,6 +11,15 @@ class Validator
         return false;
     }
 
+    static public function isInteger($value){
+        if (is_integer($value)){
+            return true;
+        }elseif ($value === ""){
+            $value = null;
+        }
+        return false;
+    }
+
     static public function isNotIdentic($value1, $value2)
     {
         if ($value1 !== $value2) {

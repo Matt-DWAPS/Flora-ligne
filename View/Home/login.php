@@ -36,6 +36,7 @@
                                     <a class="" style="color: #096A09" href="home/registration">Je créer mon compte</a>
                                     <a class="" style="color: #096A09" href="home/forgotYourPassword">J'ai oublier mon mot de passe</a>
                                 </div>
+                                <p class="text-danger text-center"><?= isset($errorsMsg['blocked']) ? $errorsMsg['blocked'] : ''; ?></p>
                             </div>
                         </form>
                     </div>

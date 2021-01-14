@@ -3,6 +3,9 @@ namespace App\Model;
 
 //require_once 'Framework/Model.php';
 use App\Framework\Model;
+use App\Services\Validator;
+use Exception;
+use PDO;
 
 class ProductName extends Model
 {
@@ -57,12 +60,34 @@ class ProductName extends Model
 
     public function getAllNames()
     {
-        $sql = 'SELECT * FROM product_name ';
+        $sql = 'SELECT id, name FROM product_name';
 
         $req = $this->executeRequest($sql);
         return $req->fetchAll();
     }
 
+    /**
+     * @param $productNameId
+     * @return mixed
+     * @throws Exception
+     */
+    public function getNameInBdd($productNameId){
+        $sql = 'SELECT id, name FROM product_name WHERE id=:id';
+
+        $req = $this->executeRequest($sql, array(
+            'id' => $productNameId,
+        ));
+        if ($req->rowCount() == 1){
+            return $req->fetch();
+        } else{
+            throw new Exception("Aucun produit ne correspond à l'identifiant '$productNameId'");
+        }
+    }
+
+    public function hydrate($product){
+        $this->setId($product->id);
+        $this->setName($product->name);
+    }
 
 }
 

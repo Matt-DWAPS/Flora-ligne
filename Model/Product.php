@@ -1,29 +1,30 @@
 <?php
+
 namespace App\Model;
 
 //require_once "Framework/Model.php";
 
 use App\Framework\Model;
+use App\Services\Validator;
 use Exception;
 
 class Product extends Model
 {
+    const MAX_LENGTH = 255;
 
     private $id;
     private $created_at;
     private $product_name_id;
     private $description;
     private $picture_url_1;
-    private $picture_url_2;
-    private $picture_url_3;
     private $publish;
     private $price_ht;
     private $growth;
     private $location;
     private $maintain;
     private $size_min;
+    private $size_max;
     private $country_id;
-
 
     private $errors = 0;
     private $errorsMsg = [];
@@ -87,7 +88,7 @@ class Product extends Model
     /**
      * @param mixed $description
      */
-    public function setContent($description)
+    public function setDescription($description)
     {
         $this->description = $description;
     }
@@ -107,38 +108,6 @@ class Product extends Model
     public function setPictureUrl1($picture_url_1)
     {
         $this->picture_url_1 = $picture_url_1;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPictureUrl2()
-    {
-        return $this->picture_url_2;
-    }
-
-    /**
-     * @param mixed $picture_url_2
-     */
-    public function setPictureUrl2($picture_url_2)
-    {
-        $this->picture_url_2 = $picture_url_2;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPictureUrl3()
-    {
-        return $this->picture_url_3;
-    }
-
-    /**
-     * @param mixed $picture_url_3
-     */
-    public function setPictureUrl3($picture_url_3)
-    {
-        $this->picture_url_3 = $picture_url_3;
     }
 
     /**
@@ -236,7 +205,6 @@ class Product extends Model
     {
         $this->size_max = $size_max;
     }
-    private $size_max;
 
     /**
      * @return mixed
@@ -278,10 +246,29 @@ class Product extends Model
         return $this->errorsMsg;
     }
 
+    /**
+     * @param $product
+     */
+    public function hydrate($product)
+    {
+        $this->setId($product->id);
+        $this->setCreatedAt($product->created_at);
+        $this->setProductNameId($product->product_name_id);
+        $this->setDescription($product->description);
+        $this->setPictureUrl1($product->picture_url_1);
+        $this->setPublish($product->publish);
+        $this->setPriceHt($product->price_ht);
+        $this->setGrowth($product->growth);
+        $this->setLocation($product->location);
+        $this->setMaintain($product->maintain);
+        $this->setSizeMin($product->size_min);
+        $this->setSizeMax($product->size_max);
+        $this->setCountryId($product->country_id);
+    }
+
     public function getPublishProducts($publish = null)
     {
-        $sql = 'SELECT product.id, product.price_ht, product.picture_url_1, product.publish, product_name.name as name from product INNER JOIN product_name ON product.product_name_id = product_name.id  WHERE publish=:publish';
-
+        $sql = "SELECT product.id, product.price_ht, product.picture_url_1, product.publish, product_name.name as name FROM product INNER JOIN product_name ON product.product_name_id = product_name.id WHERE publish=:publish";
 
         $req = $this->executeRequest($sql, array(
             'publish' => $publish,
@@ -289,12 +276,9 @@ class Product extends Model
         return $req->fetchAll();
     }
 
-
     public function getAllProducts()
     {
-        $sql = 'SELECT * FROM product INNER JOIN product_name ON product.product_name_id = product_name.id INNER JOIN country ON product.country_id = country.id';
-
-
+        $sql = " SELECT product.id, product.price_ht, product.picture_url_1, product.publish, country.country_name, product_name.name as name, product.created_at FROM product INNER JOIN country ON product.country_id = country.id INNER JOIN product_name ON product.product_name_id = product_name.id";
         $req = $this->executeRequest($sql);
         return $req->fetchAll();
     }
@@ -302,18 +286,148 @@ class Product extends Model
     /**
      * @param $productId
      * @return mixed
-     * @throws \Exception
+     * @throws Exception
      */
     public function getOneProduct($productId)
     {
-        $sql = 'SELECT id as id,created_at as created_at, price_ht as price_ht, description as description, location as location, growth as growth, maintain as maintain, size_min as size_min, size_max as size_max, picture_url_1 as picture_url_1, picture_url_2 as picture_url_2, picture_url_3 as picture_url_3, country_id as country_id, publish as publish, race_id as race_id race.name from product INNER JOIN product_name ON product.product_name_id = product_name.id INNER JOIN country ON product.country_id = country.id WHERE id=:id';
+        $sql = "SELECT product.id,product.created_at,product.price_ht,product.description,product.location,product.growth,
+product.maintain,product.size_min,product.size_max,product.picture_url_1,product.country_id,product.publish,
+product.product_name_id FROM product INNER JOIN product_name ON product.product_name_id = product_name.id INNER JOIN country ON product.country_id = country.id WHERE product.id=:id";
         $product = $this->executeRequest($sql, array(
             'id' => $productId,
         ));
-        if ($product->rowCount() == 1)
+        if ($product->rowCount() == 1){
             return $product->fetch();
+        } else{
+            throw new Exception("Aucun produit ne correspond à l'identifiant '$productId'");
+        }
+    }
 
-        else
-            throw new Exception("Aucun article ne correspond à l'identifiant '$productId'");
+    public function formProductValidate()
+    {
+        $this->checkProductDescription();
+        $this->checkPictureUrl();
+        $this->CheckDecimalIsEmpty();
+        $this->checkProductPrice();
+        $this->checkSizeProduct();
+        $this->checkIdNameProduct();
+        if ($this->errors === 0) {
+            return true;
+        }
+        return false;
+    }
+
+    private function checkDecimalIsEmpty()
+    {
+        if ($this->getSizeMin() === ''){
+            $this->setSizeMin(null);
+        }
+        if ($this->getSizeMax() === ''){
+            $this->setSizeMax(null);
+        }
+        if ($this->getPriceHt() === ''){
+            $this->setPriceHt(null);
+        }
+    }
+
+    private function checkIdNameProduct()
+    {
+        if (Validator::isEmpty($this->getProductNameId())) {
+            $this->errors++;
+            $this->errorsMsg['name'] = "Selectionner un nom de produit";
+        }
+    }
+
+    private function checkSizeProduct()
+    {
+        if (Validator::isInteger($this->getSizeMin())) {
+            $this->errors++;
+            $this->errorsMsg['size_min'] = "N'est pas une valeur numérique";
+        }
+        if (Validator::isInteger($this->getSizeMax())) {
+            $this->errors++;
+            $this->errorsMsg['size_max'] = "N'est pas une valeur numérique";
+        }
+    }
+
+    private function checkProductPrice()
+    {
+        if (Validator::isInteger($this->getPriceHt())) {
+            $this->errors++;
+            $this->errorsMsg['price_ht'] = "N'est pas une valeur numérique";
+        }
+
+        if (Validator::isEmpty($this->getPriceHt())) {
+            $this->errors++;
+            $this->errorsMsg['price_ht'] = "Insérer un prix";
+        }
+    }
+
+    private function checkProductDescription()
+    {
+        if (Validator::isEmpty($this->getDescription())) {
+            $this->errors++;
+            $this->errorsMsg['content'] = "Insérer du contenu";
+        }
+    }
+
+    private function checkPictureUrl()
+    {
+        if (Validator::isToUpper($this->getPictureUrl1(), self::MAX_LENGTH)) {
+            $this->errors++;
+            $this->errorsMsg['picture_url_1'] = "Titre de l'image trop long";
+        }
+    }
+
+    /**
+     * @param $productId
+     */
+    public function deleteProduct($productId)
+    {
+        $sql = 'DELETE FROM product WHERE id =:id';
+        $deleteProduct = $this->executeRequest($sql, array(
+            'id' => $productId,
+        ));
+    }
+
+    public function updateProduct()
+    {
+        $sql = " UPDATE product SET price_ht=:price_ht, description=:description, location=:location, maintain=:maintain, size_min=:size_min, size_max=:size_max, growth=:growth, picture_url_1=:picture_url_1, publish=:publish, created_at=:createdAt, country_id=:country_id, product_name_id=:product_name_id WHERE id=:id";
+
+        $updateArticle = $this->executeRequest($sql, array(
+            'id' => $this->getId(),
+            'price_ht' => $this->getPriceHt(),
+            'description' => $this->getDescription(),
+            'location' => $this->getLocation(),
+            'maintain' => $this->getMaintain(),
+            'size_min' => $this->getSizeMin(),
+            'size_max' => $this->getSizeMax(),
+            'growth' => $this->getGrowth(),
+            'picture_url_1' => $this->getPictureUrl1(),
+            'publish' => $this->getPublish(),
+            'createdAt' => $this->getCreatedAt(),
+            'country_id' => $this->getCountryId(),
+            'product_name_id' => $this->getProductNameId(),
+        ));
+    }
+
+    public function save()
+    {
+        $sql = " INSERT INTO product( price_ht, description, location, maintain, size_min, size_max, growth, picture_url_1, publish, created_at, country_id, product_name_id) VALUES( :price_ht, :description, :location, :maintain, :size_min, :size_max, :growth, :picture_url_1, :publish, :createdAt, :country_id, :product_name_id)";
+
+        $req = $this->executeRequest($sql, array(
+            'product_name_id' => $this->getProductNameId(),
+            'description' => $this->getDescription(),
+            'picture_url_1' => $this->getPictureUrl1(),
+            'country_id' => $this->getCountryId(),
+            'growth' => $this->getGrowth(),
+            'location' => $this->getLocation(),
+            'maintain' => $this->getMaintain(),
+            'price_ht' => $this->getPriceHt(),
+            'size_min' => $this->getSizeMin(),
+            'size_max' => $this->getSizeMax(),
+            'publish' => $this->getPublish(),
+            'createdAt' => $this->getCreatedAt(),
+        ));
     }
 }

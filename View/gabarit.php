@@ -5,20 +5,21 @@
     <meta charset="UTF-8">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <base href="<?= $webRoot ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- Title  -->
     <title><?= $title ?></title>
 
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+
     <!-- Favicon  -->
     <link rel="icon" href="img/core-img/favicon.ico">
-
     <!-- Core Style CSS -->
-    <link rel="stylesheet" href="../../css/core-style.css">
-    <link rel="stylesheet" href="../../css/style.css">
-    <base href="<?= $webRoot ?>">
-
+    <link rel="stylesheet" href="css/core-style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
@@ -51,7 +52,7 @@
         <div class="mobile-nav">
             <!-- Navbar Brand -->
             <div class="amado-navbar-brand">
-                <a href="Home"><img src="img/core-img/logo.png" alt=""></a>
+                <a href="Home"><img src="img/core-img/logo.jpg" alt=""></a>
             </div>
             <!-- Navbar Toggler -->
             <div class="amado-navbar-toggler">
@@ -67,7 +68,7 @@
             </div>
             <!-- Logo -->
             <div class="logo">
-                <a href="Home"><img src="img/core-img/logo.png" alt=""></a>
+                <a href="Home"><img src="img/core-img/logo.jpg" alt=""></a>
             </div>
             <!-- Amado Nav -->
             <nav class="amado-nav">
@@ -79,23 +80,29 @@
                         <li><a href="Home/login">Se connecter</a></li>
                         <li><a href="Home/registration">Creer mon compte</a></li>
                     <?php endif; ?>
-                    <?php if (isset($_SESSION['auth'])) : ?>
-                        <li><a href="Checkout">Commande</a></li>
-                        <li><a href="Home/account">Mon compte</a></li>
+                    <?php if (isset($_SESSION['auth'])&& $_SESSION['auth']['role'] == '20') : ?>
+                        <li><a href="Dashboard">Mon compte</a></li>
                         <li><a href="Home/disconnected">Se deconnecter</a></li>
+                    <?php endif; ?>
+                    <?php if (isset($_SESSION['auth']) && $_SESSION['auth']['role'] == '99') : ?>
+                        <li><a href="Admin">Administration</a></li>
+                        <li><a id="disconnectedSession" href="Home/disconnected">Se deconnecter</a></li>
                     <?php endif; ?>
 
                 </ul>
             </nav>
-            <!-- Button Group -->
-            <div class="amado-btn-group mt-30 mb-100">
-                <a href="#" class="btn amado-btn mb-15">Soldes</a>
-                <a href="#" class="btn amado-btn active">Nouveautés</a>
-            </div>
             <!-- Cart Menu -->
             <div class="cart-fav-search mb-100">
-                <a href="Cart" class="cart-nav"><img src="img/core-img/cart.png" alt=""> Panier <span>(0)</span></a>
-                <a href="#" class="search-nav"><img src="img/core-img/search.png" alt=""> Recherche</a>
+
+                <div class="dropdown">
+                    <div id="cart" class="cart">
+                        <p><img src="img/core-img/cart.png" alt="image panier"><span style="font-size: 16px; text-transform: uppercase; padding-left: 10px;padding-right: 10px; color: #096A09">Panier</span> (<span id="quantity_product_cart"></span>)</p>
+                    </div>
+                    <ul id="cart-dropdown" class="cart-dropdown dropdown-menu pull-right">
+                        <li ><span id="cart-msg_empty" style="text-align: center"></span></li>
+                        <li class="go-to-cart hidden" style="text-align: center"><form method="get" action="/Cart/"><button class="btn btn-primary center-block">Voir le panier</button></form></li>
+                    </ul>
+                </div>
             </div>
             <!-- Social Button -->
             <div class="social-info d-flex justify-content-between">
@@ -119,7 +126,7 @@
                     <div class="single_widget_area">
                         <!-- Logo -->
                         <div class="footer-logo mr-50">
-                            <a href="Home"><img src="img/core-img/logo2.png" alt=""></a>
+                            <a href="Home"><img src="img/core-img/logo.jpg" alt=""></a>
                         </div>
                         <!-- Copywrite Text -->
                         <p class="copywrite"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
@@ -153,15 +160,14 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                                                 <a class="nav-link" href="Home/registration">Creer mon compte</a>
                                             </li>
                                         <?php endif; ?>
-                                        <?php if (isset($_SESSION['auth'])) : ?>
+                                        <?php if (isset($_SESSION['auth'])&& $_SESSION['auth']['role'] == '20') : ?>
                                             <li class="nav-item">
-                                                <a class="nav-link" href="Checkout">Commande</a>
+                                                <a class="nav-link" href="Dashboard">Mon compte</a>
                                             </li>
+                                        <?php endif; ?>
+                                        <?php if (isset($_SESSION['auth']) && $_SESSION['auth']['role'] == '99') : ?>
                                             <li class="nav-item">
-                                                <a class="nav-link" href="Home/account">Mon compte</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="Home/disconnected">Se deconnecter</a>
+                                                <a class="nav-link" href="Admin">Administration</a>
                                             </li>
                                         <?php endif; ?>
                                     </ul>
@@ -185,6 +191,13 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="js/plugins.js"></script>
     <!-- Active js -->
     <script src="js/active.js"></script>
+    <!-- Gestion du dropdown cart -->
+    <script src="js/cart/cartDropdown.js"></script>
+    <!-- Check du panier sur l'ensembe des pages -->
+    <script src="js/cart/checkStorageContent.js"></script>
+
+
+
 </body>
 
 </html>

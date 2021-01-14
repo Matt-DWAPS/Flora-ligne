@@ -16,6 +16,18 @@ abstract class Controller
     const FROMEMAIL = 'flora-ligne@webagency-matt.com';
     const AUTHOREMAIL = 'Flora Ligne';
 
+    const PATH_UPLOAD = [
+        'product' => 'img/product-img/'
+    ];
+
+    const ALLOWED = [
+        "jpg" => "image/jpg",
+        "jpeg" => "image/jpeg",
+        "png" => "image/png"
+    ];
+
+    const MAX_SIZE = 5 * 1024 * 1024;
+
     const PUBLISH = [
         'PUBLIÉ' => 1,
         'BROUILLON' => 0
@@ -31,6 +43,8 @@ abstract class Controller
         'NO_ACTIVE' => 0,
         'ACTIVE' => 1
     ];
+
+    const CONFIRMED = 'CONFIRMEE';
 
     // Action à réaliser
     private $action;

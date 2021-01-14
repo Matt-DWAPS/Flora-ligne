@@ -4,20 +4,19 @@ namespace App\Controller;
 //require_once 'Framework/Controller.php';
 
 use App\Framework\Controller;
+use App\Model\CartUser;
 use App\Model\Product;
 use App\Model\User;
 use Exception;
 
 class Home extends Controller
 {
-
     /**
      * @throws Exception
      */
     public function index()
     {
         $product = new Product();
-
         $products = $product->getPublishProducts(self::PUBLISH['PUBLIÉ']);
 
         $this->generateView([
@@ -36,16 +35,23 @@ class Home extends Controller
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($post['registerForm'] == 'register') {
-                $user->setDataPost();
+                $user->setFirstname($post['firstname']);
+                $user->setLastname($post['lastname']);
+                $user->setEmail($post['email']);
+                $user->setPhone($post['phone']);
+                $user->setpassword($post['password']);
+                $user->setCPassword($post['cPassword']);
                 if ($user->formRegisterValidate()) {
                     if ($user->registerValidate()) {
                         $user->setDataNewUser();
+
                         $data = [
                             'firstname' => $user->getFirstname(),
                             'lastname' => $user->getLastname(),
                             'email' => $user->getEmail(),
                             'token' => $user->getToken()
                         ];
+
                         if ($user->save()){
                             $this->sendEmail('registration', 'Inscription sur le site Flora-ligne', $user->getEmail(), $data);
                             $_SESSION['flash']['alert'] = "success";
@@ -77,9 +83,12 @@ class Home extends Controller
         $user->setEmail($get['email']);
         $user->setToken($get['token']);
 
+
         $userEmail = $user->getEmail();
         if ($user->emailAndTokenValidation()) {
+
             $userBdd = $user->getEmailAndTokenUserInBdd($userEmail);
+
             if ($userBdd) {
                 $user->hydrate($userBdd);
                 $user->setActive(self::ACTIVE ['ACTIVE']);
@@ -87,7 +96,7 @@ class Home extends Controller
                 $user->updateUser();
                 $_SESSION['flash']['alert'] = "success";
                 $_SESSION['flash']['message'] = "Votre compte est désormais activé, vous pouvez dès à présent vous connecter à l'aide de vos identifiants";
-                header('Location: /home/login');
+                header('Location: Home/login');
                 exit();
             }
         }
@@ -103,10 +112,6 @@ class Home extends Controller
     {
         $user = new User();
         $post = isset($_POST) ? $_POST : false;
-
-
-        $role = $user->getRole();
-
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($post['loginForm'] == 'login') {
                 $user->setEmail($post['email']);
@@ -115,30 +120,19 @@ class Home extends Controller
                     $userBdd = $user->getUserInBdd(self::ACTIVE['ACTIVE']);
                     if ($userBdd) {
                         $user->hydrate($userBdd);
-                        $role = $user->getRole();
-                        if ($role == self::ROLES['BLOCKED']) {
-                            $_SESSION['flash']['alert'] = "danger";
-                            $_SESSION['flash']['message'] = "Connexion impossible";
-                            header('Location: disconnected');
-                            exit;
-                        }
+                        $userRole = $user->getRole();
+                        $user->roleBlocked($userRole);
+
                         if ($user->login()) {
                             $user->sessionAuthUser();
-                            $_SESSION['flash']['alert'] = "success";
-                            $_SESSION['flash']['message'] = "Bienvenue";
-                            if ($_SESSION['auth']['role'] == '10') {
-                                $_SESSION['flash']['alert'] = "danger";
-                                $_SESSION['flash']['message'] = "Veuillez valider votre adresse email afin d'acceder a toutes les fonctionnalités";
-                            }
-                            header('Location: /Home');
-                            exit();
+                            $user->checkRoleRedirect($userRole);
                         } else {
                             $_SESSION['flash']['alert'] = "danger";
-                            $_SESSION['flash']['message'] = "Mauvais identifiant";
+                            $_SESSION['flash']['message'] = "Mauvais identifiants";
                         }
                     } else {
                         $_SESSION['flash']['alert'] = "danger";
-                        $_SESSION['flash']['message'] = "Mauvais identifiant";
+                        $_SESSION['flash']['message'] = "Mauvais identifiants";
                     }
                 }
             }
@@ -152,25 +146,35 @@ class Home extends Controller
     /**
      * @throws Exception
      */
-    public function resetPassword()
-    {
-        $user = new User();
-        $post = isset($_POST) ? $_POST : false;
-
-        $this->generateView([
-            'errorsMsg' => $user->getErrorsMsg(),
-            'post' => $post,
-        ]);
-    }
-
-    /**
-     * @throws Exception
-     */
     public function forgotYourPassword()
     {
         $user = new User();
         $post = isset($_POST) ? $_POST : false;
 
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if ($post['forgotYourPasswordForm'] == 'forgotPassword') {
+                $user->setEmail($post['email']);
+                if ($user->formForgotPasswordValidate()) {
+                    $userBdd = $user->getUserInBdd(self::ACTIVE['ACTIVE']);
+                    if ($userBdd) {
+                        $user->hydrate($userBdd);
+                        $user->generateToken();
+                        $data = [
+                            'firstname' => $user->getFirstname(),
+                            'lastname' => $user->getLastname(),
+                            'email' => $user->getEmail(),
+                            'token' => $user->getToken()
+                        ];
+                        $user->updateToken();
+                        $this->sendEmail('forgotYourPassword', 'Reinitialisation du mot de passe', $user->getEmail(), $data);
+                        $_SESSION['flash']['alert'] = "success";
+                        $_SESSION['flash']['message'] = "Veuillez consulté votre messagerie afin de reinitialiser de votre mot de passe";
+                        header('Location: login');
+                        exit();
+                    }
+                }
+            }
+        }
         $this->generateView([
             'errorsMsg' => $user->getErrorsMsg(),
             'post' => $post,
@@ -183,8 +187,6 @@ class Home extends Controller
     public function disconnected()
     {
         unset($_SESSION['auth']);
-        $_SESSION['flash']['alert'] = "success";
-        $_SESSION['flash']['message'] = "Vous êtes déconnecté.";
         header('Location: /home');
         exit;
     }
@@ -192,14 +194,43 @@ class Home extends Controller
     /**
      * @throws Exception
      */
-    public function account()
+    public function resetPassword()
     {
+        $user = new User();
+        $get = isset($_GET) ? $_GET : false;
+        $post = isset($_POST) ? $_POST : false;
 
+        $user->setEmail($get['email']);
+        $user->setToken($get['token']);
 
+        $userEmail = $user->getEmail();
+        $userBdd = $user->getEmailAndTokenUserInBdd($userEmail);
+        if ($userBdd) {
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                if ($post['passwordForm'] == 'newPassword') {
+                    $user->setpassword($post['password']);
+                    $user->setCPassword($post['cPassword']);
+                    if ($user->formNewPasswordValidate()) {
+                        $user->generateToken();
+                        $data = [
+                            'firstname' => $user->getFirstname(),
+                            'lastname' => $user->getLastname(),
+                            'email' => $user->getEmail(),
+                            'token' => $user->getToken()
+                        ];
+                        $user->updatePassword();
+                        $this->sendEmail('newPasswordUser', 'Modification de votre compte sur le site Floraligne', $user->getEmail(), $data);
+                        $_SESSION['flash']['alert'] = "success";
+                        $_SESSION['flash']['message'] = "Vous pouvez dès à présent vous connecter avec votre nouveau mot de passe";
+                        header('Location: /home/login');
+                        exit();
+                    }
+                }
+            }
+        }
         $this->generateView([
-
-
+            'errorsMsg' => $user->getErrorsMsg(),
+            'post' => $post
         ]);
     }
-
 }
