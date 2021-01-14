@@ -44,6 +44,8 @@ abstract class Controller
         'ACTIVE' => 1
     ];
 
+    const CONFIRMED = 'CONFIRMEE';
+
     // Action à réaliser
     private $action;
 

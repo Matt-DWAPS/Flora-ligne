@@ -78,3 +78,7 @@
         background-color: #154c15;!important;
 
     }
+
+     .flex-auto-table{
+         flex: auto; !important;
+     }

@@ -86,7 +86,7 @@
                     <?php endif; ?>
                     <?php if (isset($_SESSION['auth']) && $_SESSION['auth']['role'] == '99') : ?>
                         <li><a href="Admin">Administration</a></li>
-                        <li><a href="Home/disconnected">Se deconnecter</a></li>
+                        <li><a id="disconnectedSession" href="Home/disconnected">Se deconnecter</a></li>
                     <?php endif; ?>
 
                 </ul>
@@ -96,7 +96,7 @@
 
                 <div class="dropdown">
                     <div id="cart" class="cart">
-                        <p><img src="img/core-img/cart.png" alt=""><span style="font-size: 16px; text-transform: uppercase; padding-left: 10px;padding-right: 10px; color: #096A09">Panier</span> (<span id="quantity_product_cart"></span>)</p>
+                        <p><img src="img/core-img/cart.png" alt="image panier"><span style="font-size: 16px; text-transform: uppercase; padding-left: 10px;padding-right: 10px; color: #096A09">Panier</span> (<span id="quantity_product_cart"></span>)</p>
                     </div>
                     <ul id="cart-dropdown" class="cart-dropdown dropdown-menu pull-right">
                         <li ><span id="cart-msg_empty" style="text-align: center"></span></li>
@@ -164,17 +164,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                                             <li class="nav-item">
                                                 <a class="nav-link" href="Dashboard">Mon compte</a>
                                             </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="Home/disconnected">Se deconnecter</a>
-                                            </li>
                                         <?php endif; ?>
                                         <?php if (isset($_SESSION['auth']) && $_SESSION['auth']['role'] == '99') : ?>
-
                                             <li class="nav-item">
                                                 <a class="nav-link" href="Admin">Administration</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="Home/disconnected">Se deconnecter</a>
                                             </li>
                                         <?php endif; ?>
                                     </ul>

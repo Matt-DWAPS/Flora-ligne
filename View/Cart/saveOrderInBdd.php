@@ -1,1 +1,0 @@
-<script src="js/cart/saveFinalOrderInBdd.js" defer></script>

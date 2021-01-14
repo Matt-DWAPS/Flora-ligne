@@ -23,7 +23,7 @@ class Dashboard extends Controller
             $user = new User();
             $userId = $_SESSION['auth']['id'];
             $userBdd = $user->getUser($userId);
-            $user->hydrateUser($userBdd);
+            $user->hydrate($userBdd);
 
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 if ($post['userForm'] == 'updateUser') {
@@ -107,16 +107,17 @@ class Dashboard extends Controller
 
     }
 
+    //Récupère le panier de l'utilisateur
     public function getProductsInCartInBdd() {
         $customerId = $_SESSION['auth']['id'];
 
         $cart = new CartUser();
         //Récuperation des produits
         $cartUser = $cart->getProductsCustomer($customerId);
+
         echo json_encode($cartUser);
-
-
     }
+
 
     public function updateProductsBdd() {
         $customerId = $_SESSION['auth']['id'];
@@ -124,6 +125,7 @@ class Dashboard extends Controller
         // delete panier dans la bdd
         $cart->deleteCartInBdd($customerId);
 
+        //Récuperation du panier localStorage
         $dataObject = $_POST['data'];
         $cartObject = json_decode($dataObject,true);
         //Itération sur le premier tableau
@@ -145,6 +147,7 @@ class Dashboard extends Controller
     public function saveLocalStorageInBdd(){
         $cart = new CartUser();
 
+        //Récup du localStorage
         $dataObject = $_POST['data'];
         $cartObject = json_decode($dataObject,true);
         //Itération sur le premier tableau
@@ -161,7 +164,7 @@ class Dashboard extends Controller
                 }
             }
         }
-
     }
+
 
 }

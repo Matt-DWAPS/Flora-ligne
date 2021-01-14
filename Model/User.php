@@ -268,29 +268,16 @@ class User extends Model
         $this->setCPassword($user->password);
         $this->setEmail($user->email);
         $this->setFirstname($user->firstname);
-        $this->setPhone($this->phone);
-        $this->setAddress($this->address);
+        $this->setPhone($user->phone);
+        $this->setAddress($user->address);
         $this->setRole($user->role);
         $this->setLastname($user->lastname);
         $this->setActive($user->active);
-        $this->setToken($this->token);
+        $this->setZipCode($user->zipcode);
+        $this->setToken($user->token);
         $this->setCreated_at($user->created_at);
         $this->setId($user->id);
     }
-
-    /**
-     * @param $user
-     */
-    public function hydrateUser($user){
-
-        foreach ($user as $key => $value)
-        {
-            $method = 'set'.$key;
-            if (method_exists($this, $method)){
-                $this->$method($value);
-            }
-        }
-  }
 
     public function login()
     {
@@ -348,7 +335,7 @@ class User extends Model
      */
     public function getUser($userId)
     {
-        $sql = 'SELECT id as id, created_at as created_at, role as role,phone as phone, address as address, zipcode as zipcode, active as active, firstname as firstname, lastname as lastname, email as email, password as password FROM customer WHERE id=:id';
+        $sql = 'SELECT id as id, created_at as created_at, role as role,phone as phone, address as address, zipcode as zipcode, active as active, firstname as firstname, lastname as lastname, email as email, password as password, token as token FROM customer WHERE id=:id';
         $user = $this->executeRequest($sql, array(
             'id' => $userId,
         ));
@@ -359,6 +346,22 @@ class User extends Model
         }
         else {
             throw new \Exception("Aucun utilisateur ne correspond à l'identifiant '$userId'");
+        }
+    }
+
+    public function getUserConnected($userId)
+    {
+        $sql = 'SELECT id as id, created_at as created_at, role as role,phone as phone, address as address, zipcode as zipcode, active as active, firstname as firstname, lastname as lastname, email as email, password as password, token as token FROM customer WHERE id=:id';
+        $user = $this->executeRequest($sql, array(
+            'id' => $userId,
+        ));
+
+        if ($user->rowCount() == 1) {
+//            $user->setFetchMode(PDO::FETCH_OBJ);
+            return $user->fetch();
+        }
+        else {
+            return false;
         }
     }
 
@@ -496,8 +499,8 @@ class User extends Model
         $this->checkLastname();
         $this->checkEmail();
         $this->checkPassword();
-        $this->checkZipCode();
         if ($this->errors !== 0) {
+
             return false;
         } else {
             return true;
@@ -535,18 +538,9 @@ class User extends Model
         return false;
     }
 
-    public function setDataPost(){
-        $post = isset($_POST) ? $_POST : false;
-        $this->setFirstname($post['firstname']);
-        $this->setLastname($post['lastname']);
-        $this->setEmail($post['email']);
-        $this->setPhone($post['phone']);
-        $this->setpassword($post['password']);
-        $this->setCPassword($post['cPassword']);
-    }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function setDataNewUser(){
         $dateNow = new \DateTime();
@@ -659,6 +653,7 @@ class User extends Model
         $req = $this->executeRequest($sql, array(
             'email' => $this->getEmail()));
         return $req->rowCount();
+
     }
 
     public function checkPasswordInBdd()
@@ -671,7 +666,7 @@ class User extends Model
 
     public function getAllUserDashboard()
     {
-        $sql = 'SELECT id, lastname, firstname, email, password, role, active, created_at, phone, address, zipcode FROM customer';
+        $sql = 'SELECT id, lastname, firstname, email, password, role, token, active, created_at, phone, address, zipcode FROM customer';
         $req = $this->executeRequest($sql);
         return $req->fetchAll();
     }

@@ -75,7 +75,7 @@
                                 </span>
                             </div>
                         </div>
-                        <a href="#" id="add-product-to-cart" class="btn amado-btn">Ajouter au panier</a>
+                            <button type="button" id="add-product-to-cart" class="btn amado-btn">Ajouter au panier</button>
                     </form>
 
                 </div>

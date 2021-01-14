@@ -1,1 +1,0 @@
-<script src="js/cart/updateCart.js" defer></script>

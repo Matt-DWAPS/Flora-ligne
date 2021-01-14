@@ -37,22 +37,6 @@ class Checkout extends Model
     /**
      * @return mixed
      */
-    public function getNumber()
-    {
-        return $this->number;
-    }
-
-    /**
-     * @param mixed $number
-     */
-    public function setNumber($number)
-    {
-        $this->number = $number;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getCutomerId()
     {
         return $this->cutomer_id;
@@ -124,13 +108,14 @@ class Checkout extends Model
 
     public function saveOrder()
     {
-        $sql = "INSERT INTO order(created_at, customer_id, status, total_ht) VALUES(:created_at, :customer_id, :status, :total_ht)";
+        $sql = "INSERT INTO `order` (`status`, `total_ht`, `created_at`,
+   `customer_id`) VALUES (:status, :total_ht, :created_at, :customer_id)";
 
         $req = $this->executeRequest($sql, array(
             'created_at' => $this->getCreatedAt(),
-            'customer_id' => $this->getCutomerId(),
             'status' => $this->getStatus(),
             'total_ht' => $this->getTotalHt(),
+            'customer_id' => $this->getCutomerId()
         ));
         return true;
     }
@@ -139,7 +124,6 @@ class Checkout extends Model
         $this->setId($cart->id);
         $this->setCreatedAt($cart->created_at);
         $this->setCutomerId($cart->customer_id);
-        $this->setNumber($cart->number);
         $this->setStatus($cart->status);
         $this->setTotalHt($cart->total_ht);
     }

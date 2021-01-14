@@ -28,38 +28,73 @@ class CustomerCart {
             cartCustomer.selectQtyMaxProduct();
         });
 
-        // Au clic sur le boutton ajouter au panier
+        // Au clic sur le boutton ajouter au panier etant connecté
          document.getElementById('add-product-to-cart').addEventListener('click', function () {
              //Si localStorage Ont récupere le produit
              if (localStorage.cart){
                  cartCustomer.getProduct();
+
+
+                 //Requête faite au moment ou l'utilisateur ajoute un produit dans son panier
+                 // On supprimer en bdd les lignes de la table customer_has_product
+                 // On enregistre le localStorage dans la bdd
+                 let products = JSON.parse(localStorage.getItem('cart')).products;
+
+                 $.ajax({
+                     url: '/Shop/updateProductsBdd',
+                     type: 'POST',
+                     data: {
+                         data: JSON.stringify(products)
+                     },
+                     success: function (data) {
+
+                     },
+                     error: function () {
+                         alert('Sauvegarde du panier localStorage en Bdd échoué, veuillez ressayer');
+                     },
+                     complete: function () {
+
+                     }
+                 });
              } else { //Sinon ont créer le localStorage et ont ajoute le produit
                  localStorage.setItem('cart', JSON.stringify(cartCustomer.cart));    //On créer le panier localStorage
                  cartCustomer.getProduct();
+
+
+                 //Requête faite au moment ou l'utilisateur ajoute un produit dans son panier
+                 // On supprimer en bdd les lignes de la table customer_has_product
+                 // On enregistre le localStorage dans la bdd
+                 let products = JSON.parse(localStorage.getItem('cart')).products;
+                 $.ajax({
+                     url: '/Shop/updateProductsBdd',
+                     type: 'POST',
+                     data: {
+                         data: JSON.stringify(products)
+                     },
+                     success: function (data) {
+
+                     },
+                     error: function () {
+                         alert('Sauvegarde du panier localStorage en Bdd échoué, veuillez ressayer');
+                     },
+                     complete: function () {
+
+                     }
+                 });
+
              }
 
-         })
+         });
+
     } // Fin du constructeur
-
-
+    // Initialisation
     initSettings() {
         if (!this.storageAvailable('localStorage')) {
             console.log("Impossible d'enregistrer votre panier !");
         }
-        // la quantité déj présente dans le panier dans l'input number
-        this.addQuantityProductInInputQuantity(this.product);
     }
 
-    //Affiche dans l'input number du produit la quantité déj présente dans le panier
-    addQuantityProductInInputQuantity(product){
-        if (localStorage && localStorage.getItem('cart')){
-            let cart = JSON.parse(localStorage.getItem('cart'));
-            //Je remplace la valeur de l'input quantity par la quantité présente dans le panier pour ce produit
-            $('#qty').attr("value", cart.products[product.id].quantity);
-        }
-
-    }
-
+    //Check du localStorage
     storageAvailable(type) {
         try {
             let storage = window[type],
@@ -72,6 +107,7 @@ class CustomerCart {
         }
     }
 
+    //Récupère la quantité du produit ajouter au panier
     getProduct(){
         //On récupère la valeur de l'input number
         cartCustomer.product.quantity = $('#qty').val();
@@ -80,6 +116,7 @@ class CustomerCart {
         this.addToCart(this.product);
     }
 
+    // Ajoute le produit au panier
     addToCart(product) {
         // Si le localstorage existe Recuperaton du panier dans le local storage
         if (localStorage && localStorage.getItem('cart')) {
@@ -88,8 +125,8 @@ class CustomerCart {
 
             //Si l'id produit existe dans le panier
             if (cart.products[product.id] != undefined) {
-                //Ont remplace la quantité du panier par celle qui vient d'être ajouté au panier
-                cart.products[product.id].quantity = cartCustomer.product.quantity;
+                //Ont incrémente la quantité du panier avec celle qui vient d'être ajouté au panier
+                cart.products[product.id].quantity = parseInt(cart.products[product.id].quantity) + parseInt(cartCustomer.product.quantity);
 
                 //On converti le tableau en une chaine JSON et ont l'injecte dans le localStorage
                 localStorage.setItem('cart', JSON.stringify(cart));
@@ -99,7 +136,6 @@ class CustomerCart {
                 cart.products[product.id] = product;
                 //ont boucle sur chaque produit
                 cart.products.forEach(product => {
-                    console.log(product);
                     //Si le produit n'est pas null
                     if (product != null) {
                         //On ajoute les lignes de produit pour affiché la quantité sur le panier dropdown
@@ -117,7 +153,7 @@ class CustomerCart {
         }
     }
 
-
+    // Décremente la quantité du produit avant ajout au panier
     selectQtyMinProduct(){
             let qty = cartCustomer.inputQty.val();
             if (!isNaN(qty) && qty > 1){
@@ -132,6 +168,7 @@ class CustomerCart {
 
     }
 
+    // Incrémente la quantité du produit avant ajout au panier
     selectQtyMaxProduct(){
 
             let qty = cartCustomer.inputQty.val();

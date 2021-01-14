@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 //require_once 'Framework/Controller.php';
@@ -6,123 +7,133 @@ use App\Framework\Controller;
 use App\Model\CartUser;
 use App\Model\Product;
 use \App\Model\Checkout;
+use App\Model\ProductName;
 use App\Model\User;
+use DateTime;
 use Exception;
 
 class Cart extends Controller
 {
+
     /**
      * @throws Exception
      */
     public function index()
     {
-        if (!isset($_SESSION['auth'])) {
+        if (!isset($_SESSION['auth']['id'])) {
             $_SESSION['flash']['alert'] = "success";
             $_SESSION['flash']['message'] = "Veuillez vous connecter pour acceder au panier";
             header('Location: /home/login');
             exit();
-        } else{
-            $userId= $_SESSION['auth']['id'];
+        } else {
+            $userId = $_SESSION['auth']['id'];
+
             $user = new User();
-            $customer =$user->getUser($userId);
+            $customer = $user->getUser($userId);
             $user->hydrate($customer);
 
-
             $cartUser = new CartUser();
-            $cartUser->getProductsCustomer($userId);
+            $productsUser = $cartUser->getProductsCustomerForCartView($userId);
 
-
-            $this->generateView([
-                'userCart' => $cartUser,
-                'customer' => $customer
-            ]);
-        }
-            $this->generateView([
-
-            ]);
-    }
-
-    // Lancement de la requete ajax qui enregsitre en bdd la commande
-    public function saveOrderInBdd(){
-
-        $this->generateView([]);
-    }
-
-    public function saveOrderFinal(){
-        $customerId = $_SESSION['auth']['id'];
-
-        $cart = new CartUser();
-        //Récuperation des produits
-        $cartUser = $cart->getProductsCustomer($customerId);
-        echo json_encode($cartUser);
-    }
-
-    public function updateProductsBdd() {
-        $customerId = $_SESSION['auth']['id'];
-        $cart = new CartUser();
-        // delete panier dans la bdd
-        $cart->deleteCartInBdd($customerId);
-
-        $dataObject = $_POST['data'];
-        $cartObject = json_decode($dataObject,true);
-        //Itération sur le premier tableau
-        foreach ($cartObject as $products){
-            //Itération sur le 2ème tableau
-            foreach ($products as $keys => $key){
-                //Si le tableau produit n'est pas vide
-                if (!empty($key)){
-                    $cart->setProductId($key['id']);
-                    $cart->setCustomerId($_SESSION['auth']['id']);
-                    $cart->setQuantity($key['quantity']);
-                    //J'enregistre la totalité des produits en bdd
-                    $cart->saveCart();
+            $userProduct = array();
+            if ($productsUser) {
+                foreach ($productsUser as $productUser) {
+                    $cartUser = new CartUser();
+                    $cartUser->hydrateProduct($productUser);
+                    $userProduct[] = $cartUser;
                 }
+            } else {
+                $userProduct = false;
             }
+
+            $productName = new ProductName();
+            $names = $productName->getAllNames();
+
+            $productsNames = array();
+            foreach ($names as $name) {
+                $productName = new ProductName();
+                $productName->hydrate($name);
+                $productsNames[] = $productName;
+            }
+
+            $this->generateView([
+                'userProduct' => $userProduct,
+                'user' => $user,
+                'productsNames' => $productsNames,
+            ]);
         }
+
+    }
+
+    public function deleteProduct()
+    {
+        $userId = $_SESSION['auth']['id'];
+        $post = isset($_POST) ? $_POST : false;
+        $cart = new CartUser();
+        //Récuperation de l'id via le window.location du js
+        $productId = $_GET['id'];
+        $cart->setProductId($productId);
+        $cart->setCustomerId($userId);
+
+        //Suppression en bdd du produit
+        $cart->deleteProductInBdd($cart->getCustomerId(), $cart->getProductId());
+        header("Location: /Cart");
+        exit();
     }
 
     /**
      * @throws Exception
      */
-    public function saveProductInOrder(){
-        $user = new User();
-        $user->getUser($_SESSION['auth']['id']);
-        $checkout= new Checkout();
-        $dataObject = $_POST['data'];
-        $cartObject = json_decode($dataObject,true);
-        //Itération sur le premier tableau
-        $totalCart =0;
-        foreach ($cartObject as $products){
-            //Itération sur le 2ème tableau
-            foreach ($products as $keys => $key){
-                //Si le tableau produit n'est pas vide
-                if (!empty($key)){
+    public function saveProductInOrder()
+    {
+        $userId =$_SESSION['auth']['id'];
+        $cartUser = new CartUser();
+        $cartUserBdd = $cartUser->getProductsCustomer($userId);
 
-                    $totalProduct = $key['quantity'] * $key['price'];
-
-                    $checkout->setStatus('Confirmee');
-                    $checkout->setCutomerId($_SESSION['auth']['id']);
-                    $totalCart= $totalCart + $totalProduct;
-                    $checkout->setTotalHt($totalCart);
-
-                }
-            }
+        //On initialise le tableau qui contiendra le total
+        $totalPrice = array();
+        //On itère sur chaque produit pour calculer le prix total de chaque produit
+        foreach ($cartUserBdd as $products){
+            $price= $products->quantity * $products->price;
+            $totalPrice [] = $price;
         }
-        $dateNow = new \DateTime();
-        $checkout->setCreatedAt($dateNow->format('Y-m-d H:i:s'));
-        $checkout->saveOrder();
-            $data = [
-                'firstname' => $user->getFirstname(),
-                'lastname' => $user->getLastname(),
-            ];
+        //On additionne les deux prix totaux des produits
+        $finalPrice = array_sum($totalPrice);
 
-            $this->sendEmail('validationOrder', 'Validation de votre commande', $user->getEmail(), $data);
+        $orderProduct = new Checkout();
+        $orderProduct->setTotalHt($finalPrice);
+        $orderProduct->setStatus(self::CONFIRMED);
+        $orderProduct->setCutomerId($userId);
+        $dateNow = new DateTime();
+        $orderProduct->setCreatedAt($dateNow->format('Y-m-d H:i:s'));
+        
+        $orderProduct->saveOrder();
 
-            header('Location: /home');
-            exit();
+        $totalProduct = array();
+        foreach ($cartUserBdd as $products){
+            $totalProduct [] = $products;
+        }
+        //On additionne les deux prix totaux des produits
+        $allProduct = $totalProduct;
+
+
+        $user = new User();
+        $customer = $user->getUser($userId);
+        $user->hydrate($customer);
+        //Tableau de données à mettre dans le mail
+        $data = [
+            'firstname' => $user->getFirstname(),
+            'lastname' => $user->getLastname(),
+            'products' => $allProduct,
+            'finalPrice' => $finalPrice,
+        ];
+
+        $this->sendEmail('validationOrder', 'Validation de votre commande', $user->getEmail(), $data);
+
+        $cartUser->deleteCartInBdd($userId);
+        header('Location: /Checkout');
 
     }
-
 
 
 }

@@ -19,8 +19,6 @@ class Home extends Controller
         $product = new Product();
         $products = $product->getPublishProducts(self::PUBLISH['PUBLIÉ']);
 
-
-
         $this->generateView([
             'products' => $products,
 
@@ -37,9 +35,20 @@ class Home extends Controller
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($post['registerForm'] == 'register') {
-                $user->setDataPost();
+
+
+                $user->setFirstname($post['firstname']);
+                $user->setLastname($post['lastname']);
+                $user->setEmail($post['email']);
+                $user->setPhone($post['phone']);
+                $user->setpassword($post['password']);
+                $user->setCPassword($post['cPassword']);
+
+
                 if ($user->formRegisterValidate()) {
+
                     if ($user->registerValidate()) {
+
                         $user->setDataNewUser();
                         $data = [
                             'firstname' => $user->getFirstname(),
@@ -47,12 +56,16 @@ class Home extends Controller
                             'email' => $user->getEmail(),
                             'token' => $user->getToken()
                         ];
+
                         if ($user->save()){
                             $this->sendEmail('registration', 'Inscription sur le site Flora-ligne', $user->getEmail(), $data);
                             $_SESSION['flash']['alert'] = "success";
                             $_SESSION['flash']['message'] = "Veuillez consulté votre messagerie afin de valider la création de votre compte";
                             header('Location: login');
                             exit();
+                        } else{
+                            var_dump($user->save());
+                            die();
                         }
                     } else {
                         $_SESSION['flash']['alert'] = "danger";
@@ -82,7 +95,7 @@ class Home extends Controller
         if ($user->emailAndTokenValidation()) {
             $userBdd = $user->getEmailAndTokenUserInBdd($userEmail);
             if ($userBdd) {
-                $user->hydrateUser($userBdd);
+                $user->hydrate($userBdd);
                 $user->setActive(self::ACTIVE ['ACTIVE']);
                 $user->setRole(self::ROLES ['CUSTOMER']);
                 $user->updateUser();
@@ -104,7 +117,6 @@ class Home extends Controller
     {
         $user = new User();
         $post = isset($_POST) ? $_POST : false;
-
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($post['loginForm'] == 'login') {
                 $user->setEmail($post['email']);

@@ -5,7 +5,6 @@ $(function ($) {
     this.emptyProductInCart = $('#cart-msg_empty'); //Div qui affiche le message aucun produit dans le panier
 
 
-
     this.product = {};   //Création du tableau qui contiendra les produit
     this.product.id;
     this.product.name;
@@ -15,9 +14,7 @@ $(function ($) {
     if (localStorage && localStorage.getItem('cart')) {
         // Lecture de la chaine de caractère  est construction de l'objet js du panier
         let cart = JSON.parse(localStorage.getItem('cart'));
-
-
-
+        
         //Si l'id produit existe dans le panier
         if (cart.products != undefined) {
 
@@ -25,7 +22,6 @@ $(function ($) {
             cart.products.forEach(product => {
                 //Si le produit n'est pas null
                 if (product != null) {
-
                     //On ajoute les lignes de produit pour affiché la quantité sur le panier dropdown
                     this.numberProductInCart++;
                 }
@@ -35,7 +31,6 @@ $(function ($) {
             this.emptyProductInCart.css('display', 'none');
         } else {
             this.numberProductInCartId.html(this.numberProductInCart);
-
         }
     }
     //Si aucun produit dans le panier ont affiche le message dans le dropdown menu panier

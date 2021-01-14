@@ -1,29 +1,29 @@
 //Requête faite au moment ou l'utilisateur se log
-//Si l'utilisateur à un panier en cours en bdd alors elle récupère le panier en bdd
+//Récupère en bdd le panier s'il existe
 //récupère le localstorage si il existe
-//Incrémente le localstorage avec les valeurs contenu dans le JSON de la table panier de la bdd
 
 $.ajax({
     url: '/Dashboard/getProductsInCartInBdd',
     type: 'GET',
     dataType: 'JSON',
-    success: function (data) {
+    success: function (data, statut) {
         if (!storageAvailable('localStorage')) {
             alert("Impossible d'enregistrer votre panier!");
         }
-
-        // Si panier en bdd
-        if (data == true){
+        if (data){
+            //Si l'utilisateur à un panier en cours en bdd
+            // alors la fonction getProductsInCartInBdd
+            // récupère le panier en bdd
+            //On itère sur chaque produit
             data.forEach(product => {
                 // Si Mon panier existe en local
                 if (localStorage && localStorage.getItem('cart')){
-
                     this.product = {};   //Création du tableau qui contiendra le produit
                     this.product.id = product.id;
                     this.product.name = product.name;
                     this.product.price = product.price;
                     this.product.quantity = product.quantity;
-                    addToCart(product);
+                    addToCartExistBeforeConnection(product);
                 }else { //Si il existe pas je le créer
                     this.cart = {}; //Création du panier
                     this.cart.products = [];    //Création du tableau qui contiendra les lignes de produits
@@ -35,50 +35,55 @@ $.ajax({
                     localStorage.setItem('cart', JSON.stringify(this.cart));
                     addToCart(product);
                 }
-
             });
-            //Une fois la bdd enregistré dans le localStorage
-            //Cette requête va supprimer en bdd les lignes de la table customer_has_product
-            if (localStorage && localStorage.getItem('cart')){
-                $.ajax({
-                    url: '/Dashboard/updateProductsBdd',
-                    type: 'POST',
-                    data: {data: localStorage.getItem('cart')},
-                    success: function (data) {
-                        alert('Panier localStorage enregistré en Bdd');
-                        window.location.replace("/Home");
-                    },
-
-                    error: function () {
-                        alert('Sauvegarde du panier localStorage en Bdd échoué, veuillez rafraichir la page');
-                    }
-
-                });
-            } else {
-                window.location.replace("/Home");
-            }
+            //Une fois la bdd synchronisé avec le localStorage
+            // On supprimer en bdd les lignes de la table customer_has_product
+            // On enregistre le localStorage dans la bdd
+            $.ajax({
+                url: '/Dashboard/updateProductsBdd',
+                type: 'POST',
+                data: {data: localStorage.getItem('cart')},
+                success: function (data) {
+                    window.location.replace("/Home");
+                },
+                error: function () {
+                    alert('Sauvegarde du panier localStorage en Bdd échoué, veuillez rafraichir la page');
+                },
+                complete: function (){
+                }
+            });
         } else {
-            //Aucun panier en bdd
-            //Panier en local existant à la connexion
-            //je créer mon panier en bdd avec les données du local
-            if (localStorage && localStorage.getItem('cart')){
-                $.ajax({
-                    url: '/Dashboard/saveLocalStorageInBdd',
-                    type: 'POST',
-                    data: {data: localStorage.getItem('cart')},
-                    success: function (data) {
-                        window.location.replace("/Home");
-                    },
+             //L'utlisateur n'a aucun panier en bdd
+             //Panier en local existant à la connexion
+             //je créer mon panier en bdd avec les données du local
+             if (localStorage && localStorage.getItem('cart')){
+                 $.ajax({
+                     url: '/Dashboard/saveLocalStorageInBdd',
+                     type: 'POST',
+                     data: {data: localStorage.getItem('cart')},
+                     success: function (data) {
+                         data.forEach(product => {
+                             //Mon panier existe en local
+                                 this.product = {};   //Création du tableau qui contiendra le produit
+                                 this.product.id = product.id;
+                                 this.product.name = product.name;
+                                 this.product.price = product.price;
+                                 this.product.quantity = product.quantity;
+                                 addToCart(product);
 
-                    error: function () {
-                        alert('Sauvegarde du panier localStorage en Bdd échoué, veuillez rafraichir la page');
-                    }
+                         });
+                         window.location.replace("/Home");
+                     },
 
-                });
-            } else {
-                window.location.replace("/Home");
-            }
-        }
+                     error: function () {
+                         alert('Sauvegarde du panier localStorage en Bdd échoué');
+                     }
+
+                 });
+             }
+             //L'utilisateur n'a ni panier en local ni en bdd
+             window.location.replace("/home");
+         }
 
         function storageAvailable(type) {
             try {
@@ -92,6 +97,7 @@ $.ajax({
             }
         }
 
+
         function addToCart(product) {
             this.numberProductInCartId = $('#quantity_product_cart');
             this.numberProductInCart = 0;
@@ -100,22 +106,48 @@ $.ajax({
                 // Lecture du panier dans le local storage
                 let cart = JSON.parse(localStorage.getItem('cart'));
                 //Si l'id produit et déja défini
-                if (cart.products[product.id] != undefined) {
-
-                    //Ont incrémente la quantité du produit localstorage avec le produit de bdd
-                    //En transformant les string en nombre pour le calcul
-                    cart.products[product.id].quantity = parseInt(cart.products[product.id].quantity) + parseInt(product.quantity);
-                    // On retransforme le resultat en string
-                    cart.products[product.id].quantity =(""+ cart.products[product.id].quantity) ;
-
+                cart.products[product.id] = product;
+                cart.products.forEach(product => {
+                    //Si le produit n'est pas null
                     if (product != null) {
-                        //On ajoute les lignes de produit pour affiché la quantité sur le panier dropdown
-                        this.numberProductInCart++;
+                            //On ajoute les lignes de produit pour affiché la quantité sur le panier dropdown
+                            this.numberProductInCart++;
                     }
+                });
+                localStorage.setItem('cart', JSON.stringify(cart));
+                this.numberProductInCartId.html(this.numberProductInCart);
+
+            }
+        }
+
+        function addToCartExistBeforeConnection(product) {
+            this.numberProductInCartId = $('#quantity_product_cart');
+            this.numberProductInCart = 0;
+            // Recuperaton du panier dans le local storage
+            if (localStorage && localStorage.getItem('cart')) {
+                // Lecture du panier dans le local storage
+                let cart = JSON.parse(localStorage.getItem('cart'));
+                //Si l'id produit et déja present en local
+                if (cart.products[product.id] != undefined) {
+                    // Ont met a jour la quantité du produit local + la bdd dans le localStorage
+                    cart.products[product.id].quantity = parseInt(cart.products[product.id].quantity) + parseInt(product.quantity);
+                    cart.products.forEach(product => {
+                        //Si le produit n'est pas null
+                        if (product != null) {
+                            //On ajoute les lignes de produit pour affiché la quantité sur le panier dropdown
+                            this.numberProductInCart++;
+                        }
+                    });
                     localStorage.setItem('cart', JSON.stringify(cart));
-                    this.numberProductInCartId.html(this.numberProductInCart);
                 } else {
                     cart.products[product.id] = product;
+                    cart.products.forEach(product => {
+                        //Si le produit n'est pas null
+                        if (product != null) {
+                            //On ajoute les lignes de produit pour affiché la quantité sur le panier dropdown
+                            this.numberProductInCart++;
+                        }
+                    });
                     localStorage.setItem('cart', JSON.stringify(cart));
                     this.numberProductInCartId.html(this.numberProductInCart);
                 }
@@ -123,12 +155,10 @@ $.ajax({
         }
 
 
-
     },
 
     error: function () {
-        //Si aucun produit en base de données
-        alert('aucun produit en bdd');
+        alert('Un problème est survenue, veuillez ressayer');
          window.location.replace("/Home");
     },
 

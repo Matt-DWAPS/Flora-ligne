@@ -3,14 +3,23 @@ namespace App\Model;
 
 //require_once 'Framework/Model.php';
 use App\Framework\Model;
+use PDO;
 
 class CartUser extends Model
 {
+
 
     private $id;
     private $quantity;
     private $customer_id;
     private $product_id;
+    private $price;
+
+
+    private $name;
+    private $picture;
+
+
 
     private $errors = 0;
     private $errorsMsg = [];
@@ -80,6 +89,39 @@ class CartUser extends Model
     }
 
     /**
+     * @return mixed
+     */
+    public function getPicture()
+    {
+        return $this->picture;
+    }
+
+    /**
+     * @param mixed $picture
+     */
+    public function setPicture($picture)
+    {
+        $this->picture = $picture;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param mixed $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
      * @return array
      */
     public function getErrorsMsg()
@@ -108,12 +150,11 @@ AND product.product_name_id = product_name.id';
 
     public function getProductsCustomerForCartView($userId)
     {
-        $sql = 'SELECT customer_has_product.product_id as id, product_name.name, product.price_ht as price, customer_has_product.quantity, product.picture_url_1
+        $sql = 'SELECT customer_has_product.product_id as product_id, product_name.name as name, product.price_ht as price_ht, customer_has_product.quantity, customer_id,product.picture_url_1 as picture
 FROM customer_has_product, product, product_name
 WHERE customer_id=:id
 AND customer_has_product.product_id = product.id
 AND product.product_name_id = product_name.id';
-
         $req = $this->executeRequest($sql, array(
             'id' => $userId
         ));
@@ -122,20 +163,37 @@ AND product.product_name_id = product_name.id';
         } else{
             return false;
         }
-
     }
 
     public function deleteCartInBdd($customerId){
-        $sql = 'DELETE FROM customer_has_product WHERE customer_id =:id';
+        $sql = 'DELETE FROM customer_has_product WHERE customer_id=:id';
         $deleteCart = $this->executeRequest($sql, array(
             'id' => $customerId,
         ));
     }
 
+    public function deleteProductInBdd($customerId, $product_id){
+        $sql = 'DELETE FROM customer_has_product WHERE customer_id=:id AND product_id=:product_id';
+        $deleteCart = $this->executeRequest($sql, array(
+            'id' => $customerId,
+            'product_id' => $product_id,
+        ));
+    }
 
-    public function hydrate($country){
-        $this->setId($country->id);
-        $this->setCountryName($country->country_name);
+
+    public function hydrate($cartUser){
+        $this->setQuantity($cartUser->quantity);
+        $this->setCustomerId($cartUser->customer_id);
+        $this->setProductId($cartUser->product_id);
+    }
+
+    public function hydrateProduct($cartUser){
+        $this->setQuantity($cartUser->quantity);
+        $this->setCustomerId($cartUser->customer_id);
+        $this->setProductId($cartUser->product_id);
+        $this->setName($cartUser->name);
+        $this->setPicture($cartUser->picture);
+
     }
 
     public function saveCart(){
