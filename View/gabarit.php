@@ -93,15 +93,18 @@
 
                 </ul>
             </nav>
-            <!-- Button Group -->
-            <div class="amado-btn-group mt-30 mb-100">
-                <a href="#" class="btn amado-btn mb-15">Soldes</a>
-                <a href="#" class="btn amado-btn active">Nouveautés</a>
-            </div>
             <!-- Cart Menu -->
             <div class="cart-fav-search mb-100">
-                <a href="Cart" class="cart-nav"><img src="img/core-img/cart.png" alt=""> Panier <span>(0)</span></a>
-                <a href="#" class="search-nav"><img src="img/core-img/search.png" alt=""> Recherche</a>
+
+                <div class="dropdown">
+                    <div id="cart" class="cart">
+                        <p><img src="img/core-img/cart.png" alt=""><span style="font-size: 16px; text-transform: uppercase; padding-left: 10px;padding-right: 10px; color: #096A09">Panier</span> (<span id="quantity_product_cart"></span>)</p>
+                    </div>
+                    <ul id="cart-dropdown" class="cart-dropdown dropdown-menu pull-right">
+                        <li ><span id="cart-msg_empty" style="text-align: center"></span></li>
+                        <li class="go-to-cart hidden" style="text-align: center"><form method="get" action="/Cart/"><button class="btn btn-primary center-block">Voir le panier</button></form></li>
+                    </ul>
+                </div>
             </div>
             <!-- Social Button -->
             <div class="social-info d-flex justify-content-between">
@@ -131,7 +134,7 @@
                     <div class="single_widget_area">
                         <!-- Logo -->
                         <div class="footer-logo mr-50">
-                            <a href="Home"><img src="img/core-img/logo2.png" alt=""></a>
+                            <a href="Home"><img src="img/core-img/logo.jpg" alt=""></a>
                         </div>
                         <!-- Copywrite Text -->
                         <p class="copywrite"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
@@ -208,8 +211,13 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="js/plugins.js"></script>
     <!-- Active js -->
     <script src="js/active.js"></script>
-    <!-- Code js perso -->
-    <script src="js/custom-code.js"></script>
+    <!-- Gestion du dropdown cart -->
+    <script src="js/cart/cartDropdown.js"></script>
+    <!-- Check du panier sur l'ensembe des pages -->
+    <script src="js/cart/checkStorageContent.js"></script>
+
+
+
 </body>
 
 </html>

@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Framework\Controller;
 use App\Model\Product;
+use App\Model\ProductName;
 use Exception;
 
 class Shop extends Controller
@@ -14,10 +15,10 @@ class Shop extends Controller
      */
     public function index()
     {
-
-
+        $product = new Product();
+        $products = $product->getPublishProducts(self::PUBLISH['PUBLIÉ']);
         $this->generateView([
-
+            'products' => $products,
 
         ]);
     }
@@ -30,11 +31,17 @@ class Shop extends Controller
         $productId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
         $product = new Product();
         $productDetails = $product->getOneProduct($productId);
+        $product->hydrate($productDetails);
+        $productNameId = $product->getProductNameId();
+
+        $productName = new ProductName();
+        $name =$productName->getNameInBdd($productNameId);
 
         $this->generateView([
             'productDetails' => $productDetails,
-
+            'name' => $name
         ]);
     }
+
 
 }

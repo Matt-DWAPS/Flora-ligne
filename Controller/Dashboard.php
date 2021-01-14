@@ -3,6 +3,7 @@ namespace App\Controller;
 
 
 use App\Framework\Controller;
+use App\Model\CartUser;
 use App\Model\User;
 use Exception;
 
@@ -100,6 +101,39 @@ class Dashboard extends Controller
             'user' => $user,
             'errorsMsg' => $user->getErrorsMsg()
         ]);
+    }
+
+    public function updateCart() {
+
+        $this->generateView([]);
+
+    }
+
+    public function getProductsInCartInBdd() {
+
+        $user = new User();
+        $userId = $_SESSION['auth']['id'];
+
+        $cart = new CartUser();
+        //Récuperation des produits
+        $cartUser = $cart->getProductsCustomer($userId);
+// recupere tes produitcs
+        //formate tes produits sous la meme structure que le js
+        // products
+        //      product
+        // return json_encode($prioducts)
+
+
+        echo json_encode($cartUser);
+    }
+
+    public function updateProductsBdd() {
+
+
+        // delete panier dans la bdd
+        // add localstorager en bdd
+
+        echo json_encode(true);
     }
 
 }

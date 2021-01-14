@@ -102,3 +102,7 @@
         </div>
     </div>
 </div>
+
+<!-- Code js panier -->
+<script src="js/cart/CustomerCart.js" defer></script>
+<script src="js/cart/main.js" defer></script>

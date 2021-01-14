@@ -69,7 +69,7 @@
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/img/product-img" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/js/cart" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -82,18 +82,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\wamp64\www\Flora_ligne\public\js\cart" />
+      <recent name="C:\wamp64\www\Flora_ligne\Model" />
       <recent name="C:\wamp64\www\Flora_ligne\public\img\product-img" />
       <recent name="C:\wamp64\www\Flora_ligne\Services" />
       <recent name="C:\wamp64\www\Flora_ligne\View\Mails" />
-      <recent name="C:\wamp64\www\Flora_ligne\View" />
-      <recent name="C:\wamp64\www\Flora_ligne\Controller" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\wamp64\www\Flora_ligne\public\js\cart" />
       <recent name="C:\wamp64\www\Flora_ligne\public\js\jquery" />
       <recent name="C:\wamp64\www\Flora_ligne\public\css" />
       <recent name="C:\wamp64\www\Flora_ligne\View\Admin" />
       <recent name="C:\wamp64\www\Flora_ligne\View\Home" />
-      <recent name="C:\wamp64\www\Flora_ligne\public" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -166,14 +166,14 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="563" y="232" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1600.860@0.0.1600.860" timestamp="1608306366336" />
-    <state x="193" y="142" key="#com.intellij.ide.util.MemberChooser" timestamp="1609630504729">
+    <state x="193" y="142" key="#com.intellij.ide.util.MemberChooser" timestamp="1610406101236">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="193" y="142" key="#com.intellij.ide.util.MemberChooser/0.0.1600.860@0.0.1600.860" timestamp="1609630504729" />
-    <state x="530" y="185" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1610097620356">
+    <state x="193" y="142" key="#com.intellij.ide.util.MemberChooser/0.0.1600.860@0.0.1600.860" timestamp="1610406101236" />
+    <state x="530" y="185" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1610410523924">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="530" y="185" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1600.860@0.0.1600.860" timestamp="1610097620356" />
+    <state x="530" y="185" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1600.860@0.0.1600.860" timestamp="1610410523924" />
     <state x="468" y="208" key="EditFileWatcherDialog" timestamp="1608419662269">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
@@ -186,29 +186,29 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="607" y="153" key="NewPhpClassDialog/0.0.1600.860@0.0.1600.860" timestamp="1609162438152" />
-    <state x="635" y="353" key="NewPhpFileDialog" timestamp="1608428225434">
+    <state x="635" y="353" key="NewPhpFileDialog" timestamp="1610546833150">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="635" y="353" key="NewPhpFileDialog/0.0.1600.860@0.0.1600.860" timestamp="1608428225434" />
+    <state x="635" y="353" key="NewPhpFileDialog/0.0.1600.860@0.0.1600.860" timestamp="1610546833150" />
     <state x="301" y="75" key="SettingsEditor" timestamp="1609672457752">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="301" y="75" key="SettingsEditor/0.0.1600.860@0.0.1600.860" timestamp="1609672457752" />
-    <state width="498" height="446" key="SwitcherDM" timestamp="1608459015694">
+    <state width="498" height="446" key="SwitcherDM" timestamp="1610482845087">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="498" height="446" key="SwitcherDM/0.0.1600.860@0.0.1600.860" timestamp="1608459015694" />
-    <state x="614" y="21" width="921" height="801" key="find.popup" timestamp="1610384434599">
+    <state width="498" height="446" key="SwitcherDM/0.0.1600.860@0.0.1600.860" timestamp="1610482845087" />
+    <state x="614" y="21" width="921" height="801" key="find.popup" timestamp="1610579344716">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="614" y="21" width="921" height="801" key="find.popup/0.0.1600.860@0.0.1600.860" timestamp="1610384434599" />
+    <state x="614" y="21" width="921" height="801" key="find.popup/0.0.1600.860@0.0.1600.860" timestamp="1610579344716" />
     <state x="504" y="160" key="ftp.server.browser" timestamp="1608305355992">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="504" y="160" key="ftp.server.browser/0.0.1600.860@0.0.1600.860" timestamp="1608305355992" />
-    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup" timestamp="1610319487612">
+    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup" timestamp="1610587087236">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup/0.0.1600.860@0.0.1600.860" timestamp="1610319487612" />
+    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup/0.0.1600.860@0.0.1600.860" timestamp="1610587087236" />
   </component>
 </project>

@@ -312,7 +312,7 @@ class User extends Model
         if ($userRole == Controller::ROLES['SUPERADMIN']){
             $_SESSION['flash']['alert'] = "success";
             $_SESSION['flash']['message'] = "Bienvenue";
-            header('Location: /Admin');
+            header('Location: /Dashboard/updateCart');
             exit();
         }
         if ($userRole == Controller::ROLES['CUSTOMER']){
@@ -482,7 +482,6 @@ class User extends Model
             $this->errorsMsg['password'] = "Password vide";
         }
     }
-
 
     public function formNewPasswordValidate()
     {
@@ -665,14 +664,6 @@ class User extends Model
             'email' => $this->getEmail()));
         return $req->rowCount();
     }
-
-    public function getLastnameInBdd()
-    {
-        $sql = 'SELECT lastname FROM customer WHERE lastname=:lastname';
-        $req = $this->executeRequest($sql, array('lastname' => $this->getLastname()));
-        return $req->rowCount();
-    }
-
 
     public function checkPasswordInBdd()
     {

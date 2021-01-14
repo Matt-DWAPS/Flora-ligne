@@ -67,3 +67,14 @@
         height: 300px !important;
         overflow: auto !important;
     }
+
+    .amado-btn:hover{
+        background-color: #154c15;!important;
+    }
+    .amado-btn:focus{
+        background-color: #154c15;!important;
+
+    }.amado-btn:active{
+        background-color: #154c15;!important;
+
+    }

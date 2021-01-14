@@ -5,6 +5,7 @@ namespace App\Controller;
 //require_once 'Model/User.php';
 
 use App\Framework\Controller;
+use App\Model\CartUser;
 use App\Model\Country;
 use App\Model\Product;
 use App\Model\ProductName;
@@ -221,7 +222,10 @@ class Admin extends Controller
      */
     public function checkoutList()
     {
+        $cartUser = new CartUser();
+        $cartUserinBdd = $cartUser->getProductsCustomer(1);
 
+        var_dump($cartUserinBdd);
 
         $this->generateView([
 
