@@ -263,21 +263,7 @@ class User extends Model
         }
     }
 
-    public function hydrate($user)
-    {
-        $this->setCPassword($user->password);
-        $this->setEmail($user->email);
-        $this->setFirstname($user->firstname);
-        $this->setPhone($user->phone);
-        $this->setAddress($user->address);
-        $this->setRole($user->role);
-        $this->setLastname($user->lastname);
-        $this->setActive($user->active);
-        $this->setZipCode($user->zipcode);
-        $this->setToken($user->token);
-        $this->setCreated_at($user->created_at);
-        $this->setId($user->id);
-    }
+
 
     public function login()
     {
@@ -391,16 +377,40 @@ class User extends Model
      */
     public function getEmailAndTokenUserInBdd($userEmail)
     {
-        $sql = 'SELECT id, email, token FROM customer WHERE email= :email';
+        $sql = 'SELECT * FROM customer WHERE email= :email';
         $user = $this->executeRequest($sql, array(
             'email' => $this->getEmail(),
         ));
 
         if ($user->rowCount() === 1){
+            $userdata= $user->setFetchMode(PDO::FETCH_OBJ);
             return $user->fetch();
         } else {
             throw new Exception("Aucun utilisateur ne correspond à l'adresse email '$userEmail'");
         }
+    }
+
+    public function hydrateUser($user)
+    {
+        $this->setEmail($user->email);
+        $this->setToken($user->token);
+        $this->setId($user->id);
+    }
+
+    public function hydrate($user)
+    {
+        $this->setCPassword($user->password);
+        $this->setEmail($user->email);
+        $this->setFirstname($user->firstname);
+        $this->setPhone($user->phone);
+        $this->setAddress($user->address);
+        $this->setRole($user->role);
+        $this->setLastname($user->lastname);
+        $this->setActive($user->active);
+        $this->setZipCode($user->zipcode);
+        $this->setToken($user->token);
+        $this->setCreated_at($user->created_at);
+        $this->setId($user->id);
     }
 
     public function updateUser()

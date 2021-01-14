@@ -35,21 +35,16 @@ class Home extends Controller
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($post['registerForm'] == 'register') {
-
-
                 $user->setFirstname($post['firstname']);
                 $user->setLastname($post['lastname']);
                 $user->setEmail($post['email']);
                 $user->setPhone($post['phone']);
                 $user->setpassword($post['password']);
                 $user->setCPassword($post['cPassword']);
-
-
                 if ($user->formRegisterValidate()) {
-
                     if ($user->registerValidate()) {
-
                         $user->setDataNewUser();
+
                         $data = [
                             'firstname' => $user->getFirstname(),
                             'lastname' => $user->getLastname(),
@@ -63,9 +58,6 @@ class Home extends Controller
                             $_SESSION['flash']['message'] = "Veuillez consulté votre messagerie afin de valider la création de votre compte";
                             header('Location: login');
                             exit();
-                        } else{
-                            var_dump($user->save());
-                            die();
                         }
                     } else {
                         $_SESSION['flash']['alert'] = "danger";
@@ -91,9 +83,12 @@ class Home extends Controller
         $user->setEmail($get['email']);
         $user->setToken($get['token']);
 
+
         $userEmail = $user->getEmail();
         if ($user->emailAndTokenValidation()) {
+
             $userBdd = $user->getEmailAndTokenUserInBdd($userEmail);
+
             if ($userBdd) {
                 $user->hydrate($userBdd);
                 $user->setActive(self::ACTIVE ['ACTIVE']);

@@ -44,7 +44,9 @@ $this->title = "Panier"; ?>
                                                    readonly>
                                         </td>
                                         <td class="price">
-                                            <span>$130</span>
+                                            <input class=" form-control form-control-sm" type="text" name="price"
+                                                   value="<?php $product->getPrice_ht() ?><?= isset($post['price_ht']) ? $post['price_ht'] : ''; ?>"
+                                                   readonly>
                                         </td>
                                         <td class="qty">
                                             <div class="qty-btn d-flex">

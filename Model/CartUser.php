@@ -13,8 +13,7 @@ class CartUser extends Model
     private $quantity;
     private $customer_id;
     private $product_id;
-    private $price;
-
+    private $price_ht;
 
     private $name;
     private $picture;
@@ -38,6 +37,22 @@ class CartUser extends Model
     public function setId($id)
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPrice_ht()
+    {
+        return $this->price_ht;
+    }
+
+    /**
+     * @param mixed $price_ht
+     */
+    public function setPrice_ht($price_ht)
+    {
+        $this->price_ht = $price_ht;
     }
 
     /**
@@ -193,6 +208,7 @@ AND product.product_name_id = product_name.id';
         $this->setProductId($cartUser->product_id);
         $this->setName($cartUser->name);
         $this->setPicture($cartUser->picture);
+        $this->setPrice_ht($cartUser->price_ht);
 
     }
 

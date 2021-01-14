@@ -106,7 +106,7 @@ class Cart extends Controller
         $orderProduct->setCutomerId($userId);
         $dateNow = new DateTime();
         $orderProduct->setCreatedAt($dateNow->format('Y-m-d H:i:s'));
-        
+
         $orderProduct->saveOrder();
 
         $totalProduct = array();
