@@ -4,6 +4,7 @@ namespace App\Controller;
 //require_once 'Framework/Controller.php';
 
 use App\Framework\Controller;
+use App\Model\CartUser;
 use App\Model\Product;
 use App\Model\User;
 use Exception;
@@ -17,6 +18,8 @@ class Home extends Controller
     {
         $product = new Product();
         $products = $product->getPublishProducts(self::PUBLISH['PUBLIÉ']);
+
+
 
         $this->generateView([
             'products' => $products,
@@ -177,8 +180,6 @@ class Home extends Controller
     public function disconnected()
     {
         unset($_SESSION['auth']);
-        $_SESSION['flash']['alert'] = "success";
-        $_SESSION['flash']['message'] = "Vous êtes déconnecté.";
         header('Location: /home');
         exit;
     }

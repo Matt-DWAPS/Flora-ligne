@@ -100,6 +100,8 @@ class Admin extends Controller
                             $product->setPublish(self::PUBLISH['BROUILLON']);
                         }
                         $product->save();
+                        $_SESSION['flash']['alert'] = "success";
+                        $_SESSION['flash']['infos'] = "Produit mis en ligne";
                         header('Location: /Admin/productList');
                         exit;
                 } else {
@@ -168,6 +170,8 @@ class Admin extends Controller
                         $product->setPublish(self::PUBLISH['BROUILLON']);
                     }
                     $product->updateProduct();
+                    $_SESSION['flash']['alert'] = "success";
+                    $_SESSION['flash']['infos'] = "Produit mis à jour";
                     header('Location: /admin/productList');
                     exit;
                 } else {
@@ -213,6 +217,8 @@ class Admin extends Controller
         $productId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
         $product = new Product();
         $product->deleteProduct($productId);
+        $_SESSION['flash']['alert'] = "success";
+        $_SESSION['flash']['infos'] = "Produit supprimé";
         header('Location: /admin/productList');
         exit;
     }
@@ -222,10 +228,6 @@ class Admin extends Controller
      */
     public function checkoutList()
     {
-        $cartUser = new CartUser();
-        $cartUserinBdd = $cartUser->getProductsCustomer(1);
-
-        var_dump($cartUserinBdd);
 
         $this->generateView([
 
@@ -264,10 +266,6 @@ class Admin extends Controller
 
         $users = $user->getUser($userId);
         $user->hydrate($users);
-        echo '<pre>';
-        var_dump($users);
-        var_dump($user);
-        die();
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($post['userForm'] == 'updateUser') {
                 $user->setEmail($post['email']);

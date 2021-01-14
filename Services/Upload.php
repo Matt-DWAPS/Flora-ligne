@@ -45,7 +45,7 @@ class Upload
                     $value->setPictureUrl1($path . $valueId . "." . $ext);
                     $value->updateProduct();
                     $_SESSION['flash']['alert'] = "Success";
-                    $_SESSION['flash']['infos'] = "Votre fichier a été téléchargé avec succès.";
+                    $_SESSION['flash']['infos'] = "Votre image a été téléchargé avec succès.";
                     header('Location: /admin/productList/');
                     exit;
                 }

@@ -45,7 +45,7 @@
                 <?php endif; ?>
                 <div class="row justify-content-center">
                     <div class="col-6">
-                        <a class="btn btn-danger" type="submit" role="button" href="<?= "deleteProduct/" . $product->id ?>">Supprimer le produit</a>
+                        <a class="btn btn-danger" type="submit" role="button" href="<?= "Admin/deleteProduct/" . $product->id ?>">Supprimer le produit</a>
 
                     </div>
                 </div>

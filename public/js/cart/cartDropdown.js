@@ -1,5 +1,4 @@
 $(function ($) {
-
     let timeout;
 
     $('#cart').on({

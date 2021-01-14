@@ -129,7 +129,7 @@ $.ajax({
     error: function () {
         //Si aucun produit en base de données
         alert('aucun produit en bdd');
-         window.location.replace("/Home");
+        window.location.replace("/Home");
     },
 
     complete: function () {

@@ -310,15 +310,11 @@ class User extends Model
 
     public function checkRoleRedirect($userRole){
         if ($userRole == Controller::ROLES['SUPERADMIN']){
-            $_SESSION['flash']['alert'] = "success";
-            $_SESSION['flash']['message'] = "Bienvenue";
             header('Location: /Dashboard/updateCart');
             exit();
         }
         if ($userRole == Controller::ROLES['CUSTOMER']){
-            $_SESSION['flash']['alert'] = "success";
-            $_SESSION['flash']['message'] = "Bienvenue";
-            header('Location: /Home');
+            header('Location: /Dashboard/updateCart');
             exit();
         } elseif ($userRole == Controller::ROLES['VISITOR']){
             $_SESSION['flash']['alert'] = "danger";

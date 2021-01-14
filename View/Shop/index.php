@@ -136,9 +136,12 @@
             </div>
 
             <div class="row">
-                <?php foreach ($products as $product) : ?>
-                    <div class="col-12 col-sm-6 col-md-12 col-xl-6">
-                        <div class="single-product-wrapper">
+                <div class="col-12 col-sm-6 col-md-12 col-xl-6">
+                    <?php foreach ($products as $product) : ?>
+                    <div class="single-product-wrapper">
+
+
+
                             <!-- Product Image -->
                             <div class="product-img">
                                 <img src="<?= $product->picture_url_1 ?>" style="max-width: 447px; max-height: 390px;" alt="">
@@ -166,10 +169,12 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+
+
+
                     </div>
                 <?php endforeach; ?>
-
+                </div>
             </div>
 
             <div class="row">

@@ -55,8 +55,6 @@ class Dashboard extends Controller
                     }
                 }
             }
-
-
             $this->generateView([
                 'user' => $user,
                 'roles' => $roles,
@@ -110,30 +108,60 @@ class Dashboard extends Controller
     }
 
     public function getProductsInCartInBdd() {
-
-        $user = new User();
-        $userId = $_SESSION['auth']['id'];
+        $customerId = $_SESSION['auth']['id'];
 
         $cart = new CartUser();
         //Récuperation des produits
-        $cartUser = $cart->getProductsCustomer($userId);
-// recupere tes produitcs
-        //formate tes produits sous la meme structure que le js
-        // products
-        //      product
-        // return json_encode($prioducts)
-
-
+        $cartUser = $cart->getProductsCustomer($customerId);
         echo json_encode($cartUser);
+
+
     }
 
     public function updateProductsBdd() {
-
-
+        $customerId = $_SESSION['auth']['id'];
+        $cart = new CartUser();
         // delete panier dans la bdd
-        // add localstorager en bdd
+        $cart->deleteCartInBdd($customerId);
 
-        echo json_encode(true);
+        $dataObject = $_POST['data'];
+        $cartObject = json_decode($dataObject,true);
+        //Itération sur le premier tableau
+        foreach ($cartObject as $products){
+            //Itération sur le 2ème tableau
+            foreach ($products as $keys => $key){
+                //Si le tableau produit n'est pas vide
+                if (!empty($key)){
+                    $cart->setProductId($key['id']);
+                    $cart->setCustomerId($_SESSION['auth']['id']);
+                    $cart->setQuantity($key['quantity']);
+                    //J'enregistre la totalité des produits en bdd
+                    $cart->saveCart();
+                }
+            }
+        }
+    }
+
+    public function saveLocalStorageInBdd(){
+        $cart = new CartUser();
+
+        $dataObject = $_POST['data'];
+        $cartObject = json_decode($dataObject,true);
+        //Itération sur le premier tableau
+        foreach ($cartObject as $products){
+            //Itération sur le 2ème tableau
+            foreach ($products as $keys => $key){
+                //Si le tableau produit n'est pas vide
+                if (!empty($key)){
+                    $cart->setProductId($key['id']);
+                    $cart->setCustomerId($_SESSION['auth']['id']);
+                    $cart->setQuantity($key['quantity']);
+                    //J'enregistre la totalité des produits en bdd
+                    $cart->saveCart();
+                }
+            }
+        }
+
     }
 
 }
