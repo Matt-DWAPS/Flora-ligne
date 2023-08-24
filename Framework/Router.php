@@ -1,10 +1,18 @@
 <?php
 
+namespace App\Framework;
+
+use App\Framework\Request;
+use App\Framework\View;
+use App\Framework\Controller;
+use Exception;
+
+/*
 require_once 'Controller.php';
 require_once 'Request.php';
-require_once 'View.php';
+require_once 'View.php';*/
 
-class Route
+class Router
 {
     // Route une requête entrante : exécute l'action associée
 
@@ -13,11 +21,11 @@ class Route
         try {
             // Fusion des paramètres GET et POST de la requête
             $request = new Request(array_merge($_GET, $_POST));
-
             $controller = $this->createController($request);
             $action = $this->createAction($request);
+
             $controller->executeAction($action);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->manageError($e);
         }
     }
@@ -27,7 +35,7 @@ class Route
     /**
      * @param Request $request
      * @return string
-     * @throws Exception
+     * @throws \Exception
      */
     private function createController(Request $request)
     {
@@ -39,17 +47,20 @@ class Route
             $controller = ucfirst(strtolower($controller));
         }
 
+
         // Création du nom du fichier du contrôleur
-        $fileController = "Controller/" . $controller . ".php";
+        $classeController = 'App\Controller\\'.$controller;
+        $fileController = "../Controller/" . $controller . ".php";
 
         if (file_exists($fileController)) {
             // Instanciation du contrôleur adapté à la requête
-            require($fileController);
-            $controller = new $controller();
+
+            //require($fileController);
+            $controller = new $classeController();
             $controller->setRequest($request);
             return $controller;
         } else {
-            throw new Exception("Fichier '$fileController' introuvable");
+            throw new \Exception("Fichier '$fileController' introuvable");
         }
 
     }

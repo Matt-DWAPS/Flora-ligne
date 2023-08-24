@@ -1,0 +1,84 @@
+    /* ####################################################
+    :: Template Name: Essence - Fashion Ecommerce Template
+    :: Author: Colorlib
+    :: Author URL: https://colorlib.com
+    :: Description: Essence is smart & elegant fashion e-commerce Template. It's suitable for all e-commerce business platform.
+    :: Version: 1.0.0
+    :: Created: April 27, 2018
+    :: Last Updated: May 2, 2018
+    #################################################### */
+
+    /* ---------------------------------------
+    ##### - PLACE YOUR CUSTOM CSS HERE - #####
+    --------------------------------------- */
+    .cart-summaryb {
+        background-color: #f5f7fa;
+
+        position: relative;
+        z-index: 1;
+        padding: 30px 20px;
+    }
+
+    .customer-content {
+        position: absolute;
+        top: 40px;
+        left: 40px;
+        z-index: 10;
+        margin-top: 30px;
+        border: 1px solid grey;
+        width: 80px;
+        height: 3px;
+        background-color: #096A09;
+        display: block;
+        margin-bottom: 15px;
+        -webkit-transition-duration: 250ms;
+        transition-duration: 250ms;
+    }
+
+    @media only screen and (max-width: 767px) {
+        .customer-content {
+            top: 30px;
+            left: 30px;
+        }
+    }
+
+    .customer-content > p{
+        line-height: 0.5;
+    }
+
+    .customer-content:hover {
+        opacity: 0.7;
+        border: 2px solid gray;
+    }
+
+    #admin_product_custom:hover #icon_fa_custom{
+        opacity: 1;
+        color: #096A09;
+        z-index: 100;
+    }
+
+    #icon_fa_custom{
+        opacity: 0;
+        z-index: 0;
+    }
+
+    .list{
+        width: 300px !important;
+        height: 300px !important;
+        overflow: auto !important;
+    }
+
+    .amado-btn:hover{
+        background-color: #154c15;!important;
+    }
+    .amado-btn:focus{
+        background-color: #154c15;!important;
+
+    }.amado-btn:active{
+        background-color: #154c15;!important;
+
+    }
+
+     .flex-auto-table{
+         flex: auto; !important;
+     }

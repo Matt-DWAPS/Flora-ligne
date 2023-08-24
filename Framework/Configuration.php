@@ -1,5 +1,5 @@
 <?php
-
+namespace App\Framework;
 class Configuration
 {
     private static $parameters;
@@ -10,7 +10,7 @@ class Configuration
      * @param $nom
      * @param null $valueDefault
      * @return mixed|null |null
-     * @throws Exception
+     * @throws \Exception
      */
     public static function get($nom, $valueDefault = null)
     {
@@ -26,17 +26,17 @@ class Configuration
 
     /**
      * @return array|bool
-     * @throws Exception
+     * @throws \Exception
      */
     private static function getParameters()
     {
         if (self::$parameters == null) {
-            $pathFile = "config/dev.ini";
+            $pathFile = "../config/dev.ini";
             if (!file_exists($pathFile)) {
-                $pathFile = "config/prod_sample.ini";
+                $pathFile = "../config/prod_sample.ini";
             }
             if (!file_exists($pathFile)) {
-                throw new Exception("Aucun fichier de configuration trouvé");
+                throw new \Exception("Aucun fichier de configuration trouvé");
             } else {
                 self::$parameters = parse_ini_file($pathFile);
             }

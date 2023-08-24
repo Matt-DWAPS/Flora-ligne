@@ -1,5 +1,9 @@
 <?php
 
+namespace App\Framework;
+
+use Exception;
+
 class Request
 {
     // paramètres de la requête

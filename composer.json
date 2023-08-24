@@ -1,0 +1,21 @@
+{
+    "name": "matthieu/flora_ligne",
+    "description": "Projet de reservation en ligne de fleurs",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Matthieu Junge",
+            "email": "matt@junge.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "/"
+        }
+    },
+    "require": {
+        "ext-pdo": "*",
+        "swiftmailer/swiftmailer": "^6.2"
+    }
+}

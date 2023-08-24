@@ -1,6 +1,28 @@
 <?php $this->title = "Flora-ligne"; ?>
 
-<h2 class="post-title">Page d'accueil</h2>
 
+<!-- Product Catagories Area Start -->
+<div class="products-catagories-area clearfix">
+    <div class="amado-pro-catagory clearfix">
+        <!-- Single Catagory -->
+        <?php foreach ($products as $product) : ?>
+
+        <div class="single-products-catagory clearfix">
+
+            <a href="<?= "/shop/productDetails/" . $product->id ?>">
+                <img style="max-width: 420px;max-height: 367px;" src="<?= $product->picture_url_1 ?>" alt="<?= $product->picture_url_1 ?>">
+                <!-- Hover Content -->
+                <div class="hover-content">
+                    <div class="line"></div>
+                    <h4><?= $product->name ?></h4>
+                    <p><?= $product->price_ht . " €" ?></p>
+                </div>
+            </a>
+        </div>
+
+        <?php endforeach; ?>
+    </div>
+</div>
+<!-- Product Catagories Area End -->
 
 
